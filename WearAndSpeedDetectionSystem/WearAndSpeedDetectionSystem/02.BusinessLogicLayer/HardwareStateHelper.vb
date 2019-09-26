@@ -105,9 +105,7 @@ Public NotInheritable Class HardwareStateHelper
 
             For Each tmpHardware In AppSettingHelper.Settings.HardwareItems
 
-                If Not IsRunning Then
-                    Exit Sub
-                End If
+                If Not IsRunning Then Exit Sub
 
                 '发送测试指令
                 If IsTestMode Then
@@ -120,10 +118,18 @@ Public NotInheritable Class HardwareStateHelper
 
                 UIMainForm.Log($"检测刀具 {tmpHardware.Name}")
 
+                If Not IsRunning Then Exit Sub
+
                 GetSensorDataOf1(tmpHardware)
                 Threading.Thread.Sleep(500)
+
+                If Not IsRunning Then Exit Sub
+
                 GetSensorDataOf2(tmpHardware)
                 Threading.Thread.Sleep(500)
+
+                If Not IsRunning Then Exit Sub
+
                 GetHardwareVoltage(tmpHardware)
 
                 Dim tmpStr = $" {Math.Round(tmpHardware.Voltage, 2)}"
@@ -152,9 +158,7 @@ Public NotInheritable Class HardwareStateHelper
 
                 '延时查询下一个设备
                 For i001 = 0 To AppSettingHelper.Settings.pollingInterval - 1
-                    If Not IsRunning Then
-                        Exit Sub
-                    End If
+                    If Not IsRunning Then Exit Sub
 
                     Threading.Thread.Sleep(1000)
                 Next

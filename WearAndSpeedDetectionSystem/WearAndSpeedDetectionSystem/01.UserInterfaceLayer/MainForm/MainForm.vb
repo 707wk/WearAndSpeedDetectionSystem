@@ -152,7 +152,7 @@ Public Class MainForm
     Private Sub ButtonItem3_Click(sender As Object, e As EventArgs) Handles ButtonItem3.Click
 
         Using tmpDialog As New Wangk.Resource.BackgroundWorkDialog With {
-            .Text = "等待停止",
+            .Text = "断开中",
             .ProgressBarStyle = ProgressBarStyle.Marquee
         }
             tmpDialog.Start(Sub()

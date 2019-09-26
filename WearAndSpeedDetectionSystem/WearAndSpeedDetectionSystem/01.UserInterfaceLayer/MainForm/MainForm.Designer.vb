@@ -419,7 +419,7 @@ Partial Class MainForm
         Me.TabPage2.Location = New System.Drawing.Point(4, 26)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(773, 394)
+        Me.TabPage2.Size = New System.Drawing.Size(773, 376)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "日志"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -435,7 +435,7 @@ Partial Class MainForm
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TextBox1.Size = New System.Drawing.Size(767, 388)
+        Me.TextBox1.Size = New System.Drawing.Size(767, 370)
         Me.TextBox1.TabIndex = 0
         '
         'MainForm
