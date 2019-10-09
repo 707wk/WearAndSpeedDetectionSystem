@@ -17,6 +17,17 @@ Public Class AppSetting
     ''' </summary>
     Public pollingInterval As Integer
 
+    '''' <summary>
+    '''' 是否显示历史数据模块
+    '''' </summary>
+    '<Newtonsoft.Json.JsonIgnore>
+    'Public IsShowHistoryModule As Boolean
+
+    ''' <summary>
+    ''' 概览背景图路径
+    ''' </summary>
+    Public Shared OverviewBackgroundLocation As String = "Data\OverviewBackground"
+
     ''' <summary>
     ''' 硬件列表
     ''' </summary>

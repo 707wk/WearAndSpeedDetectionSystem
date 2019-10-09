@@ -130,9 +130,9 @@ Public NotInheritable Class HardwareStateHelper
 
                 If Not IsRunning Then Exit Sub
 
-                GetHardwareVoltage(tmpHardware)
+                GetHardwareState(tmpHardware)
 
-                Dim tmpStr = $" {Math.Round(tmpHardware.Voltage, 2)}"
+                Dim tmpStr = $"{Math.Round(tmpHardware.Voltage, 2)}"
                 For sensorID = 0 To 2 - 1
                     For itemID = 0 To 9 - 1
 
@@ -155,6 +155,7 @@ Public NotInheritable Class HardwareStateHelper
 
                 '更新界面
                 tmpHardware.HardwareStateControl.UpdateData()
+                UIMainForm.UpdateOverviewBackground(tmpHardware)
 
                 '延时查询下一个设备
                 For i001 = 0 To AppSettingHelper.Settings.pollingInterval - 1
@@ -226,7 +227,7 @@ Public NotInheritable Class HardwareStateHelper
             CRCBytes = BitConverter.GetBytes(CRC)
             If recData(21) <> CRCBytes(0) OrElse
                 recData(22) <> CRCBytes(1) Then
-                UIMainForm.Log($"1号传感器数据校验失败:{Wangk.Hash.Bin2Hex(recData)}")
+                Throw New Exception($"1号传感器数据校验失败:{Wangk.Hash.Bin2Hex(recData)}")
             End If
 
             For byteID = 0 To 9 - 1
@@ -271,7 +272,7 @@ Public NotInheritable Class HardwareStateHelper
             CRCBytes = BitConverter.GetBytes(CRC)
             If recData(21) <> CRCBytes(0) OrElse
                 recData(22) <> CRCBytes(1) Then
-                UIMainForm.Log($"2号传感器数据校验失败:{Wangk.Hash.Bin2Hex(recData)}")
+                Throw New Exception($"2号传感器数据校验失败:{Wangk.Hash.Bin2Hex(recData)}")
             End If
 
             For byteID = 0 To 9 - 1
@@ -289,13 +290,13 @@ Public NotInheritable Class HardwareStateHelper
     End Sub
 #End Region
 
-#Region "采集模块电池电压"
+#Region "采集模块状态"
     ''' <summary>
-    ''' 采集模块电池电压
+    ''' 采集模块状态
     ''' </summary>
-    Private Shared Sub GetHardwareVoltage(value As HardwareInfo)
+    Private Shared Sub GetHardwareState(value As HardwareInfo)
         Try
-            Dim sendData() = Wangk.Hash.Hex2Bin("0003003400020000")
+            Dim sendData() = Wangk.Hash.Hex2Bin("0003003300020000")
             Dim recData(128 - 1) As Byte
 
             '生成检测指令
@@ -316,19 +317,21 @@ Public NotInheritable Class HardwareStateHelper
             CRCBytes = BitConverter.GetBytes(CRC)
             If recData(7) <> CRCBytes(0) OrElse
                 recData(8) <> CRCBytes(1) Then
-                UIMainForm.Log($"模块电池电压数据校验失败:{Wangk.Hash.Bin2Hex(recData)}")
+                Throw New Exception($"模块状态数据校验失败:{Wangk.Hash.Bin2Hex(recData)}")
             End If
 
-            Dim tmpVoltage As UInt16 = 0 Or recData(3)
+            value.IsMeasureSpeed = (recData(4) = &H1)
+
+            Dim tmpVoltage As UInt16 = 0 Or recData(5)
             tmpVoltage <<= 8
-            tmpVoltage = tmpVoltage Or recData(4)
+            tmpVoltage = tmpVoltage Or recData(6)
 
             value.Voltage = tmpVoltage / 100
 
         Catch timeOut As TimeoutException
-            UIMainForm.Log($"模块电池电压 接收数据超时")
+            UIMainForm.Log($"模块状态 接收数据超时")
         Catch ex As Exception
-            UIMainForm.Log($"模块电池电压异常:{ex.ToString}")
+            UIMainForm.Log($"模块状态异常:{ex.ToString}")
         End Try
 
     End Sub

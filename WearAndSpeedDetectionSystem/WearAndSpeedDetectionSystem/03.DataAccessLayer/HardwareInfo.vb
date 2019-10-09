@@ -12,9 +12,19 @@ Public Class HardwareInfo
     Public ID As Integer
 
     ''' <summary>
+    ''' 显示位置
+    ''' </summary>
+    Public Location As Point
+
+    ''' <summary>
     ''' 设备电压值(格式 12.34V)
     ''' </summary>
     Public Voltage As Double
+
+    ''' <summary>
+    ''' 是否在测量转速
+    ''' </summary>
+    Public IsMeasureSpeed As Boolean
 
     ''' <summary>
     ''' 传感器值

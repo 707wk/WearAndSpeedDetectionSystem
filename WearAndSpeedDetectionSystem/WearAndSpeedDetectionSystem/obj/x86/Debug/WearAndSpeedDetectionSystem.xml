@@ -32,6 +32,16 @@ WearAndSpeedDetectionSystem
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
 </member>
+<member name="P:WearAndSpeedDetectionSystem.My.Resources.Resources.history_32px">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:WearAndSpeedDetectionSystem.My.Resources.Resources.logo_90px">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
 <member name="P:WearAndSpeedDetectionSystem.My.Resources.Resources.refresh_16px">
 <summary>
   查找 System.Drawing.Bitmap 类型的本地化资源。
@@ -70,6 +80,16 @@ WearAndSpeedDetectionSystem
 <member name="M:WearAndSpeedDetectionSystem.MainForm.CreateHardwareStateControl">
  <summary>
  创建硬件信息控件
+ </summary>
+</member>
+<member name="M:WearAndSpeedDetectionSystem.MainForm.CreateOverviewBackground">
+ <summary>
+ 创建硬件概览背景图片
+ </summary>
+</member>
+<member name="M:WearAndSpeedDetectionSystem.MainForm.GetFileRowCount(System.String)">
+ <summary>
+ 获取文件行数
  </summary>
 </member>
 <member name="T:WearAndSpeedDetectionSystem.HardwareStateHelper">
@@ -137,9 +157,9 @@ WearAndSpeedDetectionSystem
  采集2号传感器状态
  </summary>
 </member>
-<member name="M:WearAndSpeedDetectionSystem.HardwareStateHelper.GetHardwareVoltage(WearAndSpeedDetectionSystem.HardwareInfo)">
+<member name="M:WearAndSpeedDetectionSystem.HardwareStateHelper.GetHardwareState(WearAndSpeedDetectionSystem.HardwareInfo)">
  <summary>
- 采集模块电池电压
+ 采集模块状态
  </summary>
 </member>
 <member name="T:WearAndSpeedDetectionSystem.AppSettingHelper">
@@ -192,6 +212,11 @@ WearAndSpeedDetectionSystem
  设备轮询间隔
  </summary>
 </member>
+<member name="F:WearAndSpeedDetectionSystem.AppSetting.OverviewBackgroundLocation">
+ <summary>
+ 概览背景图路径
+ </summary>
+</member>
 <member name="F:WearAndSpeedDetectionSystem.AppSetting.HardwareItems">
  <summary>
  硬件列表
@@ -212,9 +237,19 @@ WearAndSpeedDetectionSystem
  设备ID
  </summary>
 </member>
+<member name="F:WearAndSpeedDetectionSystem.HardwareInfo.Location">
+ <summary>
+ 显示位置
+ </summary>
+</member>
 <member name="F:WearAndSpeedDetectionSystem.HardwareInfo.Voltage">
  <summary>
  设备电压值(格式 12.34V)
+ </summary>
+</member>
+<member name="F:WearAndSpeedDetectionSystem.HardwareInfo.IsMeasureSpeed">
+ <summary>
+ 是否在测量转速
  </summary>
 </member>
 <member name="F:WearAndSpeedDetectionSystem.HardwareInfo.SensorItems">

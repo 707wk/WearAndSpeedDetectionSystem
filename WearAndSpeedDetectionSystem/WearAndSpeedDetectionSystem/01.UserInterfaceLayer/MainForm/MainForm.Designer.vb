@@ -24,11 +24,14 @@ Partial Class MainForm
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Me.RibbonControl1 = New DevComponents.DotNetBar.RibbonControl()
         Me.RibbonPanel1 = New DevComponents.DotNetBar.RibbonPanel()
         Me.RibbonBar2 = New DevComponents.DotNetBar.RibbonBar()
         Me.ButtonItem4 = New DevComponents.DotNetBar.ButtonItem()
+        Me.ButtonItem6 = New DevComponents.DotNetBar.ButtonItem()
         Me.RibbonBar1 = New DevComponents.DotNetBar.RibbonBar()
+        Me.LabelItem3 = New DevComponents.DotNetBar.LabelItem()
         Me.ItemContainer2 = New DevComponents.DotNetBar.ItemContainer()
         Me.ItemContainer1 = New DevComponents.DotNetBar.ItemContainer()
         Me.LabelItem1 = New DevComponents.DotNetBar.LabelItem()
@@ -51,16 +54,33 @@ Partial Class MainForm
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.TabControl1 = New System.Windows.Forms.TabControl()
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.RibbonControl1.SuspendLayout()
         Me.RibbonPanel1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
+        Me.TabPage4.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
+        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'RibbonControl1
@@ -80,7 +100,7 @@ Partial Class MainForm
         Me.RibbonControl1.Location = New System.Drawing.Point(0, 0)
         Me.RibbonControl1.Name = "RibbonControl1"
         Me.RibbonControl1.QuickToolbarItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.QatCustomizeItem1})
-        Me.RibbonControl1.Size = New System.Drawing.Size(784, 124)
+        Me.RibbonControl1.Size = New System.Drawing.Size(1232, 124)
         Me.RibbonControl1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.RibbonControl1.SystemText.MaximizeRibbonText = "&Maximize the Ribbon"
         Me.RibbonControl1.SystemText.MinimizeRibbonText = "Mi&nimize the Ribbon"
@@ -110,7 +130,7 @@ Partial Class MainForm
         Me.RibbonPanel1.Location = New System.Drawing.Point(0, 25)
         Me.RibbonPanel1.Name = "RibbonPanel1"
         Me.RibbonPanel1.Padding = New System.Windows.Forms.Padding(3, 0, 3, 2)
-        Me.RibbonPanel1.Size = New System.Drawing.Size(784, 99)
+        Me.RibbonPanel1.Size = New System.Drawing.Size(1232, 99)
         '
         '
         '
@@ -139,11 +159,11 @@ Partial Class MainForm
         Me.RibbonBar2.ContainerControlProcessDialogKey = True
         Me.RibbonBar2.Dock = System.Windows.Forms.DockStyle.Left
         Me.RibbonBar2.DragDropSupport = True
-        Me.RibbonBar2.Items.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.ButtonItem4})
+        Me.RibbonBar2.Items.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.ButtonItem4, Me.ButtonItem6})
         Me.RibbonBar2.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F"
-        Me.RibbonBar2.Location = New System.Drawing.Point(500, 0)
+        Me.RibbonBar2.Location = New System.Drawing.Point(632, 0)
         Me.RibbonBar2.Name = "RibbonBar2"
-        Me.RibbonBar2.Size = New System.Drawing.Size(191, 97)
+        Me.RibbonBar2.Size = New System.Drawing.Size(319, 97)
         Me.RibbonBar2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.RibbonBar2.TabIndex = 1
         Me.RibbonBar2.Text = "RibbonBar2"
@@ -165,6 +185,14 @@ Partial Class MainForm
         Me.ButtonItem4.SubItemsExpandWidth = 14
         Me.ButtonItem4.Text = "编辑设备列表"
         '
+        'ButtonItem6
+        '
+        Me.ButtonItem6.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText
+        Me.ButtonItem6.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.history_32px
+        Me.ButtonItem6.Name = "ButtonItem6"
+        Me.ButtonItem6.SubItemsExpandWidth = 14
+        Me.ButtonItem6.Text = "历史数据"
+        '
         'RibbonBar1
         '
         Me.RibbonBar1.AutoOverflowEnabled = True
@@ -179,11 +207,11 @@ Partial Class MainForm
         Me.RibbonBar1.ContainerControlProcessDialogKey = True
         Me.RibbonBar1.Dock = System.Windows.Forms.DockStyle.Left
         Me.RibbonBar1.DragDropSupport = True
-        Me.RibbonBar1.Items.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.ItemContainer2, Me.ButtonItem2, Me.ButtonItem3, Me.ButtonItem5})
+        Me.RibbonBar1.Items.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.LabelItem3, Me.ItemContainer2, Me.ButtonItem2, Me.ButtonItem3, Me.ButtonItem5})
         Me.RibbonBar1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F"
         Me.RibbonBar1.Location = New System.Drawing.Point(3, 0)
         Me.RibbonBar1.Name = "RibbonBar1"
-        Me.RibbonBar1.Size = New System.Drawing.Size(497, 97)
+        Me.RibbonBar1.Size = New System.Drawing.Size(629, 97)
         Me.RibbonBar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.RibbonBar1.TabIndex = 0
         Me.RibbonBar1.Text = "RibbonBar1"
@@ -196,6 +224,11 @@ Partial Class MainForm
         '
         Me.RibbonBar1.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square
         Me.RibbonBar1.TitleVisible = False
+        '
+        'LabelItem3
+        '
+        Me.LabelItem3.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.logo_90px
+        Me.LabelItem3.Name = "LabelItem3"
         '
         'ItemContainer2
         '
@@ -314,6 +347,7 @@ Partial Class MainForm
         '
         'ButtonItem2
         '
+        Me.ButtonItem2.BeginGroup = True
         Me.ButtonItem2.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText
         Me.ButtonItem2.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.start_32px
         Me.ButtonItem2.Name = "ButtonItem2"
@@ -355,9 +389,9 @@ Partial Class MainForm
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 539)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 739)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(784, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1232, 22)
         Me.StatusStrip1.TabIndex = 2
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -382,46 +416,48 @@ Partial Class MainForm
         Me.TabControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Controls.Add(Me.TabPage2)
-        Me.TabControl1.ItemSize = New System.Drawing.Size(96, 22)
+        Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Controls.Add(Me.TabPage3)
+        Me.TabControl1.ItemSize = New System.Drawing.Size(96, 30)
         Me.TabControl1.Location = New System.Drawing.Point(3, 130)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(781, 406)
+        Me.TabControl1.Size = New System.Drawing.Size(1229, 606)
         Me.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
         Me.TabControl1.TabIndex = 3
         '
-        'TabPage1
+        'TabPage4
         '
-        Me.TabPage1.Controls.Add(Me.FlowLayoutPanel1)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 26)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(773, 376)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "设备状态"
-        Me.TabPage1.UseVisualStyleBackColor = True
+        Me.TabPage4.Controls.Add(Me.PictureBox1)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 34)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Size = New System.Drawing.Size(1221, 568)
+        Me.TabPage4.TabIndex = 3
+        Me.TabPage4.Text = "概览"
+        Me.TabPage4.UseVisualStyleBackColor = True
         '
-        'FlowLayoutPanel1
+        'PictureBox1
         '
-        Me.FlowLayoutPanel1.AutoScroll = True
-        Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.Window
-        Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(3, 3)
-        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(767, 370)
-        Me.FlowLayoutPanel1.TabIndex = 0
+        Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PictureBox1.Location = New System.Drawing.Point(0, 0)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(1221, 568)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.PictureBox1.TabIndex = 0
+        Me.PictureBox1.TabStop = False
         '
         'TabPage2
         '
         Me.TabPage2.Controls.Add(Me.TextBox1)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 34)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(773, 376)
+        Me.TabPage2.Size = New System.Drawing.Size(1221, 449)
         Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "日志"
+        Me.TabPage2.Text = "检测日志"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
         'TextBox1
@@ -435,14 +471,156 @@ Partial Class MainForm
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TextBox1.Size = New System.Drawing.Size(767, 370)
+        Me.TextBox1.Size = New System.Drawing.Size(1215, 443)
         Me.TextBox1.TabIndex = 0
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.FlowLayoutPanel1)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 34)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(1221, 449)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "设备状态"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'FlowLayoutPanel1
+        '
+        Me.FlowLayoutPanel1.AutoScroll = True
+        Me.FlowLayoutPanel1.BackColor = System.Drawing.SystemColors.Window
+        Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(3, 3)
+        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(1215, 443)
+        Me.FlowLayoutPanel1.TabIndex = 0
+        '
+        'TabPage3
+        '
+        Me.TabPage3.Controls.Add(Me.Chart1)
+        Me.TabPage3.Controls.Add(Me.Button3)
+        Me.TabPage3.Controls.Add(Me.ComboBox3)
+        Me.TabPage3.Controls.Add(Me.Label3)
+        Me.TabPage3.Controls.Add(Me.Button2)
+        Me.TabPage3.Controls.Add(Me.ComboBox2)
+        Me.TabPage3.Controls.Add(Me.Label2)
+        Me.TabPage3.Controls.Add(Me.Button1)
+        Me.TabPage3.Controls.Add(Me.ComboBox1)
+        Me.TabPage3.Controls.Add(Me.Label1)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 34)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Size = New System.Drawing.Size(1221, 449)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "历史数据"
+        Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'Chart1
+        '
+        Me.Chart1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend1.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend1)
+        Me.Chart1.Location = New System.Drawing.Point(5, 42)
+        Me.Chart1.Name = "Chart1"
+        Me.Chart1.Size = New System.Drawing.Size(1208, 404)
+        Me.Chart1.TabIndex = 9
+        Me.Chart1.Text = "Chart1"
+        '
+        'Button3
+        '
+        Me.Button3.FlatAppearance.BorderSize = 0
+        Me.Button3.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.refresh_16px
+        Me.Button3.Location = New System.Drawing.Point(578, 10)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(106, 26)
+        Me.Button3.TabIndex = 8
+        Me.Button3.Text = "加载历史数据"
+        Me.Button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'ComboBox3
+        '
+        Me.ComboBox3.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.ComboBox3.FormattingEnabled = True
+        Me.ComboBox3.Location = New System.Drawing.Point(490, 11)
+        Me.ComboBox3.Name = "ComboBox3"
+        Me.ComboBox3.Size = New System.Drawing.Size(82, 25)
+        Me.ComboBox3.TabIndex = 7
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(425, 17)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(59, 12)
+        Me.Label3.TabIndex = 6
+        Me.Label3.Text = "参数类型:"
+        '
+        'Button2
+        '
+        Me.Button2.FlatAppearance.BorderSize = 0
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.refresh_16px
+        Me.Button2.Location = New System.Drawing.Point(393, 10)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(26, 26)
+        Me.Button2.TabIndex = 5
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Location = New System.Drawing.Point(266, 11)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(121, 25)
+        Me.ComboBox2.TabIndex = 4
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(201, 17)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(59, 12)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "历史文件:"
+        '
+        'Button1
+        '
+        Me.Button1.FlatAppearance.BorderSize = 0
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button1.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.refresh_16px
+        Me.Button1.Location = New System.Drawing.Point(169, 10)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(26, 26)
+        Me.Button1.TabIndex = 2
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Location = New System.Drawing.Point(81, 11)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(82, 25)
+        Me.ComboBox1.TabIndex = 1
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(16, 17)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(59, 12)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "刀具编号:"
         '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(784, 561)
+        Me.ClientSize = New System.Drawing.Size(1232, 761)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.RibbonControl1)
@@ -456,9 +634,14 @@ Partial Class MainForm
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
-        Me.TabPage1.ResumeLayout(False)
+        Me.TabPage4.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
+        Me.TabPage1.ResumeLayout(False)
+        Me.TabPage3.ResumeLayout(False)
+        Me.TabPage3.PerformLayout()
+        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -495,4 +678,19 @@ Partial Class MainForm
     Friend WithEvents LabelItem4 As DevComponents.DotNetBar.LabelItem
     Friend WithEvents ComboBoxItem4 As DevComponents.DotNetBar.ComboBoxItem
     Friend WithEvents ButtonItem5 As DevComponents.DotNetBar.ButtonItem
+    Friend WithEvents TabPage3 As TabPage
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Button1 As Button
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents Button3 As Button
+    Friend WithEvents ComboBox3 As ComboBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Button2 As Button
+    Friend WithEvents ComboBox2 As ComboBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Chart1 As DataVisualization.Charting.Chart
+    Friend WithEvents TabPage4 As TabPage
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents LabelItem3 As DevComponents.DotNetBar.LabelItem
+    Friend WithEvents ButtonItem6 As DevComponents.DotNetBar.ButtonItem
 End Class

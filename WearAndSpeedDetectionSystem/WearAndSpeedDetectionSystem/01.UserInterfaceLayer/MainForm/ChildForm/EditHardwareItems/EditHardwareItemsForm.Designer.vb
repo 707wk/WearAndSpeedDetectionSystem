@@ -27,12 +27,14 @@ Partial Class EditHardwareItemsForm
         Me.Button2 = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.移除设备ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column4 = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ToolStrip1.SuspendLayout()
@@ -42,7 +44,7 @@ Partial Class EditHardwareItemsForm
         'Button1
         '
         Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(126, 375)
+        Me.Button1.Location = New System.Drawing.Point(337, 375)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 0
@@ -52,7 +54,7 @@ Partial Class EditHardwareItemsForm
         'Button2
         '
         Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(207, 375)
+        Me.Button2.Location = New System.Drawing.Point(418, 375)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(75, 23)
         Me.Button2.TabIndex = 0
@@ -68,7 +70,7 @@ Partial Class EditHardwareItemsForm
         Me.GroupBox1.Controls.Add(Me.ToolStrip1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 12)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(270, 357)
+        Me.GroupBox1.Size = New System.Drawing.Size(481, 357)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "刀具列表"
@@ -79,14 +81,36 @@ Partial Class EditHardwareItemsForm
         Me.DataGridView1.AllowUserToDeleteRows = False
         Me.DataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4})
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(3, 42)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersVisible = False
         Me.DataGridView1.RowTemplate.Height = 23
-        Me.DataGridView1.Size = New System.Drawing.Size(264, 312)
+        Me.DataGridView1.Size = New System.Drawing.Size(475, 312)
         Me.DataGridView1.TabIndex = 0
+        '
+        'ToolStrip1
+        '
+        Me.ToolStrip1.BackColor = System.Drawing.SystemColors.Control
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1})
+        Me.ToolStrip1.Location = New System.Drawing.Point(3, 17)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(475, 25)
+        Me.ToolStrip1.TabIndex = 1
+        Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.移除设备ToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(125, 26)
+        '
+        '移除设备ToolStripMenuItem
+        '
+        Me.移除设备ToolStripMenuItem.Name = "移除设备ToolStripMenuItem"
+        Me.移除设备ToolStripMenuItem.Size = New System.Drawing.Size(124, 22)
+        Me.移除设备ToolStripMenuItem.Text = "移除设备"
         '
         'Column1
         '
@@ -100,15 +124,17 @@ Partial Class EditHardwareItemsForm
         Me.Column2.Name = "Column2"
         Me.Column2.Width = 120
         '
-        'ToolStrip1
+        'Column3
         '
-        Me.ToolStrip1.BackColor = System.Drawing.SystemColors.Control
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1})
-        Me.ToolStrip1.Location = New System.Drawing.Point(3, 17)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(264, 25)
-        Me.ToolStrip1.TabIndex = 1
-        Me.ToolStrip1.Text = "ToolStrip1"
+        Me.Column3.HeaderText = "显示位置"
+        Me.Column3.Name = "Column3"
+        Me.Column3.ReadOnly = True
+        '
+        'Column4
+        '
+        Me.Column4.HeaderText = "修改显示位置"
+        Me.Column4.Name = "Column4"
+        Me.Column4.ReadOnly = True
         '
         'ToolStripButton1
         '
@@ -118,23 +144,11 @@ Partial Class EditHardwareItemsForm
         Me.ToolStripButton1.Size = New System.Drawing.Size(76, 22)
         Me.ToolStripButton1.Text = "添加设备"
         '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.移除设备ToolStripMenuItem})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 48)
-        '
-        '移除设备ToolStripMenuItem
-        '
-        Me.移除设备ToolStripMenuItem.Name = "移除设备ToolStripMenuItem"
-        Me.移除设备ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.移除设备ToolStripMenuItem.Text = "移除设备"
-        '
         'EditHardwareItemsForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(294, 410)
+        Me.ClientSize = New System.Drawing.Size(505, 410)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
@@ -159,10 +173,12 @@ Partial Class EditHardwareItemsForm
     Friend WithEvents Button2 As Button
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents ToolStripButton1 As ToolStripButton
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents 移除设备ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column4 As DataGridViewButtonColumn
 End Class
