@@ -80,7 +80,7 @@
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        DataGridView1.Rows.Add({"", "", "0,0", "修改"})
+        DataGridView1.Rows.Add({"", "", "0,0", "修改显示位置"})
     End Sub
 
     Private Sub 移除设备ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 移除设备ToolStripMenuItem.Click
