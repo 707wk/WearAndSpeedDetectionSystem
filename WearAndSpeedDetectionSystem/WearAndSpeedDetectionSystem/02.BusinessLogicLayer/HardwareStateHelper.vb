@@ -18,7 +18,17 @@ Public NotInheritable Class HardwareStateHelper
     ''' <summary>
     ''' 是否运行
     ''' </summary>
-    Private Shared IsRunning As Boolean = False
+    Private Shared _IsRunning As Boolean = False
+
+    ''' <summary>
+    ''' 是否运行
+    ''' </summary>
+    ''' <returns></returns>
+    Public Shared ReadOnly Property IsRunning As Boolean
+        Get
+            Return _IsRunning
+        End Get
+    End Property
 
     ''' <summary>
     ''' 主窗体
@@ -29,6 +39,8 @@ Public NotInheritable Class HardwareStateHelper
     ''' 是否发送测试指令
     ''' </summary>
     Private Shared IsTestMode As Boolean = False
+    Private ReadOnly _Run As Boolean
+
     ''' <summary>
     ''' 发送测试指令
     ''' </summary>
@@ -42,10 +54,10 @@ Public NotInheritable Class HardwareStateHelper
     ''' </summary>
     Public Shared Sub StartAsync(SerialPort As String, BPS As Integer)
 
-        If IsRunning Then
+        If _IsRunning Then
             Exit Sub
         End If
-        IsRunning = True
+        _IsRunning = True
 
         SP = New IO.Ports.SerialPort
         With SP
@@ -79,10 +91,10 @@ Public NotInheritable Class HardwareStateHelper
     ''' </summary>
     Public Shared Sub StopAsync()
 
-        If Not IsRunning Then
+        If Not _IsRunning Then
             Exit Sub
         End If
-        IsRunning = False
+        _IsRunning = False
 
         WorkThread.Join()
         WorkThread = Nothing
@@ -105,7 +117,7 @@ Public NotInheritable Class HardwareStateHelper
 
             For Each tmpHardware In AppSettingHelper.Settings.HardwareItems
 
-                If Not IsRunning Then Exit Sub
+                If Not _IsRunning Then Exit Sub
 
                 '发送测试指令
                 If IsTestMode Then
@@ -118,17 +130,17 @@ Public NotInheritable Class HardwareStateHelper
 
                 UIMainForm.Log($"检测刀具 {tmpHardware.Name}")
 
-                If Not IsRunning Then Exit Sub
+                If Not _IsRunning Then Exit Sub
 
                 GetSensorDataOf1(tmpHardware)
                 Threading.Thread.Sleep(500)
 
-                If Not IsRunning Then Exit Sub
+                If Not _IsRunning Then Exit Sub
 
                 GetSensorDataOf2(tmpHardware)
                 Threading.Thread.Sleep(500)
 
-                If Not IsRunning Then Exit Sub
+                If Not _IsRunning Then Exit Sub
 
                 GetHardwareState(tmpHardware)
 
@@ -159,7 +171,7 @@ Public NotInheritable Class HardwareStateHelper
 
                 '延时查询下一个设备
                 For i001 = 0 To AppSettingHelper.Settings.pollingInterval - 1
-                    If Not IsRunning Then Exit Sub
+                    If Not _IsRunning Then Exit Sub
 
                     Threading.Thread.Sleep(1000)
                 Next

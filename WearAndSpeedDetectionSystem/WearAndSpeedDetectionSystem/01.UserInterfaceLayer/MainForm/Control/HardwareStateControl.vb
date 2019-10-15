@@ -11,7 +11,9 @@
 
         '创建列表
         For itemID = 0 To 2 - 1
-            Dim tmpListViewItem As New ListViewItem($"{itemID + 1}")
+            Dim tmpListViewItem As New ListViewItem($"{itemID + 1}") With {
+                .UseItemStyleForSubItems = False
+            }
 
             For subItemID = 0 To 9 - 1
                 tmpListViewItem.SubItems.Add("0")
@@ -25,6 +27,8 @@
 
         Label4.Text = HardwareInfo.Name
         Label5.Text = HardwareInfo.ID
+        ListView1.ForeColor = Me.ForeColor
+        ListViewEx1.ForeColor = Me.ForeColor
 
         UpdateData()
 
@@ -42,32 +46,35 @@
             '电压值
             Label7.Text = $"{Math.Round(HardwareInfo.Voltage, 2)}V"
 
-            For sensorID = 0 To 2 - 1
+            With ListView1
+                For sensorID = 0 To 2 - 1
 
-                '磨损
-                ListView1.Items(sensorID).SubItems(1).Text = Math.Round(HardwareInfo.SensorItems(sensorID, 0) / 10, 1)
-                '温度
-                ListView1.Items(sensorID).SubItems(2).Text = Math.Round(HardwareInfo.SensorItems(sensorID, 1) / 10, 1)
-                '转速
-                ListView1.Items(sensorID).SubItems(3).Text = Math.Round(HardwareInfo.SensorItems(sensorID, 2) / 10, 1)
+                    '磨损
+                    .Items(sensorID).SubItems(1).Text = Math.Round(HardwareInfo.SensorItems(sensorID, 0) / 10, 1)
+                    '温度
+                    .Items(sensorID).SubItems(2).Text = Math.Round(HardwareInfo.SensorItems(sensorID, 1) / 10, 1)
+                    '转速
+                    .Items(sensorID).SubItems(3).Text = Math.Round(HardwareInfo.SensorItems(sensorID, 2) / 10, 1)
 
-                '频点1
-                ListView1.Items(sensorID).SubItems(4).Text = HardwareInfo.SensorItems(sensorID, 3)
-                ListView1.Items(sensorID).SubItems(5).Text = HardwareInfo.SensorItems(sensorID, 4)
+                    '频点1
+                    .Items(sensorID).SubItems(4).Text = HardwareInfo.SensorItems(sensorID, 3)
+                    .Items(sensorID).SubItems(5).Text = HardwareInfo.SensorItems(sensorID, 4)
 
-                '频点2
-                ListView1.Items(sensorID).SubItems(6).Text = HardwareInfo.SensorItems(sensorID, 5)
-                ListView1.Items(sensorID).SubItems(7).Text = HardwareInfo.SensorItems(sensorID, 6)
+                    '频点2
+                    .Items(sensorID).SubItems(6).Text = HardwareInfo.SensorItems(sensorID, 5)
+                    .Items(sensorID).SubItems(7).Text = HardwareInfo.SensorItems(sensorID, 6)
 
-                '频点3
-                ListView1.Items(sensorID).SubItems(8).Text = HardwareInfo.SensorItems(sensorID, 7)
-                ListView1.Items(sensorID).SubItems(9).Text = HardwareInfo.SensorItems(sensorID, 8)
+                    '频点3
+                    .Items(sensorID).SubItems(8).Text = HardwareInfo.SensorItems(sensorID, 7)
+                    .Items(sensorID).SubItems(9).Text = HardwareInfo.SensorItems(sensorID, 8)
 
-            Next
+                Next
 
-            ListView1.DrawToBitmap(ShowBitmap, New Rectangle(0, 0, ShowBitmap.Width, ShowBitmap.Height))
-            Panel1.BackgroundImage = ShowBitmap
-            Panel1.Refresh()
+                .DrawToBitmap(ShowBitmap, New Rectangle(0, 0, ShowBitmap.Width, ShowBitmap.Height))
+            End With
+
+            PictureBox1.Image = ShowBitmap
+            PictureBox1.Refresh()
         Catch ex As Exception
 
         End Try

@@ -37,6 +37,11 @@ WearAndSpeedDetectionSystem
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
 </member>
+<member name="P:WearAndSpeedDetectionSystem.My.Resources.Resources.logo_64px">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
 <member name="P:WearAndSpeedDetectionSystem.My.Resources.Resources.logo_90px">
 <summary>
   查找 System.Drawing.Bitmap 类型的本地化资源。
@@ -107,10 +112,16 @@ WearAndSpeedDetectionSystem
  数据处理线程
  </summary>
 </member>
-<member name="F:WearAndSpeedDetectionSystem.HardwareStateHelper.IsRunning">
+<member name="F:WearAndSpeedDetectionSystem.HardwareStateHelper._IsRunning">
  <summary>
  是否运行
  </summary>
+</member>
+<member name="P:WearAndSpeedDetectionSystem.HardwareStateHelper.IsRunning">
+ <summary>
+ 是否运行
+ </summary>
+ <returns></returns>
 </member>
 <member name="F:WearAndSpeedDetectionSystem.HardwareStateHelper.UIMainForm">
  <summary>

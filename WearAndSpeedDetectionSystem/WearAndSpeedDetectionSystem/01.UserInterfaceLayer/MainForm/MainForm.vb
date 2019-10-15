@@ -22,7 +22,7 @@ Public Class MainForm
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 #Region "产品版本号"
-        Dim assemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location
+                                Dim assemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location
         Dim versionStr = System.Diagnostics.FileVersionInfo.GetVersionInfo(assemblyLocation).ProductVersion
         Me.Text = $"{My.Application.Info.Title} V{versionStr}"
 #End Region
@@ -95,10 +95,26 @@ Public Class MainForm
         '显示图表
         SensorChartArea = New DataVisualization.Charting.ChartArea
         With SensorChartArea
+            .BackColor = Color.FromArgb(71, 71, 71)
+            .AxisX.TitleForeColor = Color.FromArgb(215, 215, 215)
+            .AxisX.LabelStyle.ForeColor = Color.FromArgb(215, 215, 215)
+            .AxisX.LineColor = Color.FromArgb(215, 215, 215)
+            .AxisX.MajorGrid.LineColor = Color.FromArgb(215, 215, 215)
+            .AxisX.MajorGrid.LineDashStyle = DataVisualization.Charting.ChartDashStyle.Dot
+            .AxisX.MajorTickMark.LineColor = Color.FromArgb(215, 215, 215)
             .AxisX.LabelStyle.Format = "HH:mm:ss"
             .AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds
 
+            .AxisY.LabelStyle.ForeColor = Color.FromArgb(215, 215, 215)
+            .AxisY.LineColor = Color.FromArgb(215, 215, 215)
+            .AxisY.MajorGrid.LineColor = Color.FromArgb(215, 215, 215)
+            .AxisY.MajorGrid.LineDashStyle = DataVisualization.Charting.ChartDashStyle.Dot
+            .AxisY.MajorTickMark.LineColor = Color.FromArgb(215, 215, 215)
+
             '.AxisX.ScrollBar.LineColor = System.Drawing.Color.Red     
+            .AxisX.ScrollBar.LineColor = Color.FromArgb(51, 51, 51)
+            .AxisX.ScrollBar.BackColor = Color.FromArgb(51, 51, 51)
+            .AxisX.ScrollBar.ButtonColor = Color.FromArgb(84, 89, 98)
             '设置滚动条宽度大小
             .AxisX.ScrollBar.Size = 20
             '设置滚动条在图像内还是在图像外
@@ -134,16 +150,19 @@ Public Class MainForm
         Next
 
         With SensorSeriesArray(0)
-            .Color = Color.Red
+            .Color = Color.OrangeRed
             .LegendText = "设备电压"
+            .BorderWidth = 3
         End With
         With SensorSeriesArray(1)
             .Color = Color.Green
             .LegendText = "1号传感器"
+            .BorderWidth = 3
         End With
         With SensorSeriesArray(2)
             .Color = Color.Blue
             .LegendText = "2号传感器"
+            .BorderWidth = 3
         End With
 
         System.IO.Directory.CreateDirectory($"SensorData")
@@ -152,8 +171,9 @@ Public Class MainForm
 #End Region
 
 #Region "隐藏历史模块"
-        TabControl1.TabPages.Remove(TabPage1)
-        TabControl1.TabPages.Remove(TabPage3)
+        TabControl2.Tabs.Remove(TabItem3)
+        TabControl2.Tabs.Remove(TabItem4)
+        TabControl2.SelectedTabIndex = 0
 #End Region
 
         '更新时间
@@ -172,10 +192,11 @@ Public Class MainForm
         CreateOverviewBackground()
 
         'AllocConsole()
+
     End Sub
 
     Private Sub MainForm_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-        If Not ButtonItem2.Enabled Then
+        If HardwareStateHelper.IsRunning Then
             e.Cancel = True
         End If
 
@@ -218,7 +239,7 @@ Public Class MainForm
 #End Region
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        ToolStripStatusLabel1.Text = Now().ToString("yyyy/MM/dd HH:mm:ss")
+        LabelItem6.Text = Now().ToString("yyyy/MM/dd HH:mm:ss")
     End Sub
 
 #Region "创建硬件信息控件"
@@ -257,8 +278,9 @@ Public Class MainForm
 #Region "画笔及画刷"
         Dim boxPen As New Pen(Color.FromArgb(118, 118, 118), 1)
         Dim backgroundColorSolidBrush As New SolidBrush(Color.LimeGreen)
-        Dim backgroundColorSolidBrush2 As New SolidBrush(Color.OrangeRed)
-        Dim fontSolidBrush As New SolidBrush(Me.ForeColor)
+        Dim backgroundColorSolidBrush2 As New SolidBrush(Color.FromArgb(255, 127, 127))
+        'Dim backgroundColorSolidBrush2 As New SolidBrush(Color.OrangeRed)
+        Dim fontSolidBrush As New SolidBrush(Color.Black)
         Dim tmpRectangle As Rectangle
         With tmpRectangle
             .Width = 50
@@ -352,15 +374,19 @@ Public Class MainForm
 
 #Region "编辑设备列表"
     Private Sub ButtonItem4_Click(sender As Object, e As EventArgs) Handles ButtonItem4.Click
+        If BackgroundGraphics IsNot Nothing Then BackgroundGraphics.Dispose()
+        If Background IsNot Nothing Then Background.Dispose()
+
         Using tmpDialog As New EditHardwareItemsForm
             If tmpDialog.ShowDialog <> DialogResult.OK Then
+                CreateOverviewBackground()
                 Exit Sub
             End If
-
-            CreateHardwareStateControl()
             CreateOverviewBackground()
 
-            ButtonItem2.Enabled = If(AppSettingHelper.Settings.HardwareItems.Count = 0, False, True)
+            CreateHardwareStateControl()
+
+            ButtonItem2.Enabled = (AppSettingHelper.Settings.HardwareItems.Count > 0)
 
             AppSettingHelper.SaveToLocaltion()
 
@@ -381,10 +407,12 @@ Public Class MainForm
             End If
 
             If tmpDialog.Value = "20191009" Then
-                TabControl1.TabPages.Add(TabPage1)
-                TabControl1.TabPages.Add(TabPage3)
+                TabControl2.Tabs.Add(TabItem3)
+                TabControl2.Tabs.Add(TabItem4)
 
                 ButtonItem6.Enabled = False
+
+                TabControl2.RecalcLayout()
             End If
 
         End Using
@@ -421,8 +449,8 @@ Public Class MainForm
 #Region "画笔及画刷"
         Dim boxPen As New Pen(Color.FromArgb(118, 118, 118), 1)
         Dim backgroundColorSolidBrush As New SolidBrush(Color.LimeGreen)
-        Dim backgroundColorSolidBrush2 As New SolidBrush(Color.OrangeRed)
-        Dim fontSolidBrush As New SolidBrush(Me.ForeColor)
+        Dim backgroundColorSolidBrush2 As New SolidBrush(Color.FromArgb(255, 127, 127))
+        Dim fontSolidBrush As New SolidBrush(Color.Black)
         Dim tmpRectangle As Rectangle
         With tmpRectangle
             .Width = 50

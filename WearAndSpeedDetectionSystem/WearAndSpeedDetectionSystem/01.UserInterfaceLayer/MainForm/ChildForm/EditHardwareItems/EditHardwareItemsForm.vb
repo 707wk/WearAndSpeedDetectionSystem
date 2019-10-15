@@ -61,7 +61,7 @@
 
         For Each tmpHardware In AppSettingHelper.Settings.HardwareItems
             With tmpHardware
-                DataGridView1.Rows.Add({ .Name, .ID, $"{ .Location.X},{ .Location.Y}", "修改"})
+                DataGridView1.Rows.Add({ .Name, .ID, $"{ .Location.X},{ .Location.Y}", "修改显示位置"})
             End With
         Next
     End Sub
@@ -94,7 +94,7 @@
 
 #Region "编辑位置"
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-        If DataGridView1.Columns(e.ColumnIndex).HeaderText <> "修改显示位置" Then Exit Sub
+        If DataGridView1.Columns(e.ColumnIndex).Name <> "Column4" Then Exit Sub
         If e.RowIndex < 0 Then Exit Sub
 
         Dim tmpPoint As New Point(Val(DataGridView1.Rows(e.RowIndex).Cells(2).Value.Split(",")(0)),

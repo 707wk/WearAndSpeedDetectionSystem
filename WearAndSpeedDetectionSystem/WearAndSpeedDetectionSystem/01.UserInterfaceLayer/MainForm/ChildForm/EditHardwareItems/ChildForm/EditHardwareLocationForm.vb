@@ -13,6 +13,7 @@ Public Class EditHardwareLocationForm
         If IO.File.Exists(AppSetting.OverviewBackgroundLocation) Then
             Background = Bitmap.FromFile(AppSetting.OverviewBackgroundLocation)
             BackgroundGraphics = Graphics.FromImage(Background)
+            PictureBox1.Size = Background.Size
             PictureBox1.Image = Background
         End If
 
@@ -39,7 +40,7 @@ Public Class EditHardwareLocationForm
             .Y = e.Y
         End With
 
-        tmpGraphics.FillRectangle(New SolidBrush(Color.OrangeRed),
+        tmpGraphics.FillRectangle(New SolidBrush(Color.FromArgb(255, 127, 127)),
                                          HardwareRectangle)
 
         ToolStripStatusLabel1.Text = $"{e.X},{e.Y}"
@@ -53,11 +54,15 @@ Public Class EditHardwareLocationForm
             Exit Sub
         End If
 
+        If BackgroundGraphics IsNot Nothing Then BackgroundGraphics.Dispose()
+        If Background IsNot Nothing Then Background.Dispose()
+
         Try
             System.IO.Directory.CreateDirectory($"Data")
             File.Copy(tmpDialog.FileName, AppSetting.OverviewBackgroundLocation, True)
             Background = Bitmap.FromFile(AppSetting.OverviewBackgroundLocation)
             BackgroundGraphics = Graphics.FromImage(Background)
+            PictureBox1.Size = Background.Size
             PictureBox1.Image = Background
         Catch ex As Exception
             MsgBox(ex.Message, MsgBoxStyle.Information, "导入背景图片")
