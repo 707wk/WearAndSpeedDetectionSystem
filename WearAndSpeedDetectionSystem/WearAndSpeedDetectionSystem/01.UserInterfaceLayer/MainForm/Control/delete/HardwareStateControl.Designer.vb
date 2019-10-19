@@ -40,7 +40,6 @@ Partial Class HardwareStateControl
         Me.ColumnHeader8 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader9 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader10 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.ListViewEx1 = New DevComponents.DotNetBar.Controls.ListViewEx()
         Me.ColumnHeader11 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -53,6 +52,7 @@ Partial Class HardwareStateControl
         Me.ColumnHeader18 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader19 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader20 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.TableLayoutPanel2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -89,7 +89,7 @@ Partial Class HardwareStateControl
         Me.TableLayoutPanel2.Controls.Add(Me.Label5, 1, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.Label6, 0, 2)
         Me.TableLayoutPanel2.Controls.Add(Me.Label7, 1, 2)
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(14, 3)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(50, 3)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 3
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333!))
@@ -146,7 +146,7 @@ Partial Class HardwareStateControl
         Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4, Me.ColumnHeader5, Me.ColumnHeader6, Me.ColumnHeader7, Me.ColumnHeader8, Me.ColumnHeader9, Me.ColumnHeader10})
         Me.ListView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None
         Me.ListView1.HideSelection = False
-        Me.ListView1.Location = New System.Drawing.Point(133, 29)
+        Me.ListView1.Location = New System.Drawing.Point(166, 29)
         Me.ListView1.Name = "ListView1"
         Me.ListView1.Size = New System.Drawing.Size(608, 32)
         Me.ListView1.TabIndex = 3
@@ -205,22 +205,13 @@ Partial Class HardwareStateControl
         Me.ColumnHeader10.Text = "频点3值"
         Me.ColumnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'Label3
-        '
-        Me.Label3.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(122, Byte), Integer), CType(CType(204, Byte), Integer))
-        Me.Label3.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Label3.Location = New System.Drawing.Point(0, 0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(8, 66)
-        Me.Label3.TabIndex = 4
-        '
         'Label8
         '
-        Me.Label8.BackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.Label8.BackColor = System.Drawing.Color.FromArgb(CType(CType(123, Byte), Integer), CType(CType(123, Byte), Integer), CType(CType(123, Byte), Integer))
         Me.Label8.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Label8.Location = New System.Drawing.Point(8, 65)
+        Me.Label8.Location = New System.Drawing.Point(0, 65)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(736, 1)
+        Me.Label8.Size = New System.Drawing.Size(775, 1)
         Me.Label8.TabIndex = 6
         '
         'ListViewEx1
@@ -237,7 +228,7 @@ Partial Class HardwareStateControl
         Me.ListViewEx1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
         Me.ListViewEx1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.ListViewEx1.HideSelection = False
-        Me.ListViewEx1.Location = New System.Drawing.Point(133, 3)
+        Me.ListViewEx1.Location = New System.Drawing.Point(166, 3)
         Me.ListViewEx1.Name = "ListViewEx1"
         Me.ListViewEx1.Size = New System.Drawing.Size(608, 25)
         Me.ListViewEx1.TabIndex = 7
@@ -288,10 +279,19 @@ Partial Class HardwareStateControl
         '
         Me.ColumnHeader20.Text = "频点3值"
         '
+        'Label3
+        '
+        Me.Label3.BackColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
+        Me.Label3.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.sensor_48px
+        Me.Label3.Location = New System.Drawing.Point(0, 3)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(48, 48)
+        Me.Label3.TabIndex = 4
+        '
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.SystemColors.Control
-        Me.PictureBox1.Location = New System.Drawing.Point(133, 29)
+        Me.PictureBox1.Location = New System.Drawing.Point(166, 29)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(608, 32)
         Me.PictureBox1.TabIndex = 8
@@ -310,7 +310,7 @@ Partial Class HardwareStateControl
         Me.Controls.Add(Me.ListView1)
         Me.ForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
         Me.Name = "HardwareStateControl"
-        Me.Size = New System.Drawing.Size(744, 66)
+        Me.Size = New System.Drawing.Size(775, 66)
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

@@ -129,45 +129,53 @@ Public NotInheritable Class HardwareStateHelper
                 End If
 
                 UIMainForm.Log($"检测刀具 {tmpHardware.Name}")
+                tmpHardware.HardwareStateControl.IsReadData(True)
 
                 If Not _IsRunning Then Exit Sub
 
-                GetSensorDataOf1(tmpHardware)
-                Threading.Thread.Sleep(500)
+                Try
+                    GetSensorDataOf1(tmpHardware)
+                    Threading.Thread.Sleep(500)
 
-                If Not _IsRunning Then Exit Sub
+                    If Not _IsRunning Then Exit Sub
 
-                GetSensorDataOf2(tmpHardware)
-                Threading.Thread.Sleep(500)
+                    GetSensorDataOf2(tmpHardware)
+                    Threading.Thread.Sleep(500)
 
-                If Not _IsRunning Then Exit Sub
+                    If Not _IsRunning Then Exit Sub
 
-                GetHardwareState(tmpHardware)
+                    GetHardwareState(tmpHardware)
 
-                Dim tmpStr = $"{Math.Round(tmpHardware.Voltage, 2)}"
-                For sensorID = 0 To 2 - 1
-                    For itemID = 0 To 9 - 1
+                    Dim tmpStr = $"{Math.Round(tmpHardware.Voltage, 2)}"
+                    For sensorID = 0 To 2 - 1
+                        For itemID = 0 To 9 - 1
 
-                        If itemID = 0 OrElse
-                            itemID = 1 OrElse
-                            itemID = 2 Then
-                            tmpStr &= $" {tmpHardware.SensorItems(sensorID, itemID) / 10}"
-                        Else
-                            tmpStr &= $" {tmpHardware.SensorItems(sensorID, itemID)}"
-                        End If
+                            If itemID = 0 OrElse
+                                itemID = 1 OrElse
+                                itemID = 2 Then
+                                tmpStr &= $" {tmpHardware.SensorItems(sensorID, itemID) / 10}"
+                            Else
+                                tmpStr &= $" {tmpHardware.SensorItems(sensorID, itemID)}"
+                            End If
 
+                        Next
                     Next
-                Next
 
-                System.IO.Directory.CreateDirectory($"SensorData")
-                System.IO.Directory.CreateDirectory($"SensorData\{tmpHardware.Name}[{tmpHardware.ID}]")
-                Using tmp As IO.StreamWriter = New IO.StreamWriter($"SensorData\{tmpHardware.Name}[{tmpHardware.ID}]\{tmpHardware.Name}_{Format(Now(), "yyyyMMdd")}.log", True)
-                    tmp.WriteLine($"{Now().ToString("yyyy/MM/dd HH:mm:ss")}> {tmpStr}")
-                End Using
+                    System.IO.Directory.CreateDirectory($"SensorData")
+                    System.IO.Directory.CreateDirectory($"SensorData\{tmpHardware.Name}[{tmpHardware.ID}]")
+                    Using tmp As IO.StreamWriter = New IO.StreamWriter($"SensorData\{tmpHardware.Name}[{tmpHardware.ID}]\{tmpHardware.Name}_{Format(Now(), "yyyyMMdd")}.log", True)
+                        tmp.WriteLine($"{Now().ToString("yyyy/MM/dd HH:mm:ss")}> {tmpStr}")
+                    End Using
 
-                '更新界面
-                tmpHardware.HardwareStateControl.UpdateData()
-                UIMainForm.UpdateOverviewBackground(tmpHardware)
+                    '更新界面
+                    tmpHardware.HardwareStateControl.IsReadData(False)
+                    tmpHardware.HardwareStateControl.UpdateData()
+                    UIMainForm.UpdateOverviewBackground(tmpHardware)
+
+                Catch ex As Exception
+                    UIMainForm.Log(ex.Message)
+                    tmpHardware.HardwareStateControl.IsOnLine(False)
+                End Try
 
                 '延时查询下一个设备
                 For i001 = 0 To AppSettingHelper.Settings.pollingInterval - 1
@@ -249,9 +257,9 @@ Public NotInheritable Class HardwareStateHelper
             Next
 
         Catch timeOut As TimeoutException
-            UIMainForm.Log($"1号传感器 接收数据超时")
+            Throw New Exception($"1号传感器 接收数据超时")
         Catch ex As Exception
-            UIMainForm.Log($"1号传感器异常:{ex.ToString}")
+            Throw New Exception($"1号传感器异常:{ex.Message}")
         End Try
 
     End Sub
@@ -294,9 +302,9 @@ Public NotInheritable Class HardwareStateHelper
             Next
 
         Catch timeOut As TimeoutException
-            UIMainForm.Log($"2号传感器 接收数据超时")
+            Throw New Exception($"2号传感器 接收数据超时")
         Catch ex As Exception
-            UIMainForm.Log($"2号传感器异常:{ex.ToString}")
+            Throw New Exception($"2号传感器异常:{ex.Message}")
         End Try
 
     End Sub
@@ -341,9 +349,9 @@ Public NotInheritable Class HardwareStateHelper
             value.Voltage = tmpVoltage / 100
 
         Catch timeOut As TimeoutException
-            UIMainForm.Log($"模块状态 接收数据超时")
+            Throw New Exception($"模块状态 接收数据超时")
         Catch ex As Exception
-            UIMainForm.Log($"模块状态异常:{ex.ToString}")
+            Throw New Exception($"模块状态异常:{ex.Message}")
         End Try
 
     End Sub

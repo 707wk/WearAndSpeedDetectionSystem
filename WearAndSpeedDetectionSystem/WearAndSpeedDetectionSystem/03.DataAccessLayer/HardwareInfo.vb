@@ -29,12 +29,13 @@ Public Class HardwareInfo
     ''' <summary>
     ''' 传感器值
     ''' </summary>
+    <Newtonsoft.Json.JsonIgnore>
     Public SensorItems(2 - 1, 9 - 1) As UInt16
 
     ''' <summary>
     ''' 控件信息
     ''' </summary>
     <Newtonsoft.Json.JsonIgnore>
-    Public HardwareStateControl As HardwareStateControl
+    Public HardwareStateControl As HardwareStateControlByGDI
 
 End Class

@@ -34,6 +34,23 @@
 
     End Sub
 
+#Region "是否在读取数据"
+    Public Delegate Sub IsReadDataCallback(value As Boolean)
+    Public Sub IsReadData(value As Boolean)
+        If Me.InvokeRequired Then
+            Me.Invoke(New IsReadDataCallback(AddressOf IsReadData), value)
+            Exit Sub
+        End If
+
+        Try
+            Label3.Image = If(value, My.Resources.sensor1_48px, My.Resources.sensor_48px)
+
+        Catch ex As Exception
+        End Try
+
+    End Sub
+#End Region
+
 #Region "更新显示数据"
     Public Delegate Sub UpdateDataCallback()
     Public Sub UpdateData()

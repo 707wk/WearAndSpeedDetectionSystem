@@ -45,7 +45,7 @@ Partial Class EditHardwareLocationForm
         '
         'ToolStripButton1
         '
-        Me.ToolStripButton1.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.add_24px
+        Me.ToolStripButton1.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.import_16px
         Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton1.Name = "ToolStripButton1"
         Me.ToolStripButton1.Size = New System.Drawing.Size(100, 22)

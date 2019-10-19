@@ -142,7 +142,7 @@ Public Class MainForm
             SensorSeriesArray(i001) = New DataVisualization.Charting.Series
             With SensorSeriesArray(i001)
                 .ChartArea = SensorChartArea.Name
-                .ChartType = DataVisualization.Charting.SeriesChartType.FastLine 'Spline
+                .ChartType = DataVisualization.Charting.SeriesChartType.FastLine
                 .XValueType = DataVisualization.Charting.ChartValueType.DateTime
             End With
             Chart1.Series.Add(SensorSeriesArray(i001))
@@ -155,12 +155,12 @@ Public Class MainForm
             .BorderWidth = 3
         End With
         With SensorSeriesArray(1)
-            .Color = Color.Green
+            .Color = Color.LightGreen
             .LegendText = "1号传感器"
             .BorderWidth = 3
         End With
         With SensorSeriesArray(2)
-            .Color = Color.Blue
+            .Color = Color.DodgerBlue
             .LegendText = "2号传感器"
             .BorderWidth = 3
         End With
@@ -171,7 +171,7 @@ Public Class MainForm
 #End Region
 
 #Region "隐藏历史模块"
-        TabControl2.Tabs.Remove(TabItem3)
+        'TabControl2.Tabs.Remove(TabItem3)
         TabControl2.Tabs.Remove(TabItem4)
         TabControl2.SelectedTabIndex = 0
 #End Region
@@ -192,6 +192,7 @@ Public Class MainForm
         CreateOverviewBackground()
 
         'AllocConsole()
+        'Me.Width = 1600
 
     End Sub
 
@@ -251,15 +252,15 @@ Public Class MainForm
         FlowLayoutPanel1.Controls.Clear()
 
         For Each tmpHardware In AppSettingHelper.Settings.HardwareItems
-            tmpHardware.HardwareStateControl = New HardwareStateControl With {
+            tmpHardware.HardwareStateControl = New HardwareStateControlByGDI With {
                 .HardwareInfo = tmpHardware
             }
 
             FlowLayoutPanel1.Controls.Add(tmpHardware.HardwareStateControl)
             tmpHardware.HardwareStateControl.Show()
-
         Next
-
+        'AppSettingHelper.Settings.HardwareItems(10).HardwareStateControl.IsReadData(True)
+        'AppSettingHelper.Settings.HardwareItems(11).HardwareStateControl.IsReadData(False)
     End Sub
 #End Region
 
@@ -407,7 +408,7 @@ Public Class MainForm
             End If
 
             If tmpDialog.Value = "20191009" Then
-                TabControl2.Tabs.Add(TabItem3)
+                'TabControl2.Tabs.Add(TabItem3)
                 TabControl2.Tabs.Add(TabItem4)
 
                 ButtonItem6.Enabled = False

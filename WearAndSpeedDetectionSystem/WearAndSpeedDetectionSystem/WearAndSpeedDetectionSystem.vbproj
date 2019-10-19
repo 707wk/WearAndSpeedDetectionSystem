@@ -103,11 +103,14 @@
     <Compile Include="01.UserInterfaceLayer\MainForm\ChildForm\EditHardwareItems\EditHardwareItemsForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="01.UserInterfaceLayer\MainForm\Control\HardwareStateControl.Designer.vb">
+    <Compile Include="01.UserInterfaceLayer\MainForm\Control\delete\HardwareStateControl.Designer.vb">
       <DependentUpon>HardwareStateControl.vb</DependentUpon>
     </Compile>
-    <Compile Include="01.UserInterfaceLayer\MainForm\Control\HardwareStateControl.vb">
+    <Compile Include="01.UserInterfaceLayer\MainForm\Control\delete\HardwareStateControl.vb">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="01.UserInterfaceLayer\MainForm\Control\HardwareStateControlByGDI.vb">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="01.UserInterfaceLayer\MainForm\MainForm.Designer.vb">
       <DependentUpon>MainForm.vb</DependentUpon>
@@ -142,7 +145,7 @@
     <EmbeddedResource Include="01.UserInterfaceLayer\MainForm\ChildForm\EditHardwareItems\EditHardwareItemsForm.resx">
       <DependentUpon>EditHardwareItemsForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="01.UserInterfaceLayer\MainForm\Control\HardwareStateControl.resx">
+    <EmbeddedResource Include="01.UserInterfaceLayer\MainForm\Control\delete\HardwareStateControl.resx">
       <DependentUpon>HardwareStateControl.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="01.UserInterfaceLayer\MainForm\MainForm.resx">
@@ -170,6 +173,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
+    <None Include="res\sensor2_48px.png" />
+    <None Include="res\sensor1_48px.png" />
+    <None Include="res\sensor_48px.png" />
+    <None Include="res\import_16px.png" />
+    <None Include="res\start_16px.png" />
     <None Include="res\logo_64px.png" />
     <None Include="res\history_32px.png" />
     <None Include="res\test_32px.png" />
