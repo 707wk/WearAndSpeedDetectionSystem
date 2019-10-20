@@ -46,9 +46,9 @@ Public Class AppSetting
     ''' </summary>
     Public SpeedMaximum As Integer
 
-    ''' <summary>
-    ''' 是否开机自启
-    ''' </summary>
-    Public IsAutoRun As Boolean
+    '''' <summary>
+    '''' 是否开机自启
+    '''' </summary>
+    'Public IsAutoRun As Boolean
 
 End Class
