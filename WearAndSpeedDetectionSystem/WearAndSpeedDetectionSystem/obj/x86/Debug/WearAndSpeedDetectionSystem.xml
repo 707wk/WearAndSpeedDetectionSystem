@@ -92,6 +92,16 @@ WearAndSpeedDetectionSystem
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
 </member>
+<member name="P:WearAndSpeedDetectionSystem.My.Resources.Resources.thresholdValue_32px">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:WearAndSpeedDetectionSystem.My.Resources.Resources.warning_16px">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
 <member name="F:WearAndSpeedDetectionSystem.HardwareStateControl.HardwareInfo">
  <summary>
  设备信息
@@ -261,6 +271,26 @@ WearAndSpeedDetectionSystem
 <member name="F:WearAndSpeedDetectionSystem.AppSetting.HardwareItems">
  <summary>
  硬件列表
+ </summary>
+</member>
+<member name="F:WearAndSpeedDetectionSystem.AppSetting.WearMaximum">
+ <summary>
+ 磨损量最大值(10/mm)
+ </summary>
+</member>
+<member name="F:WearAndSpeedDetectionSystem.AppSetting.TempMaximum">
+ <summary>
+ 温度最大值
+ </summary>
+</member>
+<member name="F:WearAndSpeedDetectionSystem.AppSetting.SpeedMaximum">
+ <summary>
+ 转速最大值
+ </summary>
+</member>
+<member name="F:WearAndSpeedDetectionSystem.AppSetting.IsAutoRun">
+ <summary>
+ 是否开机自启
  </summary>
 </member>
 <member name="T:WearAndSpeedDetectionSystem.HardwareInfo">

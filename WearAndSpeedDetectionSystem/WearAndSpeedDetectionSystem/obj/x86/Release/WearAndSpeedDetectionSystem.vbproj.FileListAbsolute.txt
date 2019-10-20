@@ -23,3 +23,4 @@ T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Release\WearA
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Release\WearAndSpeedDetectionSystem.xml
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Release\WearAndSpeedDetectionSystem.pdb
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Release\WearAndSpeedDetectionSystem.vbprojAssemblyReference.cache
+T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Release\WearAndSpeedDetectionSystem.SensorthresholdValueForm.resources

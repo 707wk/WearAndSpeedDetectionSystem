@@ -24,11 +24,12 @@ Partial Class MainForm
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
-        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Me.RibbonControl1 = New DevComponents.DotNetBar.RibbonControl()
         Me.RibbonPanel1 = New DevComponents.DotNetBar.RibbonPanel()
         Me.RibbonBar2 = New DevComponents.DotNetBar.RibbonBar()
         Me.ButtonItem4 = New DevComponents.DotNetBar.ButtonItem()
+        Me.ButtonItem7 = New DevComponents.DotNetBar.ButtonItem()
         Me.ButtonItem6 = New DevComponents.DotNetBar.ButtonItem()
         Me.RibbonBar1 = New DevComponents.DotNetBar.RibbonBar()
         Me.LabelItem3 = New DevComponents.DotNetBar.LabelItem()
@@ -70,12 +71,12 @@ Partial Class MainForm
         Me.TabControl2 = New DevComponents.DotNetBar.TabControl()
         Me.TabControlPanel1 = New DevComponents.DotNetBar.TabControlPanel()
         Me.TabItem1 = New DevComponents.DotNetBar.TabItem(Me.components)
+        Me.TabControlPanel3 = New DevComponents.DotNetBar.TabControlPanel()
+        Me.TabItem3 = New DevComponents.DotNetBar.TabItem(Me.components)
         Me.TabControlPanel4 = New DevComponents.DotNetBar.TabControlPanel()
         Me.TabItem4 = New DevComponents.DotNetBar.TabItem(Me.components)
         Me.TabControlPanel2 = New DevComponents.DotNetBar.TabControlPanel()
         Me.TabItem2 = New DevComponents.DotNetBar.TabItem(Me.components)
-        Me.TabControlPanel3 = New DevComponents.DotNetBar.TabControlPanel()
-        Me.TabItem3 = New DevComponents.DotNetBar.TabItem(Me.components)
         Me.RibbonControl1.SuspendLayout()
         Me.RibbonPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -83,9 +84,9 @@ Partial Class MainForm
         CType(Me.TabControl2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl2.SuspendLayout()
         Me.TabControlPanel1.SuspendLayout()
+        Me.TabControlPanel3.SuspendLayout()
         Me.TabControlPanel4.SuspendLayout()
         Me.TabControlPanel2.SuspendLayout()
-        Me.TabControlPanel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'RibbonControl1
@@ -105,7 +106,7 @@ Partial Class MainForm
         Me.RibbonControl1.Location = New System.Drawing.Point(0, 0)
         Me.RibbonControl1.Name = "RibbonControl1"
         Me.RibbonControl1.QuickToolbarItems.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.QatCustomizeItem1})
-        Me.RibbonControl1.Size = New System.Drawing.Size(1232, 102)
+        Me.RibbonControl1.Size = New System.Drawing.Size(1150, 102)
         Me.RibbonControl1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.RibbonControl1.SystemText.MaximizeRibbonText = "&Maximize the Ribbon"
         Me.RibbonControl1.SystemText.MinimizeRibbonText = "Mi&nimize the Ribbon"
@@ -135,7 +136,7 @@ Partial Class MainForm
         Me.RibbonPanel1.Location = New System.Drawing.Point(0, 25)
         Me.RibbonPanel1.Name = "RibbonPanel1"
         Me.RibbonPanel1.Padding = New System.Windows.Forms.Padding(3, 0, 3, 2)
-        Me.RibbonPanel1.Size = New System.Drawing.Size(1232, 77)
+        Me.RibbonPanel1.Size = New System.Drawing.Size(1150, 77)
         '
         '
         '
@@ -164,11 +165,11 @@ Partial Class MainForm
         Me.RibbonBar2.ContainerControlProcessDialogKey = True
         Me.RibbonBar2.Dock = System.Windows.Forms.DockStyle.Left
         Me.RibbonBar2.DragDropSupport = True
-        Me.RibbonBar2.Items.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.ButtonItem4, Me.ButtonItem6})
+        Me.RibbonBar2.Items.AddRange(New DevComponents.DotNetBar.BaseItem() {Me.ButtonItem4, Me.ButtonItem7, Me.ButtonItem6})
         Me.RibbonBar2.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F"
-        Me.RibbonBar2.Location = New System.Drawing.Point(809, 0)
+        Me.RibbonBar2.Location = New System.Drawing.Point(658, 0)
         Me.RibbonBar2.Name = "RibbonBar2"
-        Me.RibbonBar2.Size = New System.Drawing.Size(304, 75)
+        Me.RibbonBar2.Size = New System.Drawing.Size(287, 75)
         Me.RibbonBar2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.RibbonBar2.TabIndex = 1
         Me.RibbonBar2.Text = "RibbonBar2"
@@ -191,6 +192,16 @@ Partial Class MainForm
         Me.ButtonItem4.Name = "ButtonItem4"
         Me.ButtonItem4.SubItemsExpandWidth = 14
         Me.ButtonItem4.Text = "编辑设备列表"
+        '
+        'ButtonItem7
+        '
+        Me.ButtonItem7.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText
+        Me.ButtonItem7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.ButtonItem7.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.thresholdValue_32px
+        Me.ButtonItem7.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top
+        Me.ButtonItem7.Name = "ButtonItem7"
+        Me.ButtonItem7.SubItemsExpandWidth = 14
+        Me.ButtonItem7.Text = "传感器阈值"
         '
         'ButtonItem6
         '
@@ -221,7 +232,7 @@ Partial Class MainForm
         Me.RibbonBar1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F"
         Me.RibbonBar1.Location = New System.Drawing.Point(3, 0)
         Me.RibbonBar1.Name = "RibbonBar1"
-        Me.RibbonBar1.Size = New System.Drawing.Size(806, 75)
+        Me.RibbonBar1.Size = New System.Drawing.Size(655, 75)
         Me.RibbonBar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled
         Me.RibbonBar1.TabIndex = 0
         Me.RibbonBar1.Text = "RibbonBar1"
@@ -439,7 +450,7 @@ Partial Class MainForm
         Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PictureBox1.Location = New System.Drawing.Point(1, 1)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(1230, 596)
+        Me.PictureBox1.Size = New System.Drawing.Size(1148, 596)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
@@ -456,7 +467,7 @@ Partial Class MainForm
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.TextBox1.Size = New System.Drawing.Size(1230, 596)
+        Me.TextBox1.Size = New System.Drawing.Size(1148, 596)
         Me.TextBox1.TabIndex = 0
         '
         'FlowLayoutPanel1
@@ -467,7 +478,7 @@ Partial Class MainForm
         Me.FlowLayoutPanel1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(1, 1)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(1230, 596)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(1148, 596)
         Me.FlowLayoutPanel1.TabIndex = 0
         '
         'Chart1
@@ -476,14 +487,14 @@ Partial Class MainForm
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Chart1.BackColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
-        Legend3.BackColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
-        Legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Legend3.Name = "Legend1"
-        Me.Chart1.Legends.Add(Legend3)
+        Legend1.BackColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
+        Legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Legend1.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend1)
         Me.Chart1.Location = New System.Drawing.Point(4, 39)
         Me.Chart1.Name = "Chart1"
-        Me.Chart1.Size = New System.Drawing.Size(1224, 555)
+        Me.Chart1.Size = New System.Drawing.Size(1142, 555)
         Me.Chart1.TabIndex = 9
         Me.Chart1.Text = "Chart1"
         '
@@ -612,7 +623,7 @@ Partial Class MainForm
         Me.MetroStatusBar1.Location = New System.Drawing.Point(0, 739)
         Me.MetroStatusBar1.Name = "MetroStatusBar1"
         Me.MetroStatusBar1.ResizeHandleVisible = False
-        Me.MetroStatusBar1.Size = New System.Drawing.Size(1232, 22)
+        Me.MetroStatusBar1.Size = New System.Drawing.Size(1150, 22)
         Me.MetroStatusBar1.TabIndex = 4
         Me.MetroStatusBar1.Text = "MetroStatusBar1"
         '
@@ -644,9 +655,9 @@ Partial Class MainForm
         Me.TabControl2.ColorScheme.TabItemSelectedBackgroundColorBlend.AddRange(New DevComponents.DotNetBar.BackgroundColorBlend() {New DevComponents.DotNetBar.BackgroundColorBlend(System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(122, Byte), Integer), CType(CType(204, Byte), Integer)), 0!), New DevComponents.DotNetBar.BackgroundColorBlend(System.Drawing.Color.Empty, 0.45!), New DevComponents.DotNetBar.BackgroundColorBlend(System.Drawing.Color.Empty, 0.45!), New DevComponents.DotNetBar.BackgroundColorBlend(System.Drawing.Color.Empty, 1.0!)})
         Me.TabControl2.ColorScheme.TabItemSelectedText = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
         Me.TabControl2.ColorScheme.TabItemText = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
-        Me.TabControl2.Controls.Add(Me.TabControlPanel4)
-        Me.TabControl2.Controls.Add(Me.TabControlPanel3)
         Me.TabControl2.Controls.Add(Me.TabControlPanel1)
+        Me.TabControl2.Controls.Add(Me.TabControlPanel3)
+        Me.TabControl2.Controls.Add(Me.TabControlPanel4)
         Me.TabControl2.Controls.Add(Me.TabControlPanel2)
         Me.TabControl2.FixedTabSize = New System.Drawing.Size(120, 0)
         Me.TabControl2.ForeColor = System.Drawing.Color.White
@@ -654,7 +665,7 @@ Partial Class MainForm
         Me.TabControl2.Name = "TabControl2"
         Me.TabControl2.SelectedTabFont = New System.Drawing.Font("宋体", 9.0!, System.Drawing.FontStyle.Bold)
         Me.TabControl2.SelectedTabIndex = 1
-        Me.TabControl2.Size = New System.Drawing.Size(1232, 625)
+        Me.TabControl2.Size = New System.Drawing.Size(1150, 625)
         Me.TabControl2.Style = DevComponents.DotNetBar.eTabStripStyle.Metro
         Me.TabControl2.TabIndex = 5
         Me.TabControl2.TabLayoutType = DevComponents.DotNetBar.eTabLayoutType.FixedWithNavigationBox
@@ -672,7 +683,7 @@ Partial Class MainForm
         Me.TabControlPanel1.Location = New System.Drawing.Point(0, 27)
         Me.TabControlPanel1.Name = "TabControlPanel1"
         Me.TabControlPanel1.Padding = New System.Windows.Forms.Padding(1)
-        Me.TabControlPanel1.Size = New System.Drawing.Size(1232, 598)
+        Me.TabControlPanel1.Size = New System.Drawing.Size(1150, 598)
         Me.TabControlPanel1.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
         Me.TabControlPanel1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
         Me.TabControlPanel1.Style.BorderColor.Color = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(91, Byte), Integer))
@@ -687,6 +698,30 @@ Partial Class MainForm
         Me.TabItem1.AttachedControl = Me.TabControlPanel1
         Me.TabItem1.Name = "TabItem1"
         Me.TabItem1.Text = "概览"
+        '
+        'TabControlPanel3
+        '
+        Me.TabControlPanel3.Controls.Add(Me.FlowLayoutPanel1)
+        Me.TabControlPanel3.DisabledBackColor = System.Drawing.Color.Empty
+        Me.TabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabControlPanel3.Location = New System.Drawing.Point(0, 27)
+        Me.TabControlPanel3.Name = "TabControlPanel3"
+        Me.TabControlPanel3.Padding = New System.Windows.Forms.Padding(1)
+        Me.TabControlPanel3.Size = New System.Drawing.Size(1150, 598)
+        Me.TabControlPanel3.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
+        Me.TabControlPanel3.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
+        Me.TabControlPanel3.Style.BorderColor.Color = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(91, Byte), Integer))
+        Me.TabControlPanel3.Style.BorderSide = CType(((DevComponents.DotNetBar.eBorderSide.Left Or DevComponents.DotNetBar.eBorderSide.Right) _
+            Or DevComponents.DotNetBar.eBorderSide.Bottom), DevComponents.DotNetBar.eBorderSide)
+        Me.TabControlPanel3.Style.GradientAngle = 90
+        Me.TabControlPanel3.TabIndex = 9
+        Me.TabControlPanel3.TabItem = Me.TabItem3
+        '
+        'TabItem3
+        '
+        Me.TabItem3.AttachedControl = Me.TabControlPanel3
+        Me.TabItem3.Name = "TabItem3"
+        Me.TabItem3.Text = "设备状态"
         '
         'TabControlPanel4
         '
@@ -705,7 +740,7 @@ Partial Class MainForm
         Me.TabControlPanel4.Location = New System.Drawing.Point(0, 27)
         Me.TabControlPanel4.Name = "TabControlPanel4"
         Me.TabControlPanel4.Padding = New System.Windows.Forms.Padding(1)
-        Me.TabControlPanel4.Size = New System.Drawing.Size(1232, 598)
+        Me.TabControlPanel4.Size = New System.Drawing.Size(1150, 598)
         Me.TabControlPanel4.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
         Me.TabControlPanel4.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
         Me.TabControlPanel4.Style.BorderColor.Color = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(91, Byte), Integer))
@@ -729,7 +764,7 @@ Partial Class MainForm
         Me.TabControlPanel2.Location = New System.Drawing.Point(0, 27)
         Me.TabControlPanel2.Name = "TabControlPanel2"
         Me.TabControlPanel2.Padding = New System.Windows.Forms.Padding(1)
-        Me.TabControlPanel2.Size = New System.Drawing.Size(1232, 598)
+        Me.TabControlPanel2.Size = New System.Drawing.Size(1150, 598)
         Me.TabControlPanel2.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
         Me.TabControlPanel2.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
         Me.TabControlPanel2.Style.BorderColor.Color = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(91, Byte), Integer))
@@ -745,36 +780,12 @@ Partial Class MainForm
         Me.TabItem2.Name = "TabItem2"
         Me.TabItem2.Text = "检测日志"
         '
-        'TabControlPanel3
-        '
-        Me.TabControlPanel3.Controls.Add(Me.FlowLayoutPanel1)
-        Me.TabControlPanel3.DisabledBackColor = System.Drawing.Color.Empty
-        Me.TabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControlPanel3.Location = New System.Drawing.Point(0, 27)
-        Me.TabControlPanel3.Name = "TabControlPanel3"
-        Me.TabControlPanel3.Padding = New System.Windows.Forms.Padding(1)
-        Me.TabControlPanel3.Size = New System.Drawing.Size(1232, 598)
-        Me.TabControlPanel3.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.TabControlPanel3.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
-        Me.TabControlPanel3.Style.BorderColor.Color = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(91, Byte), Integer))
-        Me.TabControlPanel3.Style.BorderSide = CType(((DevComponents.DotNetBar.eBorderSide.Left Or DevComponents.DotNetBar.eBorderSide.Right) _
-            Or DevComponents.DotNetBar.eBorderSide.Bottom), DevComponents.DotNetBar.eBorderSide)
-        Me.TabControlPanel3.Style.GradientAngle = 90
-        Me.TabControlPanel3.TabIndex = 9
-        Me.TabControlPanel3.TabItem = Me.TabItem3
-        '
-        'TabItem3
-        '
-        Me.TabItem3.AttachedControl = Me.TabControlPanel3
-        Me.TabItem3.Name = "TabItem3"
-        Me.TabItem3.Text = "设备状态"
-        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.ClientSize = New System.Drawing.Size(1232, 761)
+        Me.ClientSize = New System.Drawing.Size(1150, 761)
         Me.Controls.Add(Me.TabControl2)
         Me.Controls.Add(Me.MetroStatusBar1)
         Me.Controls.Add(Me.RibbonControl1)
@@ -792,11 +803,11 @@ Partial Class MainForm
         CType(Me.TabControl2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabControl2.ResumeLayout(False)
         Me.TabControlPanel1.ResumeLayout(False)
+        Me.TabControlPanel3.ResumeLayout(False)
         Me.TabControlPanel4.ResumeLayout(False)
         Me.TabControlPanel4.PerformLayout()
         Me.TabControlPanel2.ResumeLayout(False)
         Me.TabControlPanel2.PerformLayout()
-        Me.TabControlPanel3.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -852,4 +863,5 @@ Partial Class MainForm
     Friend WithEvents TabItem3 As DevComponents.DotNetBar.TabItem
     Friend WithEvents TabControlPanel4 As DevComponents.DotNetBar.TabControlPanel
     Friend WithEvents TabItem4 As DevComponents.DotNetBar.TabItem
+    Friend WithEvents ButtonItem7 As DevComponents.DotNetBar.ButtonItem
 End Class

@@ -42,3 +42,4 @@ T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAnd
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.pdb
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.EditHardwareLocationForm.resources
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.vbprojAssemblyReference.cache
+T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.SensorthresholdValueForm.resources

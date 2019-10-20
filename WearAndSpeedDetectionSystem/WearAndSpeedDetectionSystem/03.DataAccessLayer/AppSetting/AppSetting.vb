@@ -33,4 +33,22 @@ Public Class AppSetting
     ''' </summary>
     Public HardwareItems As List(Of HardwareInfo)
 
+    ''' <summary>
+    ''' 磨损量最大值(10/mm)
+    ''' </summary>
+    Public WearMaximum As Integer
+    ''' <summary>
+    ''' 温度最大值
+    ''' </summary>
+    Public TempMaximum As Integer
+    ''' <summary>
+    ''' 转速最大值
+    ''' </summary>
+    Public SpeedMaximum As Integer
+
+    ''' <summary>
+    ''' 是否开机自启
+    ''' </summary>
+    Public IsAutoRun As Boolean
+
 End Class

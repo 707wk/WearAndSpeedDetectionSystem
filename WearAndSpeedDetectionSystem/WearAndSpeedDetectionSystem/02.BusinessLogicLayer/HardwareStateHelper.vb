@@ -214,7 +214,7 @@ Public NotInheritable Class HardwareStateHelper
         Catch timeOut As TimeoutException
 
         Catch ex As Exception
-            UIMainForm.Log($"立即采集异常:{ex.ToString}")
+            UIMainForm.Log($"立即采集异常:{ex.Message}")
         End Try
 
     End Sub

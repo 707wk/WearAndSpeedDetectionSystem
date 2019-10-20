@@ -19,11 +19,13 @@ Public Class HardwareInfo
     ''' <summary>
     ''' 设备电压值(格式 12.34V)
     ''' </summary>
+    <Newtonsoft.Json.JsonIgnore>
     Public Voltage As Double
 
     ''' <summary>
     ''' 是否在测量转速
     ''' </summary>
+    <Newtonsoft.Json.JsonIgnore>
     Public IsMeasureSpeed As Boolean
 
     ''' <summary>

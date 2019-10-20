@@ -7,9 +7,12 @@
     Public HardwareInfo As HardwareInfo
 
     Private Shared ReadOnly StrSolidBrush As New SolidBrush(Color.FromArgb(215, 215, 215))
+    Private Shared ReadOnly StrWarningSolidBrush As New SolidBrush(Color.FromArgb(246, 86, 98))
     Private Shared ReadOnly StrStringFormat As New StringFormat()
+    Private Shared ReadOnly StrValueStringFormat As New StringFormat()
     Private Shared ReadOnly BaseLinePen As New Pen(Color.FromArgb(123, 123, 123), 1)
-    Private Shared ReadOnly TableTitle() As String = {"传感器", "磨损 mm", "温度 °C", "转速 r/s"} ', "频点1", "频点1值", "频点2", "频点2值", "频点3", "频点3值"}
+    'Private Shared ReadOnly BaseLineWarningPen As New Pen(Color.FromArgb(246, 86, 98), 1)
+    Private Shared ReadOnly TableTitle() As String = {"磨损 mm", "温度 °C", "转速 r/s"} ', "频点1", "频点1值", "频点2", "频点2值", "频点3", "频点3值"}
     Private TmpPoint As New Point
 
     Public Sub New()
@@ -20,7 +23,7 @@
         Me.BackgroundImage = My.Resources.sensor_48px
         Me.BackgroundImageLayout = ImageLayout.None
         StrStringFormat.Alignment = StringAlignment.Far
-
+        StrValueStringFormat.Alignment = StringAlignment.Center
     End Sub
 
     Private Sub HardwareStateControl_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
@@ -41,7 +44,7 @@
             e.Graphics.DrawString($"{Math.Round(HardwareInfo.Voltage, 2)}V", Me.Font, StrSolidBrush, TmpPoint)
 
             For i001 = 0 To TableTitle.Count - 1
-                .X = 165 + 55 * i001
+                .X = 165 + 58 + 55 * i001
                 .Y = 6
                 e.Graphics.DrawString(TableTitle(i001), Me.Font, StrSolidBrush, TmpPoint)
             Next
@@ -49,17 +52,42 @@
             For sensorID = 0 To 2 - 1
                 .Y = 25 + sensorID * 19
 
-                .X = 165 + 55 * 0
-                e.Graphics.DrawString($"{sensorID + 1}", Me.Font, StrSolidBrush, TmpPoint)
+                .X = 165
+                e.Graphics.DrawString($"传感器{sensorID + 1}", Me.Font, StrSolidBrush, TmpPoint)
                 '磨损
-                .X = 165 + 55 * 1
-                e.Graphics.DrawString(Math.Round(HardwareInfo.SensorItems(sensorID, 0) / 10, 1), Me.Font, StrSolidBrush, TmpPoint)
+                '.X += 30
+                .X += 55 + 16
+                'e.Graphics.FillRectangle(StrWarningSolidBrush, .X - 25, .Y + 1, 53, 19 - 2)
+                If HardwareInfo.SensorItems(sensorID, 0) <= AppSettingHelper.Settings.WearMaximum Then
+                    e.Graphics.DrawString(Math.Round(HardwareInfo.SensorItems(sensorID, 0) / 10, 1), Me.Font, StrSolidBrush, TmpPoint)
+                    'e.Graphics.DrawString("100", Me.Font, StrSolidBrush, TmpPoint)
+                Else
+                    e.Graphics.DrawImage(My.Resources.warning_16px, .X - 16, .Y)
+                    e.Graphics.DrawString(Math.Round(HardwareInfo.SensorItems(sensorID, 0) / 10, 1), Me.Font, StrWarningSolidBrush, TmpPoint)
+                End If
+
                 '温度
-                .X = 165 + 55 * 2
-                e.Graphics.DrawString(Math.Round(HardwareInfo.SensorItems(sensorID, 1) / 10, 1), Me.Font, StrSolidBrush, TmpPoint)
+                .X += 55
+                'e.Graphics.FillRectangle(StrWarningSolidBrush, .X - 25, .Y + 1, 53, 19 - 2)
+                If HardwareInfo.SensorItems(sensorID, 1) <= AppSettingHelper.Settings.TempMaximum Then
+                    e.Graphics.DrawString(Math.Round(HardwareInfo.SensorItems(sensorID, 1) / 10, 1), Me.Font, StrSolidBrush, TmpPoint, StrValueStringFormat)
+                    'e.Graphics.DrawString("100", Me.Font, StrSolidBrush, TmpPoint)
+                Else
+                    e.Graphics.DrawImage(My.Resources.warning_16px, .X - 16, .Y)
+                    e.Graphics.DrawString(Math.Round(HardwareInfo.SensorItems(sensorID, 1) / 10, 1), Me.Font, StrWarningSolidBrush, TmpPoint)
+                End If
+
                 '转速
-                .X = 165 + 55 * 3
-                e.Graphics.DrawString(Math.Round(HardwareInfo.SensorItems(sensorID, 2) / 10, 1), Me.Font, StrSolidBrush, TmpPoint)
+                .X += 55
+                'e.Graphics.FillRectangle(StrWarningSolidBrush, .X - 25, .Y + 1, 53, 19 - 2)
+                If HardwareInfo.SensorItems(sensorID, 2) <= AppSettingHelper.Settings.SpeedMaximum Then
+                    e.Graphics.DrawString(Math.Round(HardwareInfo.SensorItems(sensorID, 2) / 10, 1), Me.Font, StrSolidBrush, TmpPoint, StrValueStringFormat)
+                    'e.Graphics.DrawString("100", Me.Font, StrSolidBrush, TmpPoint)
+                Else
+                    e.Graphics.DrawImage(My.Resources.warning_16px, .X - 16, .Y)
+                    e.Graphics.DrawString(Math.Round(HardwareInfo.SensorItems(sensorID, 2) / 10, 1), Me.Font, StrWarningSolidBrush, TmpPoint)
+                End If
+
                 ''频点1
                 '.X = 165 + 55 * 4
                 'e.Graphics.DrawString(HardwareInfo.SensorItems(sensorID, 3), Me.Font, StrSolidBrush, TmpPoint)

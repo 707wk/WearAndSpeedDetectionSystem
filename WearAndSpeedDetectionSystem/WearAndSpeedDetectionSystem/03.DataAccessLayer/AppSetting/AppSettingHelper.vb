@@ -70,6 +70,9 @@ Public Class AppSettingHelper
                 .BPS = ""
                 .pollingInterval = 2
                 .HardwareItems = New List(Of HardwareInfo)
+                .WearMaximum = 40
+                .TempMaximum = 100
+                .SpeedMaximum = 5
             End With
 
         End Try

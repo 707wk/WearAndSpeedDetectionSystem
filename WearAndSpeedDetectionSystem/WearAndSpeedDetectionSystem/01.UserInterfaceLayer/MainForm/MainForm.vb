@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
 Imports System.Text
+Imports Microsoft.Win32
 
 Public Class MainForm
 
@@ -22,7 +23,7 @@ Public Class MainForm
 
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 #Region "产品版本号"
-                                Dim assemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location
+        Dim assemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location
         Dim versionStr = System.Diagnostics.FileVersionInfo.GetVersionInfo(assemblyLocation).ProductVersion
         Me.Text = $"{My.Application.Info.Title} V{versionStr}"
 #End Region
@@ -217,7 +218,7 @@ Public Class MainForm
         ButtonItem3.Enabled = value
         ButtonItem5.Enabled = value
         ButtonItem4.Enabled = Not value
-
+        ButtonItem7.Enabled = Not value
     End Sub
 #End Region
 
@@ -663,8 +664,64 @@ Public Class MainForm
 
         Return rowCount
     End Function
+
+
 #End Region
 
 #End Region
+#End Region
+
+#Region "传感器阈值"
+    Private Sub ButtonItem7_Click(sender As Object, e As EventArgs) Handles ButtonItem7.Click
+        Using tmpDialog As New SensorthresholdValueForm
+            If tmpDialog.ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+
+            AppSettingHelper.SaveToLocaltion()
+        End Using
+    End Sub
+#End Region
+
+#Region "开机自启"
+    'Private Sub CheckBoxItem1_Click(sender As Object, e As EventArgs)
+    '    If AppSettingHelper.Settings.IsAutoRun = CheckBoxItem1.Checked Then
+    '        Exit Sub
+    '    End If
+
+    '    Try
+    '        If CheckBoxItem1.Checked Then
+
+    '            Using R_local As RegistryKey = Registry.CurrentUser
+    '                Using R_run As RegistryKey = R_local.CreateSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run")
+    '                    R_run.SetValue(My.Application.Info.ProductName, $"""{Application.ExecutablePath}""")
+    '                End Using
+    '            End Using
+
+    '        Else
+
+    '            Using R_local As RegistryKey = Registry.CurrentUser
+    '                Using R_run As RegistryKey = R_local.CreateSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run")
+    '                    R_run.DeleteValue(My.Application.Info.ProductName, False)
+    '                End Using
+    '            End Using
+
+    '        End If
+
+    '        AppSettingHelper.Settings.IsAutoRun = CheckBoxItem1.Checked
+    '        AppSettingHelper.SaveToLocaltion()
+
+    '    Catch ex As Exception
+    '        MsgBox(ex.ToString,
+    '               MsgBoxStyle.Information,
+    '               Wangk.Resource.MultiLanguageHelper.Lang.GetS("开机自启失败"))
+    '    End Try
+    'End Sub
+
+    'Private Sub MainForm_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+    '    If AppSettingHelper.Settings.IsAutoRun Then
+    '        ButtonItem2_Click(Nothing, Nothing)
+    '    End If
+    'End Sub
 #End Region
 End Class
