@@ -161,9 +161,9 @@ Public NotInheritable Class HardwareStateHelper
                         Next
                     Next
 
-                    System.IO.Directory.CreateDirectory($"SensorData")
-                    System.IO.Directory.CreateDirectory($"SensorData\{tmpHardware.Name}[{tmpHardware.ID}]")
-                    Using tmp As IO.StreamWriter = New IO.StreamWriter($"SensorData\{tmpHardware.Name}[{tmpHardware.ID}]\{tmpHardware.Name}_{Format(Now(), "yyyyMMdd")}.log", True)
+                    System.IO.Directory.CreateDirectory($".\SensorData")
+                    System.IO.Directory.CreateDirectory($".\SensorData\{tmpHardware.Name}[{tmpHardware.ID}]")
+                    Using tmp As IO.StreamWriter = New IO.StreamWriter($".\SensorData\{tmpHardware.Name}[{tmpHardware.ID}]\{tmpHardware.Name}_{Format(Now(), "yyyyMMdd")}.log", True)
                         tmp.WriteLine($"{Now().ToString("yyyy/MM/dd HH:mm:ss")}> {tmpStr}")
                     End Using
 

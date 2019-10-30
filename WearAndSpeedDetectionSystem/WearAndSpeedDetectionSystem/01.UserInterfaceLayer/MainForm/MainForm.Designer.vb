@@ -24,7 +24,7 @@ Partial Class MainForm
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Legend5 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
         Me.RibbonControl1 = New DevComponents.DotNetBar.RibbonControl()
         Me.RibbonPanel1 = New DevComponents.DotNetBar.RibbonPanel()
         Me.RibbonBar2 = New DevComponents.DotNetBar.RibbonBar()
@@ -59,8 +59,6 @@ Partial Class MainForm
         Me.Button3 = New System.Windows.Forms.Button()
         Me.ComboBox3 = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
@@ -69,12 +67,16 @@ Partial Class MainForm
         Me.LabelItem5 = New DevComponents.DotNetBar.LabelItem()
         Me.LabelItem6 = New DevComponents.DotNetBar.LabelItem()
         Me.TabControl2 = New DevComponents.DotNetBar.TabControl()
+        Me.TabControlPanel4 = New DevComponents.DotNetBar.TabControlPanel()
+        Me.EndDateTimePicker = New System.Windows.Forms.DateTimePicker()
+        Me.StartDateTimePicker = New System.Windows.Forms.DateTimePicker()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.TabItem4 = New DevComponents.DotNetBar.TabItem(Me.components)
         Me.TabControlPanel1 = New DevComponents.DotNetBar.TabControlPanel()
         Me.TabItem1 = New DevComponents.DotNetBar.TabItem(Me.components)
         Me.TabControlPanel3 = New DevComponents.DotNetBar.TabControlPanel()
         Me.TabItem3 = New DevComponents.DotNetBar.TabItem(Me.components)
-        Me.TabControlPanel4 = New DevComponents.DotNetBar.TabControlPanel()
-        Me.TabItem4 = New DevComponents.DotNetBar.TabItem(Me.components)
         Me.TabControlPanel2 = New DevComponents.DotNetBar.TabControlPanel()
         Me.TabItem2 = New DevComponents.DotNetBar.TabItem(Me.components)
         Me.RibbonControl1.SuspendLayout()
@@ -83,9 +85,9 @@ Partial Class MainForm
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TabControl2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl2.SuspendLayout()
+        Me.TabControlPanel4.SuspendLayout()
         Me.TabControlPanel1.SuspendLayout()
         Me.TabControlPanel3.SuspendLayout()
-        Me.TabControlPanel4.SuspendLayout()
         Me.TabControlPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -487,11 +489,11 @@ Partial Class MainForm
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Chart1.BackColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
-        Legend1.BackColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
-        Legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
-        Legend1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Legend1.Name = "Legend1"
-        Me.Chart1.Legends.Add(Legend1)
+        Legend5.BackColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
+        Legend5.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top
+        Legend5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Legend5.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend5)
         Me.Chart1.Location = New System.Drawing.Point(4, 39)
         Me.Chart1.Name = "Chart1"
         Me.Chart1.Size = New System.Drawing.Size(1142, 555)
@@ -505,7 +507,7 @@ Partial Class MainForm
         Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
         Me.Button3.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.refresh_16px
-        Me.Button3.Location = New System.Drawing.Point(579, 7)
+        Me.Button3.Location = New System.Drawing.Point(675, 7)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(106, 26)
         Me.Button3.TabIndex = 8
@@ -520,7 +522,7 @@ Partial Class MainForm
         Me.ComboBox3.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.ComboBox3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
         Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Location = New System.Drawing.Point(491, 8)
+        Me.ComboBox3.Location = New System.Drawing.Point(587, 8)
         Me.ComboBox3.Name = "ComboBox3"
         Me.ComboBox3.Size = New System.Drawing.Size(82, 25)
         Me.ComboBox3.TabIndex = 7
@@ -530,36 +532,11 @@ Partial Class MainForm
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
-        Me.Label3.Location = New System.Drawing.Point(426, 14)
+        Me.Label3.Location = New System.Drawing.Point(522, 14)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(59, 12)
         Me.Label3.TabIndex = 6
         Me.Label3.Text = "参数类型:"
-        '
-        'Button2
-        '
-        Me.Button2.BackColor = System.Drawing.Color.Transparent
-        Me.Button2.FlatAppearance.BorderSize = 0
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(213, Byte), Integer))
-        Me.Button2.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.refresh_16px
-        Me.Button2.Location = New System.Drawing.Point(394, 7)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(26, 26)
-        Me.Button2.TabIndex = 5
-        Me.Button2.UseVisualStyleBackColor = False
-        '
-        'ComboBox2
-        '
-        Me.ComboBox2.BackColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox2.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.ComboBox2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Location = New System.Drawing.Point(267, 8)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(121, 25)
-        Me.ComboBox2.TabIndex = 4
         '
         'Label2
         '
@@ -570,7 +547,7 @@ Partial Class MainForm
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(59, 12)
         Me.Label2.TabIndex = 3
-        Me.Label2.Text = "历史文件:"
+        Me.Label2.Text = "日期范围:"
         '
         'Button1
         '
@@ -655,9 +632,9 @@ Partial Class MainForm
         Me.TabControl2.ColorScheme.TabItemSelectedBackgroundColorBlend.AddRange(New DevComponents.DotNetBar.BackgroundColorBlend() {New DevComponents.DotNetBar.BackgroundColorBlend(System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(122, Byte), Integer), CType(CType(204, Byte), Integer)), 0!), New DevComponents.DotNetBar.BackgroundColorBlend(System.Drawing.Color.Empty, 0.45!), New DevComponents.DotNetBar.BackgroundColorBlend(System.Drawing.Color.Empty, 0.45!), New DevComponents.DotNetBar.BackgroundColorBlend(System.Drawing.Color.Empty, 1.0!)})
         Me.TabControl2.ColorScheme.TabItemSelectedText = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
         Me.TabControl2.ColorScheme.TabItemText = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.TabControl2.Controls.Add(Me.TabControlPanel4)
         Me.TabControl2.Controls.Add(Me.TabControlPanel1)
         Me.TabControl2.Controls.Add(Me.TabControlPanel3)
-        Me.TabControl2.Controls.Add(Me.TabControlPanel4)
         Me.TabControl2.Controls.Add(Me.TabControlPanel2)
         Me.TabControl2.FixedTabSize = New System.Drawing.Size(120, 0)
         Me.TabControl2.ForeColor = System.Drawing.Color.White
@@ -674,6 +651,88 @@ Partial Class MainForm
         Me.TabControl2.Tabs.Add(Me.TabItem2)
         Me.TabControl2.Tabs.Add(Me.TabItem4)
         Me.TabControl2.Text = "TabControl2"
+        '
+        'TabControlPanel4
+        '
+        Me.TabControlPanel4.Controls.Add(Me.EndDateTimePicker)
+        Me.TabControlPanel4.Controls.Add(Me.StartDateTimePicker)
+        Me.TabControlPanel4.Controls.Add(Me.Chart1)
+        Me.TabControlPanel4.Controls.Add(Me.ComboBox1)
+        Me.TabControlPanel4.Controls.Add(Me.Button3)
+        Me.TabControlPanel4.Controls.Add(Me.Label1)
+        Me.TabControlPanel4.Controls.Add(Me.ComboBox3)
+        Me.TabControlPanel4.Controls.Add(Me.Button2)
+        Me.TabControlPanel4.Controls.Add(Me.Button1)
+        Me.TabControlPanel4.Controls.Add(Me.Label3)
+        Me.TabControlPanel4.Controls.Add(Me.Label4)
+        Me.TabControlPanel4.Controls.Add(Me.Label2)
+        Me.TabControlPanel4.DisabledBackColor = System.Drawing.Color.Empty
+        Me.TabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabControlPanel4.Location = New System.Drawing.Point(0, 27)
+        Me.TabControlPanel4.Name = "TabControlPanel4"
+        Me.TabControlPanel4.Padding = New System.Windows.Forms.Padding(1)
+        Me.TabControlPanel4.Size = New System.Drawing.Size(1150, 598)
+        Me.TabControlPanel4.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
+        Me.TabControlPanel4.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
+        Me.TabControlPanel4.Style.BorderColor.Color = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(91, Byte), Integer))
+        Me.TabControlPanel4.Style.BorderSide = CType(((DevComponents.DotNetBar.eBorderSide.Left Or DevComponents.DotNetBar.eBorderSide.Right) _
+            Or DevComponents.DotNetBar.eBorderSide.Bottom), DevComponents.DotNetBar.eBorderSide)
+        Me.TabControlPanel4.Style.GradientAngle = 90
+        Me.TabControlPanel4.TabIndex = 13
+        Me.TabControlPanel4.TabItem = Me.TabItem4
+        '
+        'EndDateTimePicker
+        '
+        Me.EndDateTimePicker.CalendarFont = New System.Drawing.Font("微软雅黑", 9.0!)
+        Me.EndDateTimePicker.CalendarForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.EndDateTimePicker.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.EndDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.EndDateTimePicker.Location = New System.Drawing.Point(388, 10)
+        Me.EndDateTimePicker.Name = "EndDateTimePicker"
+        Me.EndDateTimePicker.Size = New System.Drawing.Size(96, 21)
+        Me.EndDateTimePicker.TabIndex = 10
+        '
+        'StartDateTimePicker
+        '
+        Me.StartDateTimePicker.CalendarFont = New System.Drawing.Font("微软雅黑", 9.0!)
+        Me.StartDateTimePicker.CalendarForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.StartDateTimePicker.CalendarMonthBackground = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
+        Me.StartDateTimePicker.CustomFormat = ""
+        Me.StartDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.StartDateTimePicker.Location = New System.Drawing.Point(267, 10)
+        Me.StartDateTimePicker.Name = "StartDateTimePicker"
+        Me.StartDateTimePicker.Size = New System.Drawing.Size(98, 21)
+        Me.StartDateTimePicker.TabIndex = 10
+        '
+        'Button2
+        '
+        Me.Button2.BackColor = System.Drawing.Color.Transparent
+        Me.Button2.FlatAppearance.BorderSize = 0
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(213, Byte), Integer))
+        Me.Button2.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.refresh_16px
+        Me.Button2.Location = New System.Drawing.Point(490, 7)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(26, 26)
+        Me.Button2.TabIndex = 2
+        Me.Button2.UseVisualStyleBackColor = False
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.Transparent
+        Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
+        Me.Label4.Location = New System.Drawing.Point(371, 14)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(11, 12)
+        Me.Label4.TabIndex = 3
+        Me.Label4.Text = "-"
+        '
+        'TabItem4
+        '
+        Me.TabItem4.AttachedControl = Me.TabControlPanel4
+        Me.TabItem4.Name = "TabItem4"
+        Me.TabItem4.Text = "历史数据"
         '
         'TabControlPanel1
         '
@@ -723,39 +782,6 @@ Partial Class MainForm
         Me.TabItem3.Name = "TabItem3"
         Me.TabItem3.Text = "设备状态"
         '
-        'TabControlPanel4
-        '
-        Me.TabControlPanel4.Controls.Add(Me.Chart1)
-        Me.TabControlPanel4.Controls.Add(Me.ComboBox1)
-        Me.TabControlPanel4.Controls.Add(Me.Button3)
-        Me.TabControlPanel4.Controls.Add(Me.Label1)
-        Me.TabControlPanel4.Controls.Add(Me.ComboBox3)
-        Me.TabControlPanel4.Controls.Add(Me.Button1)
-        Me.TabControlPanel4.Controls.Add(Me.Label3)
-        Me.TabControlPanel4.Controls.Add(Me.Label2)
-        Me.TabControlPanel4.Controls.Add(Me.Button2)
-        Me.TabControlPanel4.Controls.Add(Me.ComboBox2)
-        Me.TabControlPanel4.DisabledBackColor = System.Drawing.Color.Empty
-        Me.TabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControlPanel4.Location = New System.Drawing.Point(0, 27)
-        Me.TabControlPanel4.Name = "TabControlPanel4"
-        Me.TabControlPanel4.Padding = New System.Windows.Forms.Padding(1)
-        Me.TabControlPanel4.Size = New System.Drawing.Size(1150, 598)
-        Me.TabControlPanel4.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.TabControlPanel4.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
-        Me.TabControlPanel4.Style.BorderColor.Color = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(91, Byte), Integer))
-        Me.TabControlPanel4.Style.BorderSide = CType(((DevComponents.DotNetBar.eBorderSide.Left Or DevComponents.DotNetBar.eBorderSide.Right) _
-            Or DevComponents.DotNetBar.eBorderSide.Bottom), DevComponents.DotNetBar.eBorderSide)
-        Me.TabControlPanel4.Style.GradientAngle = 90
-        Me.TabControlPanel4.TabIndex = 13
-        Me.TabControlPanel4.TabItem = Me.TabItem4
-        '
-        'TabItem4
-        '
-        Me.TabItem4.AttachedControl = Me.TabControlPanel4
-        Me.TabItem4.Name = "TabItem4"
-        Me.TabItem4.Text = "历史数据"
-        '
         'TabControlPanel2
         '
         Me.TabControlPanel2.Controls.Add(Me.TextBox1)
@@ -802,10 +828,10 @@ Partial Class MainForm
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TabControl2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabControl2.ResumeLayout(False)
-        Me.TabControlPanel1.ResumeLayout(False)
-        Me.TabControlPanel3.ResumeLayout(False)
         Me.TabControlPanel4.ResumeLayout(False)
         Me.TabControlPanel4.PerformLayout()
+        Me.TabControlPanel1.ResumeLayout(False)
+        Me.TabControlPanel3.ResumeLayout(False)
         Me.TabControlPanel2.ResumeLayout(False)
         Me.TabControlPanel2.PerformLayout()
         Me.ResumeLayout(False)
@@ -843,8 +869,6 @@ Partial Class MainForm
     Friend WithEvents Button3 As Button
     Friend WithEvents ComboBox3 As ComboBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents Button2 As Button
-    Friend WithEvents ComboBox2 As ComboBox
     Friend WithEvents Label2 As Label
     Friend WithEvents Chart1 As DataVisualization.Charting.Chart
     Friend WithEvents PictureBox1 As PictureBox
@@ -864,4 +888,8 @@ Partial Class MainForm
     Friend WithEvents TabControlPanel4 As DevComponents.DotNetBar.TabControlPanel
     Friend WithEvents TabItem4 As DevComponents.DotNetBar.TabItem
     Friend WithEvents ButtonItem7 As DevComponents.DotNetBar.ButtonItem
+    Friend WithEvents StartDateTimePicker As DateTimePicker
+    Friend WithEvents EndDateTimePicker As DateTimePicker
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Button2 As Button
 End Class

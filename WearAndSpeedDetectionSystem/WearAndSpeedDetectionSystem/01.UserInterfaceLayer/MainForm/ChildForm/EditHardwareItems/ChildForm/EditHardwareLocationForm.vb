@@ -58,7 +58,7 @@ Public Class EditHardwareLocationForm
         If Background IsNot Nothing Then Background.Dispose()
 
         Try
-            System.IO.Directory.CreateDirectory($"Data")
+            System.IO.Directory.CreateDirectory($".\Data")
             File.Copy(tmpDialog.FileName, AppSetting.OverviewBackgroundLocation, True)
             Background = Bitmap.FromFile(AppSetting.OverviewBackgroundLocation)
             BackgroundGraphics = Graphics.FromImage(Background)

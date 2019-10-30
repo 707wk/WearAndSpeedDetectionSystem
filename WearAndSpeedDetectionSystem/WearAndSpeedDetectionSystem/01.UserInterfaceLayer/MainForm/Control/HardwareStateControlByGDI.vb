@@ -44,15 +44,17 @@
             e.Graphics.DrawString($"{Math.Round(HardwareInfo.Voltage, 2)}V", Me.Font, StrSolidBrush, TmpPoint)
 
             For i001 = 0 To TableTitle.Count - 1
-                .X = 165 + 58 + 55 * i001
+                .X = 163 + 58 + 55 * i001
                 .Y = 6
                 e.Graphics.DrawString(TableTitle(i001), Me.Font, StrSolidBrush, TmpPoint)
             Next
 
             For sensorID = 0 To 2 - 1
                 .Y = 25 + sensorID * 19
-
-                .X = 165
+                'HardwareInfo.SensorItems(sensorID, 0) = 65535
+                'HardwareInfo.SensorItems(sensorID, 1) = 65535
+                'HardwareInfo.SensorItems(sensorID, 2) = 65535
+                .X = 163
                 e.Graphics.DrawString($"传感器{sensorID + 1}", Me.Font, StrSolidBrush, TmpPoint)
                 '磨损
                 '.X += 30
@@ -63,7 +65,7 @@
                                           Me.Font,
                                           StrSolidBrush,
                                           TmpPoint)
-                    'e.Graphics.DrawString("100", Me.Font, StrSolidBrush, TmpPoint)
+                    'e.Graphics.DrawString("65536", Me.Font, StrSolidBrush, TmpPoint)
                 Else
                     e.Graphics.DrawImage(My.Resources.warning_16px, .X - 16, .Y)
                     e.Graphics.DrawString(Math.Round(HardwareInfo.SensorItems(sensorID, 0) / 10, 1),
@@ -80,7 +82,7 @@
                                           Me.Font,
                                           StrSolidBrush,
                                           TmpPoint)
-                    'e.Graphics.DrawString("100", Me.Font, StrSolidBrush, TmpPoint)
+                    'e.Graphics.DrawString("65536", Me.Font, StrSolidBrush, TmpPoint)
                 Else
                     e.Graphics.DrawImage(My.Resources.warning_16px, .X - 16, .Y)
                     e.Graphics.DrawString(Math.Round(HardwareInfo.SensorItems(sensorID, 1) / 10, 1),
@@ -97,7 +99,7 @@
                                           Me.Font,
                                           StrSolidBrush,
                                           TmpPoint)
-                    'e.Graphics.DrawString("100", Me.Font, StrSolidBrush, TmpPoint)
+                    'e.Graphics.DrawString("65536", Me.Font, StrSolidBrush, TmpPoint)
                 Else
                     e.Graphics.DrawImage(My.Resources.warning_16px, .X - 16, .Y)
                     e.Graphics.DrawString(Math.Round(HardwareInfo.SensorItems(sensorID, 2) / 10, 1),

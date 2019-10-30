@@ -288,6 +288,11 @@ WearAndSpeedDetectionSystem
  转速最大值
  </summary>
 </member>
+<member name="F:WearAndSpeedDetectionSystem.AppSetting.IsAutoRun">
+ <summary>
+ 是否开机自启
+ </summary>
+</member>
 <member name="T:WearAndSpeedDetectionSystem.HardwareInfo">
  <summary>
  硬件信息

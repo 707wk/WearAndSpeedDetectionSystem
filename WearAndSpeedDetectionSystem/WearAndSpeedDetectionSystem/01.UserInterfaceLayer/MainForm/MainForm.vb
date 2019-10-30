@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
 Imports System.Text
+Imports System.Windows.Forms.DataVisualization.Charting
 Imports Microsoft.Win32
 
 Public Class MainForm
@@ -73,9 +74,7 @@ Public Class MainForm
         End With
 
         '历史文件
-        With ComboBox2
-            .DropDownStyle = ComboBoxStyle.DropDownList
-        End With
+        Button2_Click(Nothing, Nothing)
 
         '历史数据参数类型
         With ComboBox3
@@ -103,7 +102,7 @@ Public Class MainForm
             .AxisX.MajorGrid.LineColor = Color.FromArgb(215, 215, 215)
             .AxisX.MajorGrid.LineDashStyle = DataVisualization.Charting.ChartDashStyle.Dot
             .AxisX.MajorTickMark.LineColor = Color.FromArgb(215, 215, 215)
-            .AxisX.LabelStyle.Format = "HH:mm:ss"
+            .AxisX.LabelStyle.Format = "yyyy/MM/dd HH:mm:ss"
             .AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds
 
             .AxisY.LabelStyle.ForeColor = Color.FromArgb(215, 215, 215)
@@ -143,7 +142,10 @@ Public Class MainForm
             SensorSeriesArray(i001) = New DataVisualization.Charting.Series
             With SensorSeriesArray(i001)
                 .ChartArea = SensorChartArea.Name
-                .ChartType = DataVisualization.Charting.SeriesChartType.FastLine
+                '.ChartType = DataVisualization.Charting.SeriesChartType.FastLine
+                .ChartType = DataVisualization.Charting.SeriesChartType.Line
+                '.IsValueShownAsLabel = True
+                .LabelForeColor = Color.FromArgb(215, 215, 215)
                 .XValueType = DataVisualization.Charting.ChartValueType.DateTime
             End With
             Chart1.Series.Add(SensorSeriesArray(i001))
@@ -166,10 +168,12 @@ Public Class MainForm
             .BorderWidth = 3
         End With
 
-        System.IO.Directory.CreateDirectory($"SensorData")
+        System.IO.Directory.CreateDirectory($".\SensorData")
         Button1_Click(Nothing, Nothing)
 
 #End Region
+
+        'CheckBoxItem1.Checked = AppSettingHelper.Settings.IsAutoRun
 
 #Region "隐藏历史模块"
         'TabControl2.Tabs.Remove(TabItem3)
@@ -490,7 +494,7 @@ Public Class MainForm
 #Region "历史数据"
 #Region "显示刀具文件夹列表"
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim parentDirectoryInfo As New IO.DirectoryInfo("SensorData")
+        Dim parentDirectoryInfo As New IO.DirectoryInfo(".\SensorData")
         Dim childtDirectoryInfoItems = parentDirectoryInfo.GetDirectories()
 
         With ComboBox1
@@ -505,33 +509,39 @@ Public Class MainForm
 
     End Sub
 
-    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
-        Button2_Click(Nothing, Nothing)
+    'Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
+    '    Button2_Click(Nothing, Nothing)
+    'End Sub
+#End Region
+
+#Region "刷新日期"
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        EndDateTimePicker.MaxDate = Now
+        StartDateTimePicker.MaxDate = EndDateTimePicker.Value
     End Sub
 #End Region
 
 #Region "显示历史文件列表"
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        If ComboBox1.Text = "" Then
-            Exit Sub
-        End If
+    'Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    '    If ComboBox1.Text = "" Then
+    '        Exit Sub
+    '    End If
 
-        With ComboBox2
-            .Items.Clear()
-            For Each tmpFileName In IO.Directory.GetFiles($"SensorData\{ComboBox1.Text}", "*.log")
-                .Items.Add(IO.Path.GetFileNameWithoutExtension(tmpFileName))
-            Next
-            If .Items.Count > 0 Then
-                .SelectedIndex = 0
-            End If
-        End With
-    End Sub
+    '    With ComboBox2
+    '        .Items.Clear()
+    '        For Each tmpFileName In IO.Directory.GetFiles($".\SensorData\{ComboBox1.Text}", "*.log")
+    '            .Items.Add(IO.Path.GetFileNameWithoutExtension(tmpFileName))
+    '        Next
+    '        If .Items.Count > 0 Then
+    '            .SelectedIndex = 0
+    '        End If
+    '    End With
+    'End Sub
 #End Region
 
 #Region "加载数据"
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        If ComboBox1.Text = "" OrElse
-            ComboBox2.Text = "" Then
+        If ComboBox1.Text = "" Then
             Exit Sub
         End If
 
@@ -541,7 +551,9 @@ Public Class MainForm
 
             tmpDialog.Start(Sub(uie As Wangk.Resource.UIWorkEventArgs)
                                 With SensorChartArea
-                                    .AxisX.Title = $"{ComboBox1.Text} {ComboBox2.Text} {ComboBox3.Text}"
+                                    .AxisX.Title = $"{uie.Args} {ComboBox3.Text}"
+                                    .AxisX.Minimum = StartDateTimePicker.Value.Date.ToOADate
+                                    .AxisX.Maximum = EndDateTimePicker.Value.AddDays(1).Date.ToOADate
                                 End With
 
                                 Dim dtFormat As Globalization.DateTimeFormatInfo = New Globalization.DateTimeFormatInfo
@@ -551,53 +563,66 @@ Public Class MainForm
                                     SensorSeriesArray(i001).Points.Clear()
                                 Next
 
-                                Dim filePath = $"SensorData\{ComboBox1.Text}\{ComboBox2.Text}.log"
+                                Dim tmpDate As Date = StartDateTimePicker.Value.Date
+                                Do
 
-                                Dim fileRowCount = GetFileRowCount(filePath)
+                                    uie.Write($"加载 {uie.Args}_{tmpDate.ToString("yyyyMMdd")}.log")
 
-                                Using tmpSR As IO.StreamReader = New IO.StreamReader(filePath)
-                                    Dim IsSetDate As Boolean = False
+                                    Dim filePath = $".\SensorData\{ComboBox1.Text}\{uie.Args}_{tmpDate.ToString("yyyyMMdd")}.log"
+                                    tmpDate = tmpDate.AddDays(1)
 
-                                    Dim fileRowID As Integer = 0
-                                    Do
-                                        Dim tmpStr = tmpSR.ReadLine()
-                                        If tmpStr Is Nothing Then
-                                            Exit Do
-                                        End If
+                                    If Not IO.File.Exists(filePath) Then
+                                        Continue Do
+                                    End If
 
-                                        fileRowID += 1
-                                        If (fileRowID * 1000 \ fileRowCount) Mod 10 = 0 Then
-                                            uie.Write($"加载进度{fileRowID * 100 \ fileRowCount}%")
-                                        End If
+                                    'Dim fileRowCount = GetFileRowCount(filePath)
 
-                                        Dim tmpStrArray() = tmpStr.Split(">")
-                                        Dim tmpStrArray2() = tmpStrArray(1).Split(" ")
+                                    Using tmpSR As IO.StreamReader = New IO.StreamReader(filePath)
+                                        'Dim IsSetDate As Boolean = False
 
-                                        Dim tmpDateTime = Convert.ToDateTime(tmpStrArray(0),
+                                        'Dim fileRowID As Integer = 0
+                                        Do
+                                            Dim tmpStr = tmpSR.ReadLine()
+                                            If tmpStr Is Nothing Then
+                                                Exit Do
+                                            End If
+
+                                            'fileRowID += 1
+                                            'If (fileRowID * 1000 \ fileRowCount) Mod 10 = 0 Then
+                                            '    uie.Write($"加载进度{fileRowID * 100 \ fileRowCount}%")
+                                            'End If
+
+                                            Dim tmpStrArray() = tmpStr.Split(">")
+                                            Dim tmpStrArray2() = tmpStrArray(1).Split(" ")
+
+                                            Dim tmpDateTime = Convert.ToDateTime(tmpStrArray(0),
                                                                              dtFormat)
 
-                                        If ComboBox3.SelectedIndex = 0 Then
+                                            If ComboBox3.SelectedIndex = 0 Then
 
-                                            SensorSeriesArray(0).Points.AddXY(tmpDateTime, Val(tmpStrArray2(1)))
-                                        Else
-                                            SensorSeriesArray(1).Points.AddXY(tmpDateTime, Val(tmpStrArray2(1 + ComboBox3.SelectedIndex)))
+                                                SensorSeriesArray(0).Points.AddXY(tmpDateTime, Val(tmpStrArray2(1)))
+                                            Else
+                                                SensorSeriesArray(1).Points.AddXY(tmpDateTime, Val(tmpStrArray2(1 + ComboBox3.SelectedIndex)))
 
-                                            SensorSeriesArray(2).Points.AddXY(tmpDateTime, Val(tmpStrArray2(1 + ComboBox3.SelectedIndex + 9)))
-                                        End If
+                                                SensorSeriesArray(2).Points.AddXY(tmpDateTime, Val(tmpStrArray2(1 + ComboBox3.SelectedIndex + 9)))
+                                            End If
 
-                                        If Not IsSetDate Then
-                                            IsSetDate = True
-                                            With SensorChartArea
-                                                .AxisX.Minimum = tmpDateTime.Date.ToOADate
-                                                .AxisX.Maximum = tmpDateTime.AddDays(1).Date.ToOADate
-                                            End With
-                                        End If
+                                            'If Not IsSetDate Then
+                                            '    IsSetDate = True
+                                            '    With SensorChartArea
+                                            '        .AxisX.Minimum = tmpDateTime.Date.ToOADate
+                                            '        .AxisX.Maximum = tmpDateTime.AddDays(1).Date.ToOADate
+                                            '    End With
+                                            'End If
 
-                                    Loop
+                                        Loop
 
-                                End Using
+                                    End Using
+
+                                Loop While tmpDate <= EndDateTimePicker.Value.Date
+
                             End Sub,
-                            Nothing)
+                            ComboBox1.Text.Split("[")(0))
 
         End Using
 
@@ -681,6 +706,27 @@ Public Class MainForm
             AppSettingHelper.SaveToLocaltion()
         End Using
     End Sub
+
+    Private Sub EndDateTimePicker_ValueChanged(sender As Object, e As EventArgs) Handles EndDateTimePicker.ValueChanged
+        StartDateTimePicker.MaxDate = EndDateTimePicker.Value
+    End Sub
+
+    Private Sub Chart1_AxisViewChanged(sender As Object, e As ViewEventArgs) Handles Chart1.AxisViewChanged
+        Try
+            Dim tmpDateTime = DateTime.FromOADate(SensorChartArea.AxisX.ScaleView.Size)
+            Dim isValueShown = tmpDateTime.Year = 1899 AndAlso
+                tmpDateTime.Month = 12 AndAlso
+                tmpDateTime.Day = 30 AndAlso
+                tmpDateTime.Hour <= 5
+
+            For i001 = 0 To 3 - 1
+                SensorSeriesArray(i001).IsValueShownAsLabel = isValueShown
+            Next
+        Catch ex As Exception
+        End Try
+
+    End Sub
+
 #End Region
 
 #Region "开机自启"
@@ -717,7 +763,6 @@ Public Class MainForm
     '               Wangk.Resource.MultiLanguageHelper.Lang.GetS("开机自启失败"))
     '    End Try
     'End Sub
-
     'Private Sub MainForm_Shown(sender As Object, e As EventArgs) Handles Me.Shown
     '    If AppSettingHelper.Settings.IsAutoRun Then
     '        ButtonItem2_Click(Nothing, Nothing)

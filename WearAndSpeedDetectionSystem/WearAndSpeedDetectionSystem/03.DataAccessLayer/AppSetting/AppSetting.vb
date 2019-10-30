@@ -26,7 +26,7 @@ Public Class AppSetting
     ''' <summary>
     ''' 概览背景图路径
     ''' </summary>
-    Public Shared OverviewBackgroundLocation As String = "Data\OverviewBackground"
+    Public Shared OverviewBackgroundLocation As String = ".\Data\OverviewBackground"
 
     ''' <summary>
     ''' 硬件列表
@@ -46,9 +46,9 @@ Public Class AppSetting
     ''' </summary>
     Public SpeedMaximum As Integer
 
-    '''' <summary>
-    '''' 是否开机自启
-    '''' </summary>
-    'Public IsAutoRun As Boolean
+    ''' <summary>
+    ''' 是否开机自启
+    ''' </summary>
+    Public IsAutoRun As Boolean
 
 End Class
