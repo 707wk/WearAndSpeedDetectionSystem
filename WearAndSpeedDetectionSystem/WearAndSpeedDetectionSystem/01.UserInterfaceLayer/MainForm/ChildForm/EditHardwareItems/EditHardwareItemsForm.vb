@@ -16,6 +16,8 @@
 
         Next
 
+        AppSettingHelper.Settings.WallThicknessHardwareID = NumericUpDown1.Value
+
         AppSettingHelper.Settings.HardwareItems.Clear()
         For Each tmpRow As DataGridViewRow In DataGridView1.Rows
 
@@ -58,6 +60,8 @@
                 GetProperty("DoubleBuffered", Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic).
                 SetValue(DataGridView1, True, Nothing)
         End With
+
+        NumericUpDown1.Value = AppSettingHelper.Settings.WallThicknessHardwareID
 
         For Each tmpHardware In AppSettingHelper.Settings.HardwareItems
             With tmpHardware

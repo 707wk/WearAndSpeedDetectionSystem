@@ -132,6 +132,11 @@ WearAndSpeedDetectionSystem
  创建硬件概览背景图片
  </summary>
 </member>
+<member name="M:WearAndSpeedDetectionSystem.MainForm.UpdateWarningMessage(WearAndSpeedDetectionSystem.HardwareInfo)">
+ <summary>
+ 更新告警信息
+ </summary>
+</member>
 <member name="M:WearAndSpeedDetectionSystem.MainForm.GetFileRowCount(System.String)">
  <summary>
  获取文件行数
@@ -193,6 +198,11 @@ WearAndSpeedDetectionSystem
  检测线程
  </summary>
 </member>
+<member name="M:WearAndSpeedDetectionSystem.HardwareStateHelper.UpdateTBMCutterRev(System.Int32)">
+ <summary>
+ 更新转速
+ </summary>
+</member>
 <member name="M:WearAndSpeedDetectionSystem.HardwareStateHelper.ReadSensorData">
  <summary>
  立即采集
@@ -211,6 +221,11 @@ WearAndSpeedDetectionSystem
 <member name="M:WearAndSpeedDetectionSystem.HardwareStateHelper.GetHardwareState(WearAndSpeedDetectionSystem.HardwareInfo)">
  <summary>
  采集模块状态
+ </summary>
+</member>
+<member name="M:WearAndSpeedDetectionSystem.HardwareStateHelper.GetRotationAngle">
+ <summary>
+ 获取转动角度
  </summary>
 </member>
 <member name="T:WearAndSpeedDetectionSystem.AppSettingHelper">
@@ -260,12 +275,17 @@ WearAndSpeedDetectionSystem
 </member>
 <member name="F:WearAndSpeedDetectionSystem.AppSetting.pollingInterval">
  <summary>
- 设备轮询间隔
+ 设备轮询间隔(s)
  </summary>
 </member>
 <member name="F:WearAndSpeedDetectionSystem.AppSetting.OverviewBackgroundLocation">
  <summary>
  概览背景图路径
+ </summary>
+</member>
+<member name="F:WearAndSpeedDetectionSystem.AppSetting.WallThicknessHardwareID">
+ <summary>
+ 刀盘转速测量设备ID
  </summary>
 </member>
 <member name="F:WearAndSpeedDetectionSystem.AppSetting.HardwareItems">
@@ -288,9 +308,24 @@ WearAndSpeedDetectionSystem
  转速最大值
  </summary>
 </member>
+<member name="F:WearAndSpeedDetectionSystem.AppSetting.BatteryVoltageMinimum">
+ <summary>
+ 电池最小值
+ </summary>
+</member>
 <member name="F:WearAndSpeedDetectionSystem.AppSetting.IsAutoRun">
  <summary>
  是否开机自启
+ </summary>
+</member>
+<member name="F:WearAndSpeedDetectionSystem.AppSetting.OldYRotationAngle">
+ <summary>
+ y轴转动角度
+ </summary>
+</member>
+<member name="F:WearAndSpeedDetectionSystem.AppSetting.IsTBMCutterTurn">
+ <summary>
+ 刀盘是否转动
  </summary>
 </member>
 <member name="T:WearAndSpeedDetectionSystem.HardwareInfo">

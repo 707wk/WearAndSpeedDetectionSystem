@@ -2,6 +2,7 @@
 Imports System.IO
 Imports System.Text
 Imports System.Windows.Forms.DataVisualization.Charting
+Imports DevComponents.DotNetBar
 Imports Microsoft.Win32
 
 Public Class MainForm
@@ -65,6 +66,16 @@ Public Class MainForm
                 .SelectedIndex = 20 - 1
             End If
         End With
+#End Region
+
+#Region "概览"
+        With DataGridView1
+            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            .CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal
+            .ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False
+            .DefaultCellStyle.BackColor = Color.FromArgb(71, 71, 71)
+        End With
+
 #End Region
 
 #Region "历史数据"
@@ -264,8 +275,7 @@ Public Class MainForm
             FlowLayoutPanel1.Controls.Add(tmpHardware.HardwareStateControl)
             tmpHardware.HardwareStateControl.Show()
         Next
-        'AppSettingHelper.Settings.HardwareItems(10).HardwareStateControl.IsReadData(True)
-        'AppSettingHelper.Settings.HardwareItems(11).HardwareStateControl.IsReadData(False)
+
     End Sub
 #End Region
 
@@ -281,46 +291,8 @@ Public Class MainForm
         Background = Bitmap.FromFile(AppSetting.OverviewBackgroundLocation)
         BackgroundGraphics = Graphics.FromImage(Background)
 
-#Region "画笔及画刷"
-        Dim boxPen As New Pen(Color.FromArgb(118, 118, 118), 1)
-        Dim backgroundColorSolidBrush As New SolidBrush(Color.LimeGreen)
-        Dim backgroundColorSolidBrush2 As New SolidBrush(Color.FromArgb(255, 127, 127))
-        'Dim backgroundColorSolidBrush2 As New SolidBrush(Color.OrangeRed)
-        Dim fontSolidBrush As New SolidBrush(Color.Black)
-        Dim tmpRectangle As Rectangle
-        With tmpRectangle
-            .Width = 50
-            .Height = 28
-        End With
-#End Region
-
         For Each tmpHardware In AppSettingHelper.Settings.HardwareItems
-            With tmpRectangle
-                .Location = tmpHardware.Location
-            End With
-
-            '填充底色
-            If tmpHardware.SensorItems(0, 2) > 0 Then
-                BackgroundGraphics.FillRectangle(backgroundColorSolidBrush, tmpRectangle)
-            Else
-                BackgroundGraphics.FillRectangle(backgroundColorSolidBrush2, tmpRectangle)
-            End If
-
-            'If AppSettingHelper.Settings.HardwareItems.IndexOf(tmpHardware) Mod 2 Then
-            '    BackgroundGraphics.FillRectangle(backgroundColorSolidBrush, tmpRectangle)
-            'Else
-            '    BackgroundGraphics.FillRectangle(backgroundColorSolidBrush2, tmpRectangle)
-            'End If
-
-            '绘制箱体边框
-            BackgroundGraphics.DrawRectangle(boxPen, tmpRectangle)
-            '绘制连接信息
-            BackgroundGraphics.DrawString($"{Math.Round(tmpHardware.Voltage, 2)}V
-{Math.Round(tmpHardware.SensorItems(0, 0) / 10, 1)}mm",
-                                  Me.Font,
-                                  fontSolidBrush,
-                                  tmpHardware.Location.X + 1,
-                                  tmpHardware.Location.Y + 1)
+            UpdateOverviewBackground(tmpHardware)
         Next
 
         PictureBox1.Image = Background
@@ -414,9 +386,13 @@ Public Class MainForm
 
             If tmpDialog.Value = "20191009" Then
                 'TabControl2.Tabs.Add(TabItem3)
+                If TabControl2.Tabs.Contains(TabItem4) Then
+                    Exit Sub
+                End If
+
                 TabControl2.Tabs.Add(TabItem4)
 
-                ButtonItem6.Enabled = False
+                'ButtonItem6.Enabled = False
 
                 TabControl2.RecalcLayout()
             End If
@@ -453,10 +429,11 @@ Public Class MainForm
         End If
 
 #Region "画笔及画刷"
-        Dim boxPen As New Pen(Color.FromArgb(118, 118, 118), 1)
+        Dim boxPen As New Pen(Color.FromArgb(51, 51, 51), 1)
         Dim backgroundColorSolidBrush As New SolidBrush(Color.LimeGreen)
         Dim backgroundColorSolidBrush2 As New SolidBrush(Color.FromArgb(255, 127, 127))
-        Dim fontSolidBrush As New SolidBrush(Color.Black)
+        'Dim backgroundColorSolidBrush2 As New SolidBrush(Color.OrangeRed)
+        Dim fontSolidBrush As New SolidBrush(Color.FromArgb(51, 51, 51))
         Dim tmpRectangle As Rectangle
         With tmpRectangle
             .Width = 50
@@ -475,7 +452,7 @@ Public Class MainForm
         '绘制箱体边框
         BackgroundGraphics.DrawRectangle(boxPen, tmpRectangle)
         '绘制连接信息
-        BackgroundGraphics.DrawString($"{Math.Round(value.Voltage, 2)}V
+        BackgroundGraphics.DrawString($"{value.Name}
 {Math.Round(value.SensorItems(0, 0) / 10, 1)}mm",
                                   Me.Font,
                                   fontSolidBrush,
@@ -483,6 +460,53 @@ Public Class MainForm
                                   value.Location.Y + 1)
 
         PictureBox1.Image = Background
+
+        UpdateWarningMessage(value)
+
+    End Sub
+#End Region
+
+#Region "更新告警信息"
+    ''' <summary>
+    ''' 更新告警信息
+    ''' </summary>
+    Private Sub UpdateWarningMessage(value As HardwareInfo)
+        Dim rowID As Integer = -1
+        For Each item As DataGridViewRow In DataGridView1.Rows
+            If $"{item.Cells(1).Value}" = $"{value.ID}" Then
+                rowID = DataGridView1.Rows.IndexOf(item)
+                Exit For
+            End If
+        Next
+
+        If value.Voltage < AppSettingHelper.Settings.BatteryVoltageMinimum Then
+            If rowID = -1 Then
+                rowID = DataGridView1.Rows.Add({$"{value.Name}", $"{value.ID}", $"电池低于{AppSettingHelper.Settings.BatteryVoltageMinimum}V"})
+                DataGridView1.Rows(rowID).DefaultCellStyle.BackColor = Color.FromArgb(221, 101, 114)
+            End If
+        Else
+            If rowID <> -1 Then
+                DataGridView1.Rows.RemoveAt(rowID)
+            End If
+        End If
+
+    End Sub
+#End Region
+
+#Region "更新转速"
+    Public Delegate Sub UpdateTBMCutterRevCallback()
+    Public Sub UpdateTBMCutterRev()
+        If Me.InvokeRequired Then
+            Me.Invoke(New UpdateTBMCutterRevCallback(AddressOf UpdateTBMCutterRev))
+            Exit Sub
+        End If
+
+        'Dim ts As TimeSpan = AppSettingHelper.Settings.YRotationAngleUpdateDateTime - AppSettingHelper.Settings.OldYRotationAngleUpdateDateTime
+        'Dim sec As Integer = ts.TotalSeconds
+
+        With AppSettingHelper.Settings
+            Label5.Text = $"刀盘状态: {If(.IsTBMCutterTurn, "转动", "静止")}"
+        End With
 
     End Sub
 #End Region
@@ -554,6 +578,15 @@ Public Class MainForm
                                     .AxisX.Title = $"{uie.Args} {ComboBox3.Text}"
                                     .AxisX.Minimum = StartDateTimePicker.Value.Date.ToOADate
                                     .AxisX.Maximum = EndDateTimePicker.Value.AddDays(1).Date.ToOADate
+
+                                    If ComboBox3.SelectedIndex = 0 Then
+                                        .AxisY.Minimum = 18
+                                        .AxisY.Maximum = 28
+                                    Else
+                                        .AxisY.Minimum = Double.NaN
+                                        .AxisY.Maximum = Double.NaN
+                                    End If
+
                                 End With
 
                                 Dim dtFormat As Globalization.DateTimeFormatInfo = New Globalization.DateTimeFormatInfo
@@ -626,52 +659,6 @@ Public Class MainForm
 
         End Using
 
-        'With SensorChartArea
-        '    .AxisX.Title = $"{ComboBox1.Text} {ComboBox2.Text} {ComboBox3.Text}"
-        'End With
-
-        'Dim dtFormat As Globalization.DateTimeFormatInfo = New Globalization.DateTimeFormatInfo
-        'dtFormat.YearMonthPattern = "yyyy/MM/dd"
-
-        'For i001 = 0 To SensorSeriesArray.Count - 1
-        '    SensorSeriesArray(i001).Points.Clear()
-        'Next
-
-        'Using tmpSR As IO.StreamReader = New IO.StreamReader($"SensorData\{ComboBox1.Text}\{ComboBox2.Text}.log")
-        '    Dim IsSetDate As Boolean = False
-
-        '    Do
-        '        Dim tmpStr = tmpSR.ReadLine()
-        '        If tmpStr Is Nothing Then
-        '            Exit Do
-        '        End If
-
-        '        Dim tmpStrArray() = tmpStr.Split(">")
-        '        Dim tmpStrArray2() = tmpStrArray(1).Split(" ")
-
-        '        Dim tmpDateTime = Convert.ToDateTime(tmpStrArray(0),
-        '                                             dtFormat)
-
-        '        If ComboBox3.SelectedIndex = 0 Then
-
-        '            SensorSeriesArray(0).Points.AddXY(tmpDateTime, Val(tmpStrArray2(1)))
-        '        Else
-        '            SensorSeriesArray(1).Points.AddXY(tmpDateTime, Val(tmpStrArray2(1 + ComboBox3.SelectedIndex)))
-
-        '            SensorSeriesArray(2).Points.AddXY(tmpDateTime, Val(tmpStrArray2(1 + ComboBox3.SelectedIndex + 9)))
-        '        End If
-
-        '        If Not IsSetDate Then
-        '            IsSetDate = True
-        '            With SensorChartArea
-        '                .AxisX.Minimum = tmpDateTime.Date.ToOADate
-        '                .AxisX.Maximum = tmpDateTime.AddDays(1).Date.ToOADate
-        '            End With
-        '        End If
-
-        '    Loop
-
-        'End Using
     End Sub
 
 #Region "获取文件行数"
@@ -729,44 +716,11 @@ Public Class MainForm
 
 #End Region
 
-#Region "开机自启"
-    'Private Sub CheckBoxItem1_Click(sender As Object, e As EventArgs)
-    '    If AppSettingHelper.Settings.IsAutoRun = CheckBoxItem1.Checked Then
-    '        Exit Sub
-    '    End If
+    Private Sub TabControl2_TabItemClose(sender As Object, e As TabStripActionEventArgs) Handles TabControl2.TabItemClose
+        e.Cancel = True
 
-    '    Try
-    '        If CheckBoxItem1.Checked Then
+        TabControl2.Tabs.Remove(e.TabItem)
+        TabControl2.SelectedTabIndex = 0
+    End Sub
 
-    '            Using R_local As RegistryKey = Registry.CurrentUser
-    '                Using R_run As RegistryKey = R_local.CreateSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run")
-    '                    R_run.SetValue(My.Application.Info.ProductName, $"""{Application.ExecutablePath}""")
-    '                End Using
-    '            End Using
-
-    '        Else
-
-    '            Using R_local As RegistryKey = Registry.CurrentUser
-    '                Using R_run As RegistryKey = R_local.CreateSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run")
-    '                    R_run.DeleteValue(My.Application.Info.ProductName, False)
-    '                End Using
-    '            End Using
-
-    '        End If
-
-    '        AppSettingHelper.Settings.IsAutoRun = CheckBoxItem1.Checked
-    '        AppSettingHelper.SaveToLocaltion()
-
-    '    Catch ex As Exception
-    '        MsgBox(ex.ToString,
-    '               MsgBoxStyle.Information,
-    '               Wangk.Resource.MultiLanguageHelper.Lang.GetS("开机自启失败"))
-    '    End Try
-    'End Sub
-    'Private Sub MainForm_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-    '    If AppSettingHelper.Settings.IsAutoRun Then
-    '        ButtonItem2_Click(Nothing, Nothing)
-    '    End If
-    'End Sub
-#End Region
 End Class

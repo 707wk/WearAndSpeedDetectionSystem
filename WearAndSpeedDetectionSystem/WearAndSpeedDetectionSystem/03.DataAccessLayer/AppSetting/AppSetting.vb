@@ -13,7 +13,7 @@ Public Class AppSetting
     Public BPS As String
 
     ''' <summary>
-    ''' 设备轮询间隔
+    ''' 设备轮询间隔(s)
     ''' </summary>
     Public pollingInterval As Integer
 
@@ -27,6 +27,11 @@ Public Class AppSetting
     ''' 概览背景图路径
     ''' </summary>
     Public Shared OverviewBackgroundLocation As String = ".\Data\OverviewBackground"
+
+    ''' <summary>
+    ''' 刀盘转速测量设备ID
+    ''' </summary>
+    Public WallThicknessHardwareID As Integer
 
     ''' <summary>
     ''' 硬件列表
@@ -45,10 +50,36 @@ Public Class AppSetting
     ''' 转速最大值
     ''' </summary>
     Public SpeedMaximum As Integer
+    ''' <summary>
+    ''' 电池最小值
+    ''' </summary>
+    Public BatteryVoltageMinimum As Integer
 
     ''' <summary>
     ''' 是否开机自启
     ''' </summary>
     Public IsAutoRun As Boolean
+
+    ''' <summary>
+    ''' y轴转动角度
+    ''' </summary>
+    <Newtonsoft.Json.JsonIgnore>
+    Public OldYRotationAngle As Integer = 0
+    '<Newtonsoft.Json.JsonIgnore>
+    'Public OldYRotationAngleUpdateDateTime As DateTime
+
+    '''' <summary>
+    '''' y轴转动角度
+    '''' </summary>
+    '<Newtonsoft.Json.JsonIgnore>
+    'Public YRotationAngle As Integer
+
+    ''' <summary>
+    ''' 刀盘是否转动
+    ''' </summary>
+    <Newtonsoft.Json.JsonIgnore>
+    Public IsTBMCutterTurn As Boolean
+    '<Newtonsoft.Json.JsonIgnore>
+    'Public YRotationAngleUpdateDateTime As DateTime = Now
 
 End Class

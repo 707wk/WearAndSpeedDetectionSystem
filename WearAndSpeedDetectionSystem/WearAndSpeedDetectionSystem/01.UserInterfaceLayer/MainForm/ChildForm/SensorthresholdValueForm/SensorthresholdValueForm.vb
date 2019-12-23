@@ -16,12 +16,19 @@
             .Value = If(AppSettingHelper.Settings.SpeedMaximum / 10 = 0, 5, AppSettingHelper.Settings.SpeedMaximum / 10)
         End With
 
+        With NumericUpDown4
+            .Minimum = 1
+            .Maximum = 1000
+            .Value = If(AppSettingHelper.Settings.BatteryVoltageMinimum = 0, 22, AppSettingHelper.Settings.BatteryVoltageMinimum)
+        End With
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         AppSettingHelper.Settings.WearMaximum = NumericUpDown1.Value * 10
         AppSettingHelper.Settings.TempMaximum = NumericUpDown2.Value * 10
         AppSettingHelper.Settings.SpeedMaximum = NumericUpDown3.Value * 10
+        AppSettingHelper.Settings.BatteryVoltageMinimum = NumericUpDown4.Value
 
         Me.DialogResult = DialogResult.OK
         Me.Close()

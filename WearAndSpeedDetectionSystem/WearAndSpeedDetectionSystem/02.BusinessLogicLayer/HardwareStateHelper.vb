@@ -66,8 +66,8 @@ Public NotInheritable Class HardwareStateHelper
             .Parity = IO.Ports.Parity.None
             .DataBits = 8
             .StopBits = 1
-            .ReadTimeout = 1000
-            .WriteTimeout = 1000
+            .ReadTimeout = 500
+            .WriteTimeout = 500
         End With
 
         Try
@@ -113,10 +113,16 @@ Public NotInheritable Class HardwareStateHelper
     ''' 检测线程
     ''' </summary>
     Private Shared Sub WorkFunction()
+        Dim hardwareID As Integer = 0
+        Dim sleepCount As Integer = 0
+
         Do
+            If Not _IsRunning Then Exit Sub
 
-            For Each tmpHardware In AppSettingHelper.Settings.HardwareItems
+#Region "检测设备状态"
 
+            If sleepCount Mod AppSettingHelper.Settings.pollingInterval = 0 Then
+                Dim tmpHardware = AppSettingHelper.Settings.HardwareItems(hardwareID)
                 If Not _IsRunning Then Exit Sub
 
                 '发送测试指令
@@ -177,16 +183,39 @@ Public NotInheritable Class HardwareStateHelper
                     tmpHardware.HardwareStateControl.IsOnLine(False)
                 End Try
 
-                '延时查询下一个设备
-                For i001 = 0 To AppSettingHelper.Settings.pollingInterval - 1
-                    If Not _IsRunning Then Exit Sub
+                hardwareID = (hardwareID + 1) Mod AppSettingHelper.Settings.HardwareItems.Count
+            End If
+#End Region
 
-                    Threading.Thread.Sleep(1000)
-                Next
+#Region "回读刀盘转速"
+            UpdateTBMCutterRev(sleepCount)
+#End Region
 
-            Next
+            sleepCount = (sleepCount + 1) Mod 100000
+            Threading.Thread.Sleep(1000)
+
         Loop
 
+    End Sub
+#End Region
+
+#Region "更新转速"
+    ''' <summary>
+    ''' 更新转速
+    ''' </summary>
+    Public Shared Sub UpdateTBMCutterRev(sleepCount As Integer)
+        If (sleepCount Mod 10) = 0 Then
+            UIMainForm.Log($"检测转速")
+
+            Try
+                GetRotationAngle()
+
+                UIMainForm.UpdateTBMCutterRev()
+
+            Catch ex As Exception
+                UIMainForm.Log(ex.Message)
+            End Try
+        End If
     End Sub
 #End Region
 
@@ -354,6 +383,56 @@ Public NotInheritable Class HardwareStateHelper
             Throw New Exception($"模块状态异常:{ex.Message}")
         End Try
 
+    End Sub
+#End Region
+
+#Region "获取转动角度"
+    ''' <summary>
+    ''' 获取转动角度
+    ''' </summary>
+    Private Shared Sub GetRotationAngle()
+        Try
+            Dim sendData() = Wangk.Hash.Hex2Bin("0003005D000255ea")
+            Dim recData(128 - 1) As Byte
+
+            '生成检测指令
+            sendData(0) = AppSettingHelper.Settings.WallThicknessHardwareID
+            Dim CRC = Wangk.Hash.GetCRC16Modbus(sendData, sendData.Count - 2)
+            Dim CRCBytes = BitConverter.GetBytes(CRC)
+            sendData(6) = CRCBytes(0)
+            sendData(7) = CRCBytes(1)
+
+            '发送检测指令
+            SP.Write(sendData, 0, sendData.Count)
+            '等待数据返回
+            Threading.Thread.Sleep(500)
+            Dim count = SP.Read(recData, 0, 128)
+
+            '判断CRC
+            CRC = Wangk.Hash.GetCRC16Modbus(recData, 7)
+            CRCBytes = BitConverter.GetBytes(CRC)
+            If recData(7) <> CRCBytes(0) OrElse
+                recData(8) <> CRCBytes(1) Then
+                Throw New Exception($"转动角度数据校验失败:{Wangk.Hash.Bin2Hex(recData)}")
+            End If
+
+            Dim tmpRotationAngle As UInt16 = 0 Or recData(5)
+            tmpRotationAngle <<= 8
+            tmpRotationAngle = tmpRotationAngle Or recData(6)
+
+            With AppSettingHelper.Settings
+                .IsTBMCutterTurn = Math.Abs(tmpRotationAngle - .OldYRotationAngle) >= 600
+            End With
+            'AppSettingHelper.Settings.OldYRotationAngle = AppSettingHelper.Settings.YRotationAngle
+            'AppSettingHelper.Settings.OldYRotationAngleUpdateDateTime = AppSettingHelper.Settings.YRotationAngleUpdateDateTime
+            'AppSettingHelper.Settings.YRotationAngle = tmpRotationAngle
+            'AppSettingHelper.Settings.YRotationAngleUpdateDateTime = Now
+
+        Catch timeOut As TimeoutException
+            Throw New Exception($"转动角度 接收数据超时")
+        Catch ex As Exception
+            Throw New Exception($"模块状态异常:{ex.Message}")
+        End Try
     End Sub
 #End Region
 
