@@ -423,6 +423,8 @@ Public NotInheritable Class HardwareStateHelper
             With AppSettingHelper.Settings
                 .IsTBMCutterTurn = Math.Abs(tmpRotationAngle - .OldYRotationAngle) >= 600
             End With
+            AppSettingHelper.Settings.OldYRotationAngle = tmpRotationAngle
+
             'AppSettingHelper.Settings.OldYRotationAngle = AppSettingHelper.Settings.YRotationAngle
             'AppSettingHelper.Settings.OldYRotationAngleUpdateDateTime = AppSettingHelper.Settings.YRotationAngleUpdateDateTime
             'AppSettingHelper.Settings.YRotationAngle = tmpRotationAngle
