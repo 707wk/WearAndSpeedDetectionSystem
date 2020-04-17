@@ -35,6 +35,11 @@ Public Class HardwareInfo
     Public SensorItems(2 - 1, 9 - 1) As UInt16
 
     ''' <summary>
+    ''' 磨损校准值
+    ''' </summary>
+    Public WearCalibrationValue(2 - 1) As Integer
+
+    ''' <summary>
     ''' 控件信息
     ''' </summary>
     <Newtonsoft.Json.JsonIgnore>

@@ -22,7 +22,17 @@ WearAndSpeedDetectionSystem
   重写当前线程的 CurrentUICulture 属性。
 </summary>
 </member>
+<member name="P:WearAndSpeedDetectionSystem.My.Resources.Resources.add_20px">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
 <member name="P:WearAndSpeedDetectionSystem.My.Resources.Resources.add_24px">
+<summary>
+  查找 System.Drawing.Bitmap 类型的本地化资源。
+</summary>
+</member>
+<member name="P:WearAndSpeedDetectionSystem.My.Resources.Resources.close_20px">
 <summary>
   查找 System.Drawing.Bitmap 类型的本地化资源。
 </summary>
@@ -361,6 +371,11 @@ WearAndSpeedDetectionSystem
 <member name="F:WearAndSpeedDetectionSystem.HardwareInfo.SensorItems">
  <summary>
  传感器值
+ </summary>
+</member>
+<member name="F:WearAndSpeedDetectionSystem.HardwareInfo.WearCalibrationValue">
+ <summary>
+ 磨损校准值
  </summary>
 </member>
 <member name="F:WearAndSpeedDetectionSystem.HardwareInfo.HardwareStateControl">

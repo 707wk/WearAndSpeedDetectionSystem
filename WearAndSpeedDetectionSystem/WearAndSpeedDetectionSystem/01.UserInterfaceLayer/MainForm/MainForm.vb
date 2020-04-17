@@ -490,6 +490,8 @@ Public Class MainForm
             End If
         End If
 
+        DataGridView1.ClearSelection()
+
     End Sub
 #End Region
 
@@ -723,4 +725,7 @@ Public Class MainForm
         TabControl2.SelectedTabIndex = 0
     End Sub
 
+    Private Sub DataGridView1_CurrentCellChanged(sender As Object, e As EventArgs) Handles DataGridView1.CurrentCellChanged
+        DataGridView1.ClearSelection()
+    End Sub
 End Class

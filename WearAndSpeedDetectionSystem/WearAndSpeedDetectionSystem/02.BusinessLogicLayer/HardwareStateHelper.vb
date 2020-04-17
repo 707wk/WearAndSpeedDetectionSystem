@@ -167,6 +167,8 @@ Public NotInheritable Class HardwareStateHelper
                         Next
                     Next
 
+                    tmpStr &= $" {tmpHardware.WearCalibrationValue(0)} {tmpHardware.WearCalibrationValue(1)}"
+
                     System.IO.Directory.CreateDirectory($".\SensorData")
                     System.IO.Directory.CreateDirectory($".\SensorData\{tmpHardware.Name}[{tmpHardware.ID}]")
                     Using tmp As IO.StreamWriter = New IO.StreamWriter($".\SensorData\{tmpHardware.Name}[{tmpHardware.ID}]\{tmpHardware.Name}_{Format(Now(), "yyyyMMdd")}.log", True)
@@ -285,6 +287,8 @@ Public NotInheritable Class HardwareStateHelper
                 value.SensorItems(0, byteID) = value.SensorItems(0, byteID) Or recData(3 + byteID * 2 + 1)
             Next
 
+            value.SensorItems(0, 0) = value.SensorItems(0, 0) - value.WearCalibrationValue(0)
+
         Catch timeOut As TimeoutException
             Throw New Exception($"1号传感器 接收数据超时")
         Catch ex As Exception
@@ -329,6 +333,8 @@ Public NotInheritable Class HardwareStateHelper
                 value.SensorItems(1, byteID) <<= 8
                 value.SensorItems(1, byteID) = value.SensorItems(1, byteID) Or recData(3 + byteID * 2 + 1)
             Next
+
+            value.SensorItems(1, 0) = value.SensorItems(1, 0) - value.WearCalibrationValue(1)
 
         Catch timeOut As TimeoutException
             Throw New Exception($"2号传感器 接收数据超时")

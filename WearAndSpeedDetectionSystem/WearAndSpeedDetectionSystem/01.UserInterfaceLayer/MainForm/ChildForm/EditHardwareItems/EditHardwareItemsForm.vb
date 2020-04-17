@@ -4,12 +4,12 @@
         '输入检测
         For Each tmpRow As DataGridViewRow In DataGridView1.Rows
 
-            If $"{tmpRow.Cells(0).Value}" = "" Then
+            If $"{tmpRow.Cells(1).Value}" = "" Then
                 MsgBox($"第{tmpRow.Index + 1}行 刀具编号 不能为空", MsgBoxStyle.Information, "输入检测")
                 Exit Sub
             End If
 
-            If $"{tmpRow.Cells(1).Value}" = "" Then
+            If $"{tmpRow.Cells(2).Value}" = "" Then
                 MsgBox($"第{tmpRow.Index + 1}行 设备ID 不能为空", MsgBoxStyle.Information, "输入检测")
                 Exit Sub
             End If
@@ -21,13 +21,17 @@
         AppSettingHelper.Settings.HardwareItems.Clear()
         For Each tmpRow As DataGridViewRow In DataGridView1.Rows
 
-            Dim tmpPoint As New Point(Val(tmpRow.Cells(2).Value.Split(",")(0)), Val(tmpRow.Cells(2).Value.Split(",")(1)))
+            Dim tmpPoint As New Point(Val(tmpRow.Cells(5).Value.Split(",")(0)), Val(tmpRow.Cells(5).Value.Split(",")(1)))
 
-            AppSettingHelper.Settings.HardwareItems.Add(New HardwareInfo With {
-                                                        .Name = tmpRow.Cells(0).Value,
-                                                        .ID = Val(tmpRow.Cells(1).Value),
-                                                        .Location = tmpPoint
-                                                        })
+            Dim tmpAddHardwareInfo = New HardwareInfo With {
+                .Name = tmpRow.Cells(1).Value,
+                .ID = Val(tmpRow.Cells(2).Value),
+                .Location = tmpPoint
+            }
+            tmpAddHardwareInfo.WearCalibrationValue(0) = Val(tmpRow.Cells(3).Value)
+            tmpAddHardwareInfo.WearCalibrationValue(1) = Val(tmpRow.Cells(4).Value)
+
+            AppSettingHelper.Settings.HardwareItems.Add(tmpAddHardwareInfo)
         Next
 
         Me.DialogResult = DialogResult.OK
@@ -42,18 +46,19 @@
 
         With DataGridView1
             .BorderStyle = BorderStyle.None
-            .RowHeadersVisible = False
+            .RowHeadersVisible = True
+            .RowHeadersWidth = 62
+
             .AllowUserToResizeRows = True
             .AllowUserToOrderColumns = True
             .AllowUserToResizeColumns = True
-            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+            .SelectionMode = DataGridViewSelectionMode.CellSelect
             .MultiSelect = False
             .AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(&HE9, &HED, &HF4)
             .GridColor = Color.FromArgb(&HE5, &HE5, &HE5)
             .CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical
             .ReadOnly = False
             .EditMode = DataGridViewEditMode.EditOnEnter
-            .ContextMenuStrip = ContextMenuStrip1
 
             '启用双缓冲
             .GetType().
@@ -65,7 +70,13 @@
 
         For Each tmpHardware In AppSettingHelper.Settings.HardwareItems
             With tmpHardware
-                DataGridView1.Rows.Add({ .Name, .ID, $"{ .Location.X},{ .Location.Y}", "修改显示位置"})
+                DataGridView1.Rows.Add({False,
+                                       .Name,
+                                       .ID,
+                                       .WearCalibrationValue(0),
+                                       .WearCalibrationValue(1),
+                                       $"{ .Location.X},{ .Location.Y}",
+                                       "修改显示位置"})
             End With
         Next
     End Sub
@@ -84,16 +95,25 @@
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        DataGridView1.Rows.Add({"", "", "0,0", "修改显示位置"})
+        DataGridView1.Rows.Add({False, "", "", 0, 0, "0,0", "修改显示位置"})
     End Sub
 
-    Private Sub 移除设备ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 移除设备ToolStripMenuItem.Click
-        If DataGridView1.SelectedCells.Count = 0 Then
-            Exit Sub
-        End If
+    'Private Sub 移除设备ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 移除设备ToolStripMenuItem.Click
+    '    If DataGridView1.SelectedCells.Count = 0 Then
+    '        Exit Sub
+    '    End If
 
-        DataGridView1.Rows.RemoveAt(DataGridView1.SelectedCells(0).RowIndex)
+    '    DataGridView1.Rows.RemoveAt(DataGridView1.SelectedCells(0).RowIndex)
 
+    'End Sub
+
+    Private Sub ToolStripButton2_Click(sender As Object, e As EventArgs) Handles ToolStripButton2.Click
+        '删除
+        For rowID = DataGridView1.Rows.Count - 1 To 0 Step -1
+            If DataGridView1.Rows(rowID).Cells(0).EditedFormattedValue Then
+                DataGridView1.Rows.RemoveAt(rowID)
+            End If
+        Next
     End Sub
 
 #Region "编辑位置"
@@ -101,8 +121,8 @@
         If DataGridView1.Columns(e.ColumnIndex).Name <> "Column4" Then Exit Sub
         If e.RowIndex < 0 Then Exit Sub
 
-        Dim tmpPoint As New Point(Val(DataGridView1.Rows(e.RowIndex).Cells(2).Value.Split(",")(0)),
-                                  Val(DataGridView1.Rows(e.RowIndex).Cells(2).Value.Split(",")(1)))
+        Dim tmpPoint As New Point(Val(DataGridView1.Rows(e.RowIndex).Cells(5).Value.Split(",")(0)),
+                                  Val(DataGridView1.Rows(e.RowIndex).Cells(5).Value.Split(",")(1)))
 
         Using tmpDialog As New EditHardwareLocationForm With {
             .value = tmpPoint
@@ -112,10 +132,11 @@
                 Exit Sub
             End If
 
-            DataGridView1.Rows(e.RowIndex).Cells(2).Value = $"{tmpDialog.value.X},{tmpDialog.value.Y}"
+            DataGridView1.Rows(e.RowIndex).Cells(5).Value = $"{tmpDialog.value.X},{tmpDialog.value.Y}"
 
         End Using
 
     End Sub
+
 #End Region
 End Class

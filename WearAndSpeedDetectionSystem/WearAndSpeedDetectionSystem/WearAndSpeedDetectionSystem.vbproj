@@ -182,6 +182,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
+    <None Include="res\close_20px.png" />
+    <None Include="res\add_20px.png" />
     <None Include="res\thresholdValue_32px.png" />
     <None Include="res\warning_16px.png" />
     <None Include="res\sensor2_48px.png" />
