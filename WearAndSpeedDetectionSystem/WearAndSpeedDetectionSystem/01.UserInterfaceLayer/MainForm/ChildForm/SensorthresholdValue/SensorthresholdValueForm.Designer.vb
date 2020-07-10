@@ -22,8 +22,6 @@ Partial Class SensorthresholdValueForm
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -35,6 +33,8 @@ Partial Class SensorthresholdValueForm
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.NumericUpDown4 = New System.Windows.Forms.NumericUpDown()
+        Me.CancelButton = New System.Windows.Forms.Button()
+        Me.AddOrSaveButton = New System.Windows.Forms.Button()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -42,33 +42,13 @@ Partial Class SensorthresholdValueForm
         CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'Button2
-        '
-        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button2.Location = New System.Drawing.Point(238, 185)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 1
-        Me.Button2.Text = "取消"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.Location = New System.Drawing.Point(157, 185)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "保存修改"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'Label1
         '
         Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(44, 42)
+        Me.Label1.Location = New System.Drawing.Point(52, 36)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(53, 12)
+        Me.Label1.Size = New System.Drawing.Size(62, 17)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "磨损(mm)"
         '
@@ -76,9 +56,9 @@ Partial Class SensorthresholdValueForm
         '
         Me.Label2.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(38, 74)
+        Me.Label2.Location = New System.Drawing.Point(61, 66)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(59, 12)
+        Me.Label2.Size = New System.Drawing.Size(53, 17)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "温度(°C)"
         '
@@ -86,9 +66,9 @@ Partial Class SensorthresholdValueForm
         '
         Me.Label3.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(38, 106)
+        Me.Label3.Location = New System.Drawing.Point(58, 96)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(59, 12)
+        Me.Label3.Size = New System.Drawing.Size(56, 17)
         Me.Label3.TabIndex = 5
         Me.Label3.Text = "转速(r/s)"
         '
@@ -96,43 +76,46 @@ Partial Class SensorthresholdValueForm
         '
         Me.NumericUpDown1.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.NumericUpDown1.DecimalPlaces = 1
-        Me.NumericUpDown1.Location = New System.Drawing.Point(209, 37)
+        Me.NumericUpDown1.Location = New System.Drawing.Point(245, 34)
+        Me.NumericUpDown1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(79, 21)
+        Me.NumericUpDown1.Size = New System.Drawing.Size(92, 23)
         Me.NumericUpDown1.TabIndex = 6
         '
         'NumericUpDown2
         '
         Me.NumericUpDown2.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.NumericUpDown2.DecimalPlaces = 1
-        Me.NumericUpDown2.Location = New System.Drawing.Point(209, 69)
+        Me.NumericUpDown2.Location = New System.Drawing.Point(245, 64)
+        Me.NumericUpDown2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.NumericUpDown2.Name = "NumericUpDown2"
-        Me.NumericUpDown2.Size = New System.Drawing.Size(79, 21)
+        Me.NumericUpDown2.Size = New System.Drawing.Size(92, 23)
         Me.NumericUpDown2.TabIndex = 6
         '
         'NumericUpDown3
         '
         Me.NumericUpDown3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.NumericUpDown3.DecimalPlaces = 1
-        Me.NumericUpDown3.Location = New System.Drawing.Point(209, 101)
+        Me.NumericUpDown3.Location = New System.Drawing.Point(245, 94)
+        Me.NumericUpDown3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.NumericUpDown3.Name = "NumericUpDown3"
-        Me.NumericUpDown3.Size = New System.Drawing.Size(79, 21)
+        Me.NumericUpDown3.Size = New System.Drawing.Size(92, 23)
         Me.NumericUpDown3.TabIndex = 6
         '
         'Label4
         '
         Me.Label4.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(228, 10)
+        Me.Label4.Location = New System.Drawing.Point(269, 6)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(41, 12)
+        Me.Label4.Size = New System.Drawing.Size(44, 17)
         Me.Label4.TabIndex = 7
         Me.Label4.Text = "最大值"
         '
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.ColumnCount = 3
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Controls.Add(Me.Label6, 0, 4)
@@ -145,7 +128,8 @@ Partial Class SensorthresholdValueForm
         Me.TableLayoutPanel1.Controls.Add(Me.NumericUpDown3, 2, 3)
         Me.TableLayoutPanel1.Controls.Add(Me.Label5, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.NumericUpDown4, 1, 4)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(12, 12)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(14, 17)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 5
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
@@ -153,16 +137,16 @@ Partial Class SensorthresholdValueForm
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(299, 160)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(349, 151)
         Me.TableLayoutPanel1.TabIndex = 8
         '
         'Label6
         '
         Me.Label6.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(26, 138)
+        Me.Label6.Location = New System.Drawing.Point(42, 127)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(71, 12)
+        Me.Label6.Size = New System.Drawing.Size(72, 17)
         Me.Label6.TabIndex = 8
         Me.Label6.Text = "电池电压(V)"
         '
@@ -170,9 +154,9 @@ Partial Class SensorthresholdValueForm
         '
         Me.Label5.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(129, 10)
+        Me.Label5.Location = New System.Drawing.Point(153, 6)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(41, 12)
+        Me.Label5.Size = New System.Drawing.Size(44, 17)
         Me.Label5.TabIndex = 7
         Me.Label5.Text = "最小值"
         '
@@ -180,19 +164,51 @@ Partial Class SensorthresholdValueForm
         '
         Me.NumericUpDown4.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.NumericUpDown4.DecimalPlaces = 2
-        Me.NumericUpDown4.Location = New System.Drawing.Point(110, 133)
+        Me.NumericUpDown4.Location = New System.Drawing.Point(129, 124)
+        Me.NumericUpDown4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.NumericUpDown4.Name = "NumericUpDown4"
-        Me.NumericUpDown4.Size = New System.Drawing.Size(79, 21)
+        Me.NumericUpDown4.Size = New System.Drawing.Size(92, 23)
         Me.NumericUpDown4.TabIndex = 9
+        '
+        'CancelButton
+        '
+        Me.CancelButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.CancelButton.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.no_16px
+        Me.CancelButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.CancelButton.Location = New System.Drawing.Point(273, 192)
+        Me.CancelButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.CancelButton.Name = "CancelButton"
+        Me.CancelButton.Size = New System.Drawing.Size(96, 25)
+        Me.CancelButton.TabIndex = 46
+        Me.CancelButton.Text = "取消"
+        Me.CancelButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.CancelButton.UseVisualStyleBackColor = True
+        '
+        'AddOrSaveButton
+        '
+        Me.AddOrSaveButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.AddOrSaveButton.Image = Global.WearAndSpeedDetectionSystem.My.Resources.Resources.yes_16px
+        Me.AddOrSaveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.AddOrSaveButton.Location = New System.Drawing.Point(171, 192)
+        Me.AddOrSaveButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.AddOrSaveButton.Name = "AddOrSaveButton"
+        Me.AddOrSaveButton.Size = New System.Drawing.Size(96, 25)
+        Me.AddOrSaveButton.TabIndex = 45
+        Me.AddOrSaveButton.Text = "保存修改"
+        Me.AddOrSaveButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.AddOrSaveButton.UseVisualStyleBackColor = True
         '
         'SensorthresholdValueForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(325, 220)
+        Me.ClientSize = New System.Drawing.Size(381, 230)
+        Me.Controls.Add(Me.CancelButton)
+        Me.Controls.Add(Me.AddOrSaveButton)
         Me.Controls.Add(Me.TableLayoutPanel1)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "SensorthresholdValueForm"
@@ -209,9 +225,6 @@ Partial Class SensorthresholdValueForm
         Me.ResumeLayout(False)
 
     End Sub
-
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button1 As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label3 As Label
@@ -223,4 +236,6 @@ Partial Class SensorthresholdValueForm
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents NumericUpDown4 As NumericUpDown
+    Friend Shadows WithEvents CancelButton As Button
+    Friend WithEvents AddOrSaveButton As Button
 End Class

@@ -1,5 +1,7 @@
-﻿Public Class EditHardwareItemsForm
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+﻿Imports Wangk.Resource
+
+Public Class EditHardwareItemsForm
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles AddOrSaveButton.Click
 
         '输入检测
         For Each tmpRow As DataGridViewRow In DataGridView1.Rows
@@ -16,29 +18,30 @@
 
         Next
 
-        AppSettingHelper.Settings.WallThicknessHardwareID = NumericUpDown1.Value
+        AppSettingHelper.GetInstance.WallThicknessHardwareID = NumericUpDown1.Value
 
-        AppSettingHelper.Settings.HardwareItems.Clear()
+        AppSettingHelper.GetInstance.HardwareItems.Clear()
         For Each tmpRow As DataGridViewRow In DataGridView1.Rows
 
-            Dim tmpPoint As New Point(Val(tmpRow.Cells(5).Value.Split(",")(0)), Val(tmpRow.Cells(5).Value.Split(",")(1)))
+            Dim tmpPoint As New Point(Val(tmpRow.Cells(6).Value.Split(",")(0)), Val(tmpRow.Cells(6).Value.Split(",")(1)))
 
             Dim tmpAddHardwareInfo = New HardwareInfo With {
                 .Name = tmpRow.Cells(1).Value,
                 .ID = Val(tmpRow.Cells(2).Value),
+                .IsSerratedKnife = tmpRow.Cells(3).Value,
                 .Location = tmpPoint
             }
-            tmpAddHardwareInfo.WearCalibrationValue(0) = Val(tmpRow.Cells(3).Value)
-            tmpAddHardwareInfo.WearCalibrationValue(1) = Val(tmpRow.Cells(4).Value)
+            tmpAddHardwareInfo.WearCalibrationValue(0) = Val(tmpRow.Cells(4).Value)
+            tmpAddHardwareInfo.WearCalibrationValue(1) = Val(tmpRow.Cells(5).Value)
 
-            AppSettingHelper.Settings.HardwareItems.Add(tmpAddHardwareInfo)
+            AppSettingHelper.GetInstance.HardwareItems.Add(tmpAddHardwareInfo)
         Next
 
         Me.DialogResult = DialogResult.OK
         Me.Close()
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles CancelButton.Click
         Me.Close()
     End Sub
 
@@ -60,19 +63,22 @@
             .ReadOnly = False
             .EditMode = DataGridViewEditMode.EditOnEnter
 
-            '启用双缓冲
-            .GetType().
-                GetProperty("DoubleBuffered", Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic).
-                SetValue(DataGridView1, True, Nothing)
+            .RowTemplate.Height = 30
+
+            ''启用双缓冲
+            '.GetType().
+            '    GetProperty("DoubleBuffered", Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic).
+            '    SetValue(DataGridView1, True, Nothing)
         End With
 
-        NumericUpDown1.Value = AppSettingHelper.Settings.WallThicknessHardwareID
+        NumericUpDown1.Value = AppSettingHelper.GetInstance.WallThicknessHardwareID
 
-        For Each tmpHardware In AppSettingHelper.Settings.HardwareItems
+        For Each tmpHardware In AppSettingHelper.GetInstance.HardwareItems
             With tmpHardware
                 DataGridView1.Rows.Add({False,
                                        .Name,
                                        .ID,
+                                       .IsSerratedKnife,
                                        .WearCalibrationValue(0),
                                        .WearCalibrationValue(1),
                                        $"{ .Location.X},{ .Location.Y}",
@@ -95,7 +101,7 @@
     End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles ToolStripButton1.Click
-        DataGridView1.Rows.Add({False, "", "", 0, 0, "0,0", "修改显示位置"})
+        DataGridView1.Rows.Add({False, "", "", False, 0, 0, "0,0", "修改显示位置"})
     End Sub
 
     'Private Sub 移除设备ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 移除设备ToolStripMenuItem.Click
@@ -121,18 +127,25 @@
         If DataGridView1.Columns(e.ColumnIndex).Name <> "Column4" Then Exit Sub
         If e.RowIndex < 0 Then Exit Sub
 
-        Dim tmpPoint As New Point(Val(DataGridView1.Rows(e.RowIndex).Cells(5).Value.Split(",")(0)),
-                                  Val(DataGridView1.Rows(e.RowIndex).Cells(5).Value.Split(",")(1)))
+        Dim tmpPoint As New Point(Val(DataGridView1.Rows(e.RowIndex).Cells(6).Value.Split(",")(0)),
+                                  Val(DataGridView1.Rows(e.RowIndex).Cells(6).Value.Split(",")(1)))
+
+        Dim tmpList As New List(Of Point)
+        For Each item In DataGridView1.Rows
+            tmpList.Add(New Point(Val(item.Cells(6).Value.Split(",")(0)),
+                                  Val(item.Cells(6).Value.Split(",")(1))))
+        Next
 
         Using tmpDialog As New EditHardwareLocationForm With {
-            .value = tmpPoint
+            .value = tmpPoint,
+            .HardwarePointItems = tmpList
         }
 
             If tmpDialog.ShowDialog() <> DialogResult.OK Then
                 Exit Sub
             End If
 
-            DataGridView1.Rows(e.RowIndex).Cells(5).Value = $"{tmpDialog.value.X},{tmpDialog.value.Y}"
+            DataGridView1.Rows(e.RowIndex).Cells(6).Value = $"{tmpDialog.value.X},{tmpDialog.value.Y}"
 
         End Using
 

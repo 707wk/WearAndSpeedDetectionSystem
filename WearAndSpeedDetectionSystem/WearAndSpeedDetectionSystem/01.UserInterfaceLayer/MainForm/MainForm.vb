@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
 Imports System.Text
+Imports System.Threading
 Imports System.Windows.Forms.DataVisualization.Charting
 Imports DevComponents.DotNetBar
 Imports Microsoft.Win32
@@ -30,38 +31,40 @@ Public Class MainForm
         Me.Text = $"{My.Application.Info.Title} V{versionStr}"
 #End Region
 
+        AppSettingHelper.GetInstance.Logger.Info("程序启动")
+
 #Region "功能区"
         '串口号
         With ComboBoxItem1
             .Items.AddRange(IO.Ports.SerialPort.GetPortNames())
 
-            If .Items.Contains(AppSettingHelper.Settings.SerialPort) Then
-                .Text = AppSettingHelper.Settings.SerialPort
+            If .Items.Contains(AppSettingHelper.GetInstance.SerialPort) Then
+                .Text = AppSettingHelper.GetInstance.SerialPort
             ElseIf .Items.Count > 0 Then
                 .SelectedIndex = 0
             End If
 
         End With
 
-        '波特率
-        With ComboBoxItem2
-            .Items.AddRange({"9600bps", "19200bps", "115200bps"})
+        ''波特率
+        'With ComboBoxItem2
+        '    .Items.AddRange({"9600bps", "19200bps", "115200bps"})
 
-            If .Items.Contains(AppSettingHelper.Settings.BPS) Then
-                .Text = AppSettingHelper.Settings.BPS
-            Else
-                .SelectedIndex = 0
-            End If
-        End With
+        '    If .Items.Contains(AppSettingHelper.GetInstance.BPS) Then
+        '        .Text = AppSettingHelper.GetInstance.BPS
+        '    Else
+        '        .SelectedIndex = 0
+        '    End If
+        'End With
 
         '设备轮询间隔
         With ComboBoxItem4
-            For sec = 0 To 60 * 30
+            For sec = 10 To 60 * 30
                 .Items.Add($"{sec}s")
             Next
 
-            If .Items.Contains($"{AppSettingHelper.Settings.pollingInterval}s") Then
-                .Text = $"{AppSettingHelper.Settings.pollingInterval}s"
+            If .Items.Contains($"{AppSettingHelper.GetInstance.pollingInterval}s") Then
+                .Text = $"{AppSettingHelper.GetInstance.pollingInterval}s"
             Else
                 .SelectedIndex = 20 - 1
             End If
@@ -69,13 +72,61 @@ Public Class MainForm
 #End Region
 
 #Region "概览"
-        With DataGridView1
-            .SelectionMode = DataGridViewSelectionMode.FullRowSelect
-            .CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal
-            .ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False
-            .DefaultCellStyle.BackColor = Color.FromArgb(71, 71, 71)
-        End With
+        'With DataGridView1
+        '    .SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        '    .CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal
+        '    .ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False
+        '    .DefaultCellStyle.BackColor = Color.FromArgb(71, 71, 71)
+        'End With
+#End Region
 
+#Region "设备状态"
+        With CheckBoxDataGridView1
+            '.BorderStyle = BorderStyle.None
+            '.RowHeadersVisible = True
+            '.RowHeadersWidth = 62
+
+            '.AllowUserToResizeRows = True
+            '.AllowUserToOrderColumns = True
+            '.AllowUserToResizeColumns = True
+            '.SelectionMode = DataGridViewSelectionMode.CellSelect
+            '.MultiSelect = False
+            '.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(&HE9, &HED, &HF4)
+            '.GridColor = Color.FromArgb(&HE5, &HE5, &HE5)
+            '.CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical
+            .ReadOnly = True
+            '.EditMode = DataGridViewEditMode.EditOnEnter
+
+            .ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            .RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+
+            .BackgroundColor = Color.FromArgb(71, 71, 71)
+            .SelectionMode = DataGridViewSelectionMode.CellSelect
+
+            '.RowHeadersVisible = False
+            .EnableHeadersVisualStyles = False
+            .RowHeadersDefaultCellStyle.BackColor = Color.FromArgb(71, 71, 71)
+            .RowHeadersDefaultCellStyle.ForeColor = SystemColors.Window
+            .RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single
+            .RowHeadersWidth = 90
+            '.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders
+            '.RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+
+            .AllowUserToResizeRows = False
+            .AllowUserToOrderColumns = False
+            .AllowUserToResizeColumns = True
+            .DefaultCellStyle.BackColor = Color.FromArgb(71, 71, 71)
+
+            '.DefaultCellStyle.WrapMode = DataGridViewTriState.True
+            '.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders
+
+            .AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(56, 56, 60)
+            .EditMode = DataGridViewEditMode.EditOnEnter
+            .GridColor = Color.FromArgb(45, 45, 48)
+            .CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical
+
+            '.RowTemplate.Height = 30
+        End With
 #End Region
 
 #Region "历史数据"
@@ -90,16 +141,19 @@ Public Class MainForm
         '历史数据参数类型
         With ComboBox3
             .DropDownStyle = ComboBoxStyle.DropDownList
-            .Items.AddRange({"模块电压",
-                            "磨损",
-                            "温度",
-                            "转速",
-                            "频点1",
-                            "频点1值",
-                            "频点2",
-                            "频点2值",
-                            "频点3",
-                            "频点3值"})
+            .Items.Add("模块电压")
+            For i001 = 1 To 4
+                .Items.AddRange({$"{i001}号传感器磨损",
+                                $"{i001}号传感器温度",
+                                $"{i001}号传感器转速",
+                                $"{i001}号传感器频点1",
+                                $"{i001}号传感器频点1值",
+                                $"{i001}号传感器频点2",
+                                $"{i001}号传感器频点2值",
+                                $"{i001}号传感器频点3",
+                                $"{i001}号传感器频点3值"})
+            Next
+
             .SelectedIndex = 0
         End With
 
@@ -149,7 +203,7 @@ Public Class MainForm
         End With
         Chart1.ChartAreas.Add(SensorChartArea)
 
-        For i001 = 0 To 3 - 1
+        For i001 = 0 To 1 - 1
             SensorSeriesArray(i001) = New DataVisualization.Charting.Series
             With SensorSeriesArray(i001)
                 .ChartArea = SensorChartArea.Name
@@ -165,19 +219,19 @@ Public Class MainForm
 
         With SensorSeriesArray(0)
             .Color = Color.OrangeRed
-            .LegendText = "设备电压"
+            .LegendText = "传感器数值"
             .BorderWidth = 3
         End With
-        With SensorSeriesArray(1)
-            .Color = Color.LightGreen
-            .LegendText = "1号传感器"
-            .BorderWidth = 3
-        End With
-        With SensorSeriesArray(2)
-            .Color = Color.DodgerBlue
-            .LegendText = "2号传感器"
-            .BorderWidth = 3
-        End With
+        'With SensorSeriesArray(1)
+        '    .Color = Color.LightGreen
+        '    .LegendText = "1号传感器"
+        '    .BorderWidth = 3
+        'End With
+        'With SensorSeriesArray(2)
+        '    .Color = Color.DodgerBlue
+        '    .LegendText = "2号传感器"
+        '    .BorderWidth = 3
+        'End With
 
         System.IO.Directory.CreateDirectory($".\SensorData")
         Button1_Click(Nothing, Nothing)
@@ -187,7 +241,6 @@ Public Class MainForm
         'CheckBoxItem1.Checked = AppSettingHelper.Settings.IsAutoRun
 
 #Region "隐藏历史模块"
-        'TabControl2.Tabs.Remove(TabItem3)
         TabControl2.Tabs.Remove(TabItem4)
         TabControl2.SelectedTabIndex = 0
 #End Region
@@ -201,7 +254,7 @@ Public Class MainForm
 
         LinkControlState(False)
 
-        ButtonItem2.Enabled = If(AppSettingHelper.Settings.HardwareItems.Count = 0, False, True)
+        ButtonItem2.Enabled = AppSettingHelper.GetInstance.HardwareItems.Count <> 0
 
         HardwareStateHelper.UIMainForm = Me
 
@@ -209,6 +262,31 @@ Public Class MainForm
 
         'AllocConsole()
         'Me.Width = 1600
+
+        'Dim tmp = New Uploadpackage With {.Key = "88899EFF-1934-4DCA-83C9-716B93EC4961"}
+        'For Each item In AppSettingHelper.GetInstance.HardwareItems
+        '    tmp.SensorItems.Add(New UploadHardwareInfo With {
+        '                        .ID = item.Name,
+        '                        .Type = If(item.IsSerratedKnife, "齿刀", "滚刀"),
+        '                        .State = If(item.IsOnline, "在线", "离线"),
+        '                        .Voltage = item.Voltage,
+        '                        .VoltageMinimum = AppSettingHelper.GetInstance.BatteryVoltageMinimum,
+        '                        .Sensor1Wear = Math.Round(item.SensorDataItems(0 + If(item.IsSerratedKnife, 2, 0), 0) / 10, 1),
+        '                        .Sensor1State = If(item.SensorDataItems(0 + If(item.IsSerratedKnife, 2, 0), 2) > 0, "转动", "静止"),
+        '                        .Sensor2Wear = Math.Round(item.SensorDataItems(1 + If(item.IsSerratedKnife, 2, 0), 0) / 10, 1),
+        '                        .Sensor2State = If(item.SensorDataItems(1 + If(item.IsSerratedKnife, 2, 0), 2) > 0, "转动", "静止"),
+        '                        .SensorWearMaximum = AppSettingHelper.GetInstance.WearMaximum / 10,
+        '                        .UpdateTime = item.UpdateTime.ToString("yyyy/MM/dd HH:mm:ss")
+        '                        })
+        'Next
+
+        'Using t As System.IO.StreamWriter = New System.IO.StreamWriter(
+        '           $"upload.json",
+        '           False,
+        '           System.Text.Encoding.UTF8)
+
+        '    t.Write(Newtonsoft.Json.JsonConvert.SerializeObject(tmp))
+        'End Using
 
     End Sub
 
@@ -227,13 +305,14 @@ Public Class MainForm
     Private Sub LinkControlState(value As Boolean)
         ItemContainer2.Enabled = Not value
         ComboBoxItem1.Enabled = Not value
-        ComboBoxItem2.Enabled = Not value
+        'ComboBoxItem2.Enabled = Not value
         ComboBoxItem4.Enabled = Not value
         ButtonItem2.Enabled = Not value
         ButtonItem3.Enabled = value
         ButtonItem5.Enabled = value
         ButtonItem4.Enabled = Not value
         ButtonItem7.Enabled = Not value
+        ButtonItem8.Enabled = Not value
     End Sub
 #End Region
 
@@ -256,7 +335,7 @@ Public Class MainForm
 #End Region
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        LabelItem6.Text = Now().ToString("yyyy/MM/dd HH:mm:ss")
+        ToolStripStatusLabel2.Text = Now().ToString("yyyy/MM/dd HH:mm:ss")
     End Sub
 
 #Region "创建硬件信息控件"
@@ -265,15 +344,31 @@ Public Class MainForm
     ''' </summary>
     Private Sub CreateHardwareStateControl()
 
-        FlowLayoutPanel1.Controls.Clear()
+        'FlowLayoutPanel1.Controls.Clear()
+        CheckBoxDataGridView1.Rows.Clear()
 
-        For Each tmpHardware In AppSettingHelper.Settings.HardwareItems
-            tmpHardware.HardwareStateControl = New HardwareStateControlByGDI With {
-                .HardwareInfo = tmpHardware
-            }
+        For Each item In AppSettingHelper.GetInstance.HardwareItems
+            'tmpHardware.HardwareStateControl = New HardwareStateControlByGDI With {
+            '    .HardwareInfo = tmpHardware
+            '}
 
-            FlowLayoutPanel1.Controls.Add(tmpHardware.HardwareStateControl)
-            tmpHardware.HardwareStateControl.Show()
+            'FlowLayoutPanel1.Controls.Add(tmpHardware.HardwareStateControl)
+            'tmpHardware.HardwareStateControl.Show()
+
+            Dim addRowID = CheckBoxDataGridView1.Rows.Add(1)
+            '{False,
+            '                                              item.Name,
+            '                                              item.ID,
+            '                                              If(item.IsSerratedKnife, My.Resources.knife02_20px, My.Resources.knife01_20px),
+            '                                              If(item.IsOnline, If(item.IsMeasureSpeed, My.Resources.state03_20px, My.Resources.state01_20px), My.Resources.state02_20px),
+            '                                              $"{Math.Round(item.Voltage, 2)} V",
+            '                                              $"{Math.Round(item.SensorDataItems(0, 0) / 10, 1)} mm",
+            '                                              $"{Math.Round(item.SensorDataItems(0, 2) / 10, 1)} r/s",
+            '                                              $"{Math.Round(item.SensorDataItems(1, 0) / 10, 1)} mm",
+            '                                              $"{Math.Round(item.SensorDataItems(1, 2) / 10, 1)} r/s"})
+
+            item.HardwareStateControl = CheckBoxDataGridView1.Rows(addRowID)
+
         Next
 
     End Sub
@@ -284,14 +379,14 @@ Public Class MainForm
     ''' 创建硬件概览背景图片
     ''' </summary>
     Private Sub CreateOverviewBackground()
-        If Not IO.File.Exists(AppSetting.OverviewBackgroundLocation) Then
+        If Not IO.File.Exists(AppSettingHelper.OverviewBackgroundLocation) Then
             Exit Sub
         End If
 
-        Background = Bitmap.FromFile(AppSetting.OverviewBackgroundLocation)
+        Background = Bitmap.FromFile(AppSettingHelper.OverviewBackgroundLocation)
         BackgroundGraphics = Graphics.FromImage(Background)
 
-        For Each tmpHardware In AppSettingHelper.Settings.HardwareItems
+        For Each tmpHardware In AppSettingHelper.GetInstance.HardwareItems
             UpdateOverviewBackground(tmpHardware)
         Next
 
@@ -308,17 +403,17 @@ Public Class MainForm
                 Exit Sub
             End If
 
-            HardwareStateHelper.StartAsync(ComboBoxItem1.Text, Val(ComboBoxItem2.Text))
+            HardwareStateHelper.StartAsync(ComboBoxItem1.Text, AppSettingHelper.BPS)
 
-            AppSettingHelper.Settings.SerialPort = ComboBoxItem1.Text
-            AppSettingHelper.Settings.BPS = ComboBoxItem2.Text
-            AppSettingHelper.Settings.pollingInterval = Val(ComboBoxItem4.Text)
+            AppSettingHelper.GetInstance.SerialPort = ComboBoxItem1.Text
+            'AppSettingHelper.GetInstance.BPS = ComboBoxItem2.Text
+            AppSettingHelper.GetInstance.pollingInterval = Val(ComboBoxItem4.Text)
 
             AppSettingHelper.SaveToLocaltion()
 
             LinkControlState(True)
 
-            Me.Log($"连接串口 {ComboBoxItem1.Text}({ComboBoxItem2.Text})")
+            Me.Log($"连接串口 {ComboBoxItem1.Text}({AppSettingHelper.BPS})")
 
         Catch ex As Exception
             MsgBox(ex.Message,
@@ -360,11 +455,12 @@ Public Class MainForm
                 CreateOverviewBackground()
                 Exit Sub
             End If
-            CreateOverviewBackground()
 
             CreateHardwareStateControl()
 
-            ButtonItem2.Enabled = (AppSettingHelper.Settings.HardwareItems.Count > 0)
+            CreateOverviewBackground()
+
+            ButtonItem2.Enabled = (AppSettingHelper.GetInstance.HardwareItems.Count > 0)
 
             AppSettingHelper.SaveToLocaltion()
 
@@ -414,7 +510,9 @@ Public Class MainForm
         If TextBox1.Lines().Count > 200 Then
             TextBox1.Text = TextBox1.Text.Remove(0, TextBox1.Text.Count \ 2)
         End If
-        TextBox1.AppendText($"{Now().ToString("yyyy/MM/dd HH:mm:ss")}> {text}{vbCrLf}")
+        TextBox1.AppendText($"{Now():yyyy/MM/dd HH:mm:ss}> {text}{vbCrLf}")
+
+        AppSettingHelper.GetInstance.Logger.Info(text)
 
     End Sub
 #End Region
@@ -432,67 +530,155 @@ Public Class MainForm
         Dim boxPen As New Pen(Color.FromArgb(51, 51, 51), 1)
         Dim backgroundColorSolidBrush As New SolidBrush(Color.LimeGreen)
         Dim backgroundColorSolidBrush2 As New SolidBrush(Color.FromArgb(255, 127, 127))
+        'Dim backgroundColorSolidBrush3 As New SolidBrush(Color.FromArgb(18, 150, 219))
         'Dim backgroundColorSolidBrush2 As New SolidBrush(Color.OrangeRed)
         Dim fontSolidBrush As New SolidBrush(Color.FromArgb(51, 51, 51))
         Dim tmpRectangle As Rectangle
         With tmpRectangle
             .Width = 50
-            .Height = 28
+            .Height = 48
             .Location = value.Location
         End With
 #End Region
 
+        Dim serratedKnifeCount = If(value.IsSerratedKnife, 2, 0)
+
         '填充底色
-        If value.SensorItems(0, 2) > 0 Then
-            BackgroundGraphics.FillRectangle(backgroundColorSolidBrush, tmpRectangle)
+        If value.IsOnline Then
+            '在线
+            If value.SensorDataItems(0 + serratedKnifeCount, 2) > 0 OrElse
+                value.SensorDataItems(1 + serratedKnifeCount, 2) > 0 Then
+                '转动
+                BackgroundGraphics.FillRectangle(backgroundColorSolidBrush, tmpRectangle)
+            Else
+                '静止
+                BackgroundGraphics.FillRectangle(backgroundColorSolidBrush2, tmpRectangle)
+            End If
+
         Else
-            BackgroundGraphics.FillRectangle(backgroundColorSolidBrush2, tmpRectangle)
+            '离线
+            BackgroundGraphics.FillRectangle(backgroundColorSolidBrush, tmpRectangle)
         End If
 
         '绘制箱体边框
         BackgroundGraphics.DrawRectangle(boxPen, tmpRectangle)
         '绘制连接信息
         BackgroundGraphics.DrawString($"{value.Name}
-{Math.Round(value.SensorItems(0, 0) / 10, 1)}mm",
+{Math.Round(value.SensorDataItems(0 + serratedKnifeCount, 0) / 10, 1)}mm
+{Math.Round(value.SensorDataItems(1 + serratedKnifeCount, 0) / 10, 1)}mm",
                                   Me.Font,
                                   fontSolidBrush,
                                   value.Location.X + 1,
                                   value.Location.Y + 1)
 
+        If value.IsSerratedKnife Then
+            BackgroundGraphics.DrawImage(My.Resources.serratedKnife_16px,
+                                         value.Location.X + tmpRectangle.Width - 16 - 1,
+                                         value.Location.Y + 1 + 1)
+        End If
+
         PictureBox1.Image = Background
 
-        UpdateWarningMessage(value)
+        '更新设备列表
+        value.HardwareStateControl.Cells(1).Value = value.Name
+        value.HardwareStateControl.Cells(2).Value = value.ID
+        value.HardwareStateControl.Cells(3).Value = If(value.IsSerratedKnife, My.Resources.knife02_20px, My.Resources.knife01_20px)
+        value.HardwareStateControl.Cells(4).Value = If(value.IsOnline, If(value.IsMeasureSpeed, My.Resources.state03_20px, My.Resources.state01_20px), My.Resources.state02_20px)
+
+        'If value.IsOnline Then
+        '    '在线显示数值
+        '电压
+        value.HardwareStateControl.Cells(5).Value = $"{Math.Round(value.Voltage, 2)} V"
+        If value.Voltage < AppSettingHelper.GetInstance.BatteryVoltageMinimum AndAlso
+                value.IsOnline Then
+
+            value.HardwareStateControl.Cells(5).Style.BackColor = Color.FromArgb(216, 99, 68)
+        Else
+            value.HardwareStateControl.Cells(5).Style.BackColor = Nothing
+        End If
+
+        '传感器1磨损
+        value.HardwareStateControl.Cells(6).Value = $"{Math.Round(value.SensorDataItems(0 + serratedKnifeCount, 0) / 10, 1)} mm"
+        If AppSettingHelper.GetInstance.WearMaximum < value.SensorDataItems(0 + serratedKnifeCount, 0) AndAlso
+                value.IsOnline Then
+
+            value.HardwareStateControl.Cells(6).Style.BackColor = Color.FromArgb(216, 99, 68)
+        Else
+            value.HardwareStateControl.Cells(6).Style.BackColor = Nothing
+        End If
+
+        '传感器1转速
+        value.HardwareStateControl.Cells(7).Value = $"{Math.Round(value.SensorDataItems(0 + serratedKnifeCount, 2) / 10, 1)} r/s"
+        If AppSettingHelper.GetInstance.SpeedMaximum < value.SensorDataItems(0 + serratedKnifeCount, 2) AndAlso
+                value.IsOnline Then
+
+            value.HardwareStateControl.Cells(7).Style.BackColor = Color.FromArgb(216, 99, 68)
+        Else
+            value.HardwareStateControl.Cells(7).Style.BackColor = Nothing
+        End If
+
+        '传感器2磨损
+        value.HardwareStateControl.Cells(8).Value = $"{Math.Round(value.SensorDataItems(1 + serratedKnifeCount, 0) / 10, 1)} mm"
+        If AppSettingHelper.GetInstance.WearMaximum < value.SensorDataItems(1 + serratedKnifeCount, 0) AndAlso
+                value.IsOnline Then
+
+            value.HardwareStateControl.Cells(8).Style.BackColor = Color.FromArgb(216, 99, 68)
+        Else
+            value.HardwareStateControl.Cells(8).Style.BackColor = Nothing
+        End If
+
+        '传感器1转速
+        value.HardwareStateControl.Cells(9).Value = $"{Math.Round(value.SensorDataItems(1 + serratedKnifeCount, 2) / 10, 1)} r/s"
+        If AppSettingHelper.GetInstance.SpeedMaximum < value.SensorDataItems(1 + serratedKnifeCount, 2) AndAlso
+                value.IsOnline Then
+
+            value.HardwareStateControl.Cells(9).Style.BackColor = Color.FromArgb(216, 99, 68)
+        Else
+            value.HardwareStateControl.Cells(9).Style.BackColor = Nothing
+        End If
+
+        'value.HardwareStateControl.Cells(10).Value = value.UpdateTime.ToString("yyyy/MM/dd HH:mm:ss")
+
+        'Else
+        '    '离线显示空
+        '    value.HardwareStateControl.Cells(5).Value = "-"
+        '    value.HardwareStateControl.Cells(6).Value = "-"
+        '    value.HardwareStateControl.Cells(7).Value = "-"
+        '    value.HardwareStateControl.Cells(8).Value = "-"
+        '    value.HardwareStateControl.Cells(9).Value = "-"
+        '    Exit Sub
+        'End If
 
     End Sub
 #End Region
 
 #Region "更新告警信息"
-    ''' <summary>
-    ''' 更新告警信息
-    ''' </summary>
-    Private Sub UpdateWarningMessage(value As HardwareInfo)
-        Dim rowID As Integer = -1
-        For Each item As DataGridViewRow In DataGridView1.Rows
-            If $"{item.Cells(1).Value}" = $"{value.ID}" Then
-                rowID = DataGridView1.Rows.IndexOf(item)
-                Exit For
-            End If
-        Next
+    '''' <summary>
+    '''' 更新告警信息
+    '''' </summary>
+    'Private Sub UpdateWarningMessage(value As HardwareInfo)
+    '    Dim rowID As Integer = -1
+    '    For Each item As DataGridViewRow In DataGridView1.Rows
+    '        If $"{item.Cells(1).Value}" = $"{value.ID}" Then
+    '            rowID = DataGridView1.Rows.IndexOf(item)
+    '            Exit For
+    '        End If
+    '    Next
 
-        If value.Voltage < AppSettingHelper.Settings.BatteryVoltageMinimum Then
-            If rowID = -1 Then
-                rowID = DataGridView1.Rows.Add({$"{value.Name}", $"{value.ID}", $"电池低于{AppSettingHelper.Settings.BatteryVoltageMinimum}V"})
-                DataGridView1.Rows(rowID).DefaultCellStyle.BackColor = Color.FromArgb(221, 101, 114)
-            End If
-        Else
-            If rowID <> -1 Then
-                DataGridView1.Rows.RemoveAt(rowID)
-            End If
-        End If
+    '    If value.Voltage < AppSettingHelper.Settings.BatteryVoltageMinimum Then
+    '        If rowID = -1 Then
+    '            rowID = DataGridView1.Rows.Add({$"{value.Name}", $"{value.ID}", $"电池低于{AppSettingHelper.Settings.BatteryVoltageMinimum}V"})
+    '            DataGridView1.Rows(rowID).DefaultCellStyle.BackColor = Color.FromArgb(221, 101, 114)
+    '        End If
+    '    Else
+    '        If rowID <> -1 Then
+    '            DataGridView1.Rows.RemoveAt(rowID)
+    '        End If
+    '    End If
 
-        DataGridView1.ClearSelection()
+    '    DataGridView1.ClearSelection()
 
-    End Sub
+    'End Sub
 #End Region
 
 #Region "更新转速"
@@ -506,7 +692,7 @@ Public Class MainForm
         'Dim ts As TimeSpan = AppSettingHelper.Settings.YRotationAngleUpdateDateTime - AppSettingHelper.Settings.OldYRotationAngleUpdateDateTime
         'Dim sec As Integer = ts.TotalSeconds
 
-        With AppSettingHelper.Settings
+        With AppSettingHelper.GetInstance
             Label5.Text = $"刀盘状态: {If(.IsTBMCutterTurn, "转动", "静止")}"
         End With
 
@@ -520,14 +706,20 @@ Public Class MainForm
 #Region "历史数据"
 #Region "显示刀具文件夹列表"
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim parentDirectoryInfo As New IO.DirectoryInfo(".\SensorData")
-        Dim childtDirectoryInfoItems = parentDirectoryInfo.GetDirectories()
+        'Dim parentDirectoryInfo As New IO.DirectoryInfo(".\SensorData")
+        'Dim childtDirectoryInfoItems = parentDirectoryInfo.GetDirectories()
 
         With ComboBox1
             .Items.Clear()
-            For Each tmpDirectory In childtDirectoryInfoItems
-                .Items.Add(tmpDirectory.Name)
+
+            'For Each tmpDirectory In childtDirectoryInfoItems
+            '    .Items.Add(tmpDirectory.Name)
+            'Next
+
+            For Each item In AppSettingHelper.GetInstance.HardwareItems
+                .Items.Add(item.Name)
             Next
+
             If .Items.Count > 0 Then
                 .SelectedIndex = 0
             End If
@@ -591,41 +783,32 @@ Public Class MainForm
 
                                 End With
 
-                                Dim dtFormat As Globalization.DateTimeFormatInfo = New Globalization.DateTimeFormatInfo
-                                dtFormat.YearMonthPattern = "yyyy/MM/dd"
+                                Dim dtFormat As Globalization.DateTimeFormatInfo = New Globalization.DateTimeFormatInfo With {
+                                    .YearMonthPattern = "yyyy/MM/dd"
+                                }
 
-                                For i001 = 0 To SensorSeriesArray.Count - 1
-                                    SensorSeriesArray(i001).Points.Clear()
-                                Next
+                                'For i001 = 0 To SensorSeriesArray.Count - 1
+                                SensorSeriesArray(0).Points.Clear()
+                                'Next
 
                                 Dim tmpDate As Date = StartDateTimePicker.Value.Date
                                 Do
 
-                                    uie.Write($"加载 {uie.Args}_{tmpDate.ToString("yyyyMMdd")}.log")
+                                    uie.Write($"加载 {uie.Args}_{tmpDate:yyyyMMdd}.log")
 
-                                    Dim filePath = $".\SensorData\{ComboBox1.Text}\{uie.Args}_{tmpDate.ToString("yyyyMMdd")}.log"
+                                    Dim filePath = $".\SensorData\{ComboBox1.Text}\{uie.Args}_{tmpDate:yyyyMMdd}.log"
                                     tmpDate = tmpDate.AddDays(1)
 
                                     If Not IO.File.Exists(filePath) Then
                                         Continue Do
                                     End If
 
-                                    'Dim fileRowCount = GetFileRowCount(filePath)
-
                                     Using tmpSR As IO.StreamReader = New IO.StreamReader(filePath)
-                                        'Dim IsSetDate As Boolean = False
-
-                                        'Dim fileRowID As Integer = 0
                                         Do
                                             Dim tmpStr = tmpSR.ReadLine()
                                             If tmpStr Is Nothing Then
                                                 Exit Do
                                             End If
-
-                                            'fileRowID += 1
-                                            'If (fileRowID * 1000 \ fileRowCount) Mod 10 = 0 Then
-                                            '    uie.Write($"加载进度{fileRowID * 100 \ fileRowCount}%")
-                                            'End If
 
                                             Dim tmpStrArray() = tmpStr.Split(">")
                                             Dim tmpStrArray2() = tmpStrArray(1).Split(" ")
@@ -633,22 +816,28 @@ Public Class MainForm
                                             Dim tmpDateTime = Convert.ToDateTime(tmpStrArray(0),
                                                                              dtFormat)
 
-                                            If ComboBox3.SelectedIndex = 0 Then
-
-                                                SensorSeriesArray(0).Points.AddXY(tmpDateTime, Val(tmpStrArray2(1)))
+                                            Dim pointValue As Double
+                                            If ComboBox3.SelectedIndex < 19 Then
+                                                '电压/传感器1/传感器2
+                                                pointValue = Val(tmpStrArray2.ElementAtOrDefault(1 + ComboBox3.SelectedIndex))
                                             Else
-                                                SensorSeriesArray(1).Points.AddXY(tmpDateTime, Val(tmpStrArray2(1 + ComboBox3.SelectedIndex)))
-
-                                                SensorSeriesArray(2).Points.AddXY(tmpDateTime, Val(tmpStrArray2(1 + ComboBox3.SelectedIndex + 9)))
+                                                '传感器3/传感器4
+                                                pointValue = Val(tmpStrArray2.ElementAtOrDefault(1 + ComboBox3.SelectedIndex + 2))
+                                                ''传感器数值
+                                                'If String.IsNullOrWhiteSpace(tmpStrArray2.ElementAtOrDefault(1 + 9 + 9 + 2 + 1)) Then
+                                                '    '普通刀
+                                                '    pointValue = Val(tmpStrArray2.ElementAtOrDefault(1 + ComboBox3.SelectedIndex))
+                                                'Else
+                                                '    '齿刀
+                                                '    pointValue = Val(tmpStrArray2.ElementAtOrDefault(1 + 9 + 9 + 2 + ComboBox3.SelectedIndex))
+                                                'End If
                                             End If
 
-                                            'If Not IsSetDate Then
-                                            '    IsSetDate = True
-                                            '    With SensorChartArea
-                                            '        .AxisX.Minimum = tmpDateTime.Date.ToOADate
-                                            '        .AxisX.Maximum = tmpDateTime.AddDays(1).Date.ToOADate
-                                            '    End With
-                                            'End If
+                                            If CheckBox1.Checked AndAlso pointValue <= 0 Then
+                                                Continue Do
+                                            End If
+
+                                            SensorSeriesArray(0).Points.AddXY(tmpDateTime, pointValue)
 
                                         Loop
 
@@ -657,7 +846,7 @@ Public Class MainForm
                                 Loop While tmpDate <= EndDateTimePicker.Value.Date
 
                             End Sub,
-                            ComboBox1.Text.Split("[")(0))
+                            ComboBox1.Text)
 
         End Using
 
@@ -700,21 +889,21 @@ Public Class MainForm
         StartDateTimePicker.MaxDate = EndDateTimePicker.Value
     End Sub
 
-    Private Sub Chart1_AxisViewChanged(sender As Object, e As ViewEventArgs) Handles Chart1.AxisViewChanged
-        Try
-            Dim tmpDateTime = DateTime.FromOADate(SensorChartArea.AxisX.ScaleView.Size)
-            Dim isValueShown = tmpDateTime.Year = 1899 AndAlso
-                tmpDateTime.Month = 12 AndAlso
-                tmpDateTime.Day = 30 AndAlso
-                tmpDateTime.Hour <= 5
+    'Private Sub Chart1_AxisViewChanged(sender As Object, e As ViewEventArgs) Handles Chart1.AxisViewChanged
+    '    Try
+    '        Dim tmpDateTime = DateTime.FromOADate(SensorChartArea.AxisX.ScaleView.Size)
+    '        Dim isValueShown = tmpDateTime.Year = 1899 AndAlso
+    '            tmpDateTime.Month = 12 AndAlso
+    '            tmpDateTime.Day = 30 AndAlso
+    '            tmpDateTime.Hour <= 5
 
-            For i001 = 0 To 3 - 1
-                SensorSeriesArray(i001).IsValueShownAsLabel = isValueShown
-            Next
-        Catch ex As Exception
-        End Try
+    '        For i001 = 0 To 3 - 1
+    '            SensorSeriesArray(i001).IsValueShownAsLabel = isValueShown
+    '        Next
+    '    Catch ex As Exception
+    '    End Try
 
-    End Sub
+    'End Sub
 
 #End Region
 
@@ -725,7 +914,87 @@ Public Class MainForm
         TabControl2.SelectedTabIndex = 0
     End Sub
 
-    Private Sub DataGridView1_CurrentCellChanged(sender As Object, e As EventArgs) Handles DataGridView1.CurrentCellChanged
-        DataGridView1.ClearSelection()
+    Private Sub DataGridView1_CurrentCellChanged(sender As Object, e As EventArgs)
+        'DataGridView1.ClearSelection()
     End Sub
+
+#Region "加载刀盘状态"
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        Using tmpDialog As New Wangk.Resource.UIWorkDialog With {
+            .Text = "加载数据中"
+        }
+
+            tmpDialog.Start(Sub(uie As Wangk.Resource.UIWorkEventArgs)
+                                With SensorChartArea
+                                    .AxisX.Title = $"刀盘状态 0停止 1转动"
+                                    .AxisX.Minimum = StartDateTimePicker.Value.Date.ToOADate
+                                    .AxisX.Maximum = EndDateTimePicker.Value.AddDays(1).Date.ToOADate
+
+                                    .AxisY.Minimum = Double.NaN
+                                    .AxisY.Maximum = Double.NaN
+
+                                End With
+
+                                Dim dtFormat As Globalization.DateTimeFormatInfo = New Globalization.DateTimeFormatInfo With {
+                                    .YearMonthPattern = "yyyy/MM/dd"
+                                }
+
+                                'For i001 = 0 To SensorSeriesArray.Count - 1
+                                SensorSeriesArray(0).Points.Clear()
+                                'Next
+
+                                Dim tmpDate As Date = StartDateTimePicker.Value.Date
+                                Do
+
+                                    uie.Write($"加载 IsTBMCutterTurn_{tmpDate:yyyyMMdd}.log")
+
+                                    Dim filePath = $".\SensorData\IsTBMCutterTurn\IsTBMCutterTurn_{tmpDate:yyyyMMdd}.log"
+                                    tmpDate = tmpDate.AddDays(1)
+
+                                    If Not IO.File.Exists(filePath) Then
+                                        Continue Do
+                                    End If
+
+                                    Using tmpSR As IO.StreamReader = New IO.StreamReader(filePath)
+                                        Do
+                                            Dim tmpStr = tmpSR.ReadLine()
+                                            If tmpStr Is Nothing Then
+                                                Exit Do
+                                            End If
+
+                                            Dim tmpStrArray() = tmpStr.Split(">")
+                                            Dim tmpStrArray2() = tmpStrArray(1).Split(" ")
+
+                                            Dim tmpDateTime = Convert.ToDateTime(tmpStrArray(0),
+                                                                             dtFormat)
+
+                                            Dim pointValue = Val(tmpStrArray2(1))
+
+                                            SensorSeriesArray(0).Points.AddXY(tmpDateTime, pointValue)
+
+                                        Loop
+
+                                    End Using
+
+                                Loop While tmpDate <= EndDateTimePicker.Value.Date
+
+                            End Sub)
+
+        End Using
+    End Sub
+
+#End Region
+
+#Region "数据上传设置"
+    Private Sub ButtonItem8_Click(sender As Object, e As EventArgs) Handles ButtonItem8.Click
+        Using tmpDialog As New UploadSettingForm
+            If tmpDialog.ShowDialog() <> DialogResult.OK Then
+                Exit Sub
+            End If
+
+            AppSettingHelper.SaveToLocaltion()
+        End Using
+    End Sub
+#End Region
+
 End Class

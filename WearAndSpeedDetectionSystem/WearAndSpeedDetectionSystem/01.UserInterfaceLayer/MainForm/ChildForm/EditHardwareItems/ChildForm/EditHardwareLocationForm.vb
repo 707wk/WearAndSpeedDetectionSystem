@@ -5,13 +5,17 @@ Public Class EditHardwareLocationForm
 
     Public value As Point
 
+    Public HardwarePointItems As List(Of Point)
+
     Private Background As Bitmap
     Private BackgroundGraphics As Graphics
     Private HardwareRectangle As Rectangle
 
+    Private BoxPen As New Pen(Color.FromArgb(51, 51, 51), 1)
+
     Private Sub EditHardwareLocationForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If IO.File.Exists(AppSetting.OverviewBackgroundLocation) Then
-            Background = Bitmap.FromFile(AppSetting.OverviewBackgroundLocation)
+        If IO.File.Exists(AppSettingHelper.OverviewBackgroundLocation) Then
+            Background = Bitmap.FromFile(AppSettingHelper.OverviewBackgroundLocation)
             BackgroundGraphics = Graphics.FromImage(Background)
             PictureBox1.Size = Background.Size
             PictureBox1.Image = Background
@@ -19,7 +23,7 @@ Public Class EditHardwareLocationForm
 
         With HardwareRectangle
             .Width = 50
-            .Height = 28
+            .Height = 48
         End With
 
     End Sub
@@ -59,8 +63,8 @@ Public Class EditHardwareLocationForm
 
         Try
             System.IO.Directory.CreateDirectory($".\Data")
-            File.Copy(tmpDialog.FileName, AppSetting.OverviewBackgroundLocation, True)
-            Background = Bitmap.FromFile(AppSetting.OverviewBackgroundLocation)
+            File.Copy(tmpDialog.FileName, AppSettingHelper.OverviewBackgroundLocation, True)
+            Background = Bitmap.FromFile(AppSettingHelper.OverviewBackgroundLocation)
             BackgroundGraphics = Graphics.FromImage(Background)
             PictureBox1.Size = Background.Size
             PictureBox1.Image = Background
@@ -71,17 +75,34 @@ Public Class EditHardwareLocationForm
     End Sub
 
     Private Sub EditHardwareLocationForm_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        If Not IO.File.Exists(AppSetting.OverviewBackgroundLocation) Then
+        If Not IO.File.Exists(AppSettingHelper.OverviewBackgroundLocation) Then
             Exit Sub
         End If
 
-        With HardwareRectangle
-            .X = value.X
-            .Y = value.Y
-        End With
+        For Each item In HardwarePointItems
+            With HardwareRectangle
+                .X = item.X
+                .Y = item.Y
+            End With
+            If value = item Then
+                BackgroundGraphics.FillRectangle(New SolidBrush(Color.LimeGreen),
+                                                 HardwareRectangle)
+            Else
+                BackgroundGraphics.FillRectangle(New SolidBrush(Color.FromArgb(18, 150, 219)),
+                                                 HardwareRectangle)
+            End If
 
-        BackgroundGraphics.FillRectangle(New SolidBrush(Color.LimeGreen),
-                                         HardwareRectangle)
+            BackgroundGraphics.DrawRectangle(BoxPen, HardwareRectangle)
+
+        Next
+
+        'With HardwareRectangle
+        '    .X = value.X
+        '    .Y = value.Y
+        'End With
+
+        'BackgroundGraphics.FillRectangle(New SolidBrush(Color.LimeGreen),
+        '                                 HardwareRectangle)
         PictureBox1.Image = Background
 
     End Sub

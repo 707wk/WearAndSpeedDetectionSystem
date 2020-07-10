@@ -121,8 +121,14 @@
   <data name="refresh_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\refresh_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="yes_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\res\yes_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="stop_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\stop_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="history_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\res\history_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="test_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\test_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -130,46 +136,49 @@
   <data name="add_20px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\add_20px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="sensor2_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\res\sensor2_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="import_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\res\import_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logo_64px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\logo_64px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="add_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\res\add_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="knife02_20px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\res\knife02_20px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="sensor_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\res\sensor_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="warning_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\res\warning_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="knife01_20px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\res\knife01_20px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="thresholdValue_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\thresholdValue_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="sensor1_48px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\res\sensor1_48px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="control_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\control_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="no_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\res\no_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="serratedKnife_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\res\serratedKnife_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="state02_20px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\res\state02_20px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="state01_20px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\res\state01_20px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="state03_20px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\res\state03_20px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="start_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\start_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="import_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\res\import_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="start_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\res\start_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="history_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\res\history_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="close_20px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\res\close_20px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logo_90px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\res\logo_90px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="close_20px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\res\close_20px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="upload_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\res\upload_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

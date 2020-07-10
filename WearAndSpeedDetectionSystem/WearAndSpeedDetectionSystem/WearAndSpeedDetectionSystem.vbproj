@@ -55,14 +55,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar2, Version=14.1.0.0, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.7.2\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
@@ -103,20 +112,17 @@
     <Compile Include="01.UserInterfaceLayer\MainForm\ChildForm\EditHardwareItems\EditHardwareItemsForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="01.UserInterfaceLayer\MainForm\ChildForm\SensorthresholdValueForm\SensorthresholdValueForm.Designer.vb">
+    <Compile Include="01.UserInterfaceLayer\MainForm\ChildForm\SensorthresholdValue\SensorthresholdValueForm.Designer.vb">
       <DependentUpon>SensorthresholdValueForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="01.UserInterfaceLayer\MainForm\ChildForm\SensorthresholdValueForm\SensorthresholdValueForm.vb">
+    <Compile Include="01.UserInterfaceLayer\MainForm\ChildForm\SensorthresholdValue\SensorthresholdValueForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="01.UserInterfaceLayer\MainForm\Control\delete\HardwareStateControl.Designer.vb">
-      <DependentUpon>HardwareStateControl.vb</DependentUpon>
+    <Compile Include="01.UserInterfaceLayer\MainForm\ChildForm\UploadSettingForm.Designer.vb">
+      <DependentUpon>UploadSettingForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="01.UserInterfaceLayer\MainForm\Control\delete\HardwareStateControl.vb">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="01.UserInterfaceLayer\MainForm\Control\HardwareStateControlByGDI.vb">
-      <SubType>Component</SubType>
+    <Compile Include="01.UserInterfaceLayer\MainForm\ChildForm\UploadSettingForm.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="01.UserInterfaceLayer\MainForm\MainForm.Designer.vb">
       <DependentUpon>MainForm.vb</DependentUpon>
@@ -125,9 +131,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="02.BusinessLogicLayer\HardwareStateHelper.vb" />
-    <Compile Include="03.DataAccessLayer\AppSetting\AppSettingHelper.vb" />
-    <Compile Include="03.DataAccessLayer\AppSetting\AppSetting.vb" />
+    <Compile Include="02.BusinessLogicLayer\WebAPIHelper.vb" />
+    <Compile Include="03.DataAccessLayer\AppSettingHelper.vb" />
     <Compile Include="03.DataAccessLayer\HardwareInfo.vb" />
+    <Compile Include="03.DataAccessLayer\Upload\UploadHardwareInfo.vb" />
+    <Compile Include="03.DataAccessLayer\Upload\Uploadpackage.vb" />
+    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -151,20 +160,20 @@
     <EmbeddedResource Include="01.UserInterfaceLayer\MainForm\ChildForm\EditHardwareItems\EditHardwareItemsForm.resx">
       <DependentUpon>EditHardwareItemsForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="01.UserInterfaceLayer\MainForm\ChildForm\SensorthresholdValueForm\SensorthresholdValueForm.resx">
+    <EmbeddedResource Include="01.UserInterfaceLayer\MainForm\ChildForm\SensorthresholdValue\SensorthresholdValueForm.resx">
       <DependentUpon>SensorthresholdValueForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="01.UserInterfaceLayer\MainForm\Control\delete\HardwareStateControl.resx">
-      <DependentUpon>HardwareStateControl.vb</DependentUpon>
+    <EmbeddedResource Include="01.UserInterfaceLayer\MainForm\ChildForm\UploadSettingForm.resx">
+      <DependentUpon>UploadSettingForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="01.UserInterfaceLayer\MainForm\MainForm.resx">
       <DependentUpon>MainForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -178,19 +187,26 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
+    <None Include="res\upload_32px.png" />
+    <None Include="res\state03_20px.png" />
+    <None Include="res\state02_20px.png" />
+    <None Include="res\state01_20px.png" />
+    <None Include="res\knife02_20px.png" />
+    <None Include="res\knife01_20px.png" />
+    <None Include="res\serratedKnife_16px.png" />
+    <None Include="res\yes_16px.png" />
+    <None Include="res\no_16px.png" />
     <None Include="res\close_20px.png" />
     <None Include="res\add_20px.png" />
     <None Include="res\thresholdValue_32px.png" />
-    <None Include="res\warning_16px.png" />
-    <None Include="res\sensor2_48px.png" />
-    <None Include="res\sensor1_48px.png" />
-    <None Include="res\sensor_48px.png" />
     <None Include="res\import_16px.png" />
-    <None Include="res\start_16px.png" />
     <None Include="res\logo_64px.png" />
     <None Include="res\history_32px.png" />
     <None Include="res\test_32px.png" />
@@ -208,9 +224,8 @@
     <None Include="res\control_32px.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\add_24px.png" />
+    <Folder Include="01.UserInterfaceLayer\MainForm\Control\" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
     <PostBuildEvent>%25删除临时文件%25

@@ -32,7 +32,6 @@ T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\bin\Wangk.Hash.xml
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\bin\Wangk.Resource.pdb
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\bin\Wangk.Resource.xml
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.EditHardwareItemsForm.resources
-T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.HardwareStateControl.resources
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.MainForm.resources
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.Resources.resources
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.vbproj.GenerateResource.cache
@@ -43,3 +42,8 @@ T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAnd
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.EditHardwareLocationForm.resources
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.SensorthresholdValueForm.resources
 T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.vbproj.CoreCompileInputs.cache
+T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\bin\NLog.config
+T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\bin\NLog.dll
+T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\bin\NLog.xml
+T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.UploadSettingForm.resources
+T:\WearAndSpeedDetectionSystem\WearAndSpeedDetectionSystem\obj\x86\Debug\WearAndSpeedDetectionSystem.vbprojAssemblyReference.cache
