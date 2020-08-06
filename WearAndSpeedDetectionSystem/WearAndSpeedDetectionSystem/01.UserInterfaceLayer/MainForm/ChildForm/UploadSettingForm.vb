@@ -26,7 +26,7 @@ Public Class UploadSettingForm
 
         Using tmpDialog As New Wangk.Resource.BackgroundWorkDialog With {
             .Text = "测试中",
-            .ProgressBarStyle = ProgressBarStyle.Marquee
+            .IsPercent = False
         }
 
             tmpDialog.Start(Sub(uie As Wangk.Resource.BackgroundWorkEventArgs)

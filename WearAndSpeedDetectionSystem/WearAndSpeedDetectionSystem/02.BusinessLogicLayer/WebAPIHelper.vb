@@ -27,6 +27,9 @@ Public NotInheritable Class WebAPIHelper
                 '参数
                 Dim data As Byte() = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(value))
 
+                'MsgBox(JsonConvert.SerializeObject(value))
+                'Console.WriteLine(JsonConvert.SerializeObject(value))
+
                 'post 数据
                 request.ContentLength = data.Length
                 Using reqStream As Stream = request.GetRequestStream()

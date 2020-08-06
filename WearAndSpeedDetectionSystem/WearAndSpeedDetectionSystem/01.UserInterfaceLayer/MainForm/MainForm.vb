@@ -31,6 +31,8 @@ Public Class MainForm
         Me.Text = $"{My.Application.Info.Title} V{versionStr}"
 #End Region
 
+        'Wangk.Resource.ConsoleDebug.Open()
+
         AppSettingHelper.GetInstance.Logger.Info("程序启动")
 
 #Region "功能区"
@@ -429,7 +431,7 @@ Public Class MainForm
 
         Using tmpDialog As New Wangk.Resource.BackgroundWorkDialog With {
             .Text = "断开中",
-            .ProgressBarStyle = ProgressBarStyle.Marquee
+            .IsPercent = False
         }
             tmpDialog.Start(Sub()
                                 HardwareStateHelper.StopAsync()
@@ -637,7 +639,12 @@ Public Class MainForm
             value.HardwareStateControl.Cells(9).Style.BackColor = Nothing
         End If
 
-        'value.HardwareStateControl.Cells(10).Value = value.UpdateTime.ToString("yyyy/MM/dd HH:mm:ss")
+        '更新时间
+        If value.UpdateTime.Year = 1 Then
+            value.HardwareStateControl.Cells(10).Value = "-"
+        Else
+            value.HardwareStateControl.Cells(10).Value = value.UpdateTime.ToString("yyyy/MM/dd HH:mm:ss")
+        End If
 
         'Else
         '    '离线显示空

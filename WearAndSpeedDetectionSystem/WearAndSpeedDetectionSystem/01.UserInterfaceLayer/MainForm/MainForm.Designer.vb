@@ -66,6 +66,9 @@ Partial Class MainForm
         Me.TabControlPanel1 = New DevComponents.DotNetBar.TabControlPanel()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TabItem1 = New DevComponents.DotNetBar.TabItem(Me.components)
+        Me.TabControlPanel3 = New DevComponents.DotNetBar.TabControlPanel()
+        Me.CheckBoxDataGridView1 = New Wangk.Resource.CheckBoxDataGridView()
+        Me.TabItem3 = New DevComponents.DotNetBar.TabItem(Me.components)
         Me.TabControlPanel4 = New DevComponents.DotNetBar.TabControlPanel()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.EndDateTimePicker = New System.Windows.Forms.DateTimePicker()
@@ -74,9 +77,6 @@ Partial Class MainForm
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TabItem4 = New DevComponents.DotNetBar.TabItem(Me.components)
-        Me.TabControlPanel3 = New DevComponents.DotNetBar.TabControlPanel()
-        Me.CheckBoxDataGridView1 = New Wangk.Resource.CheckBoxDataGridView()
-        Me.TabItem3 = New DevComponents.DotNetBar.TabItem(Me.components)
         Me.TabControlPanel2 = New DevComponents.DotNetBar.TabControlPanel()
         Me.TabItem2 = New DevComponents.DotNetBar.TabItem(Me.components)
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
@@ -92,6 +92,7 @@ Partial Class MainForm
         Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.RibbonControl1.SuspendLayout()
         Me.RibbonPanel1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -99,9 +100,9 @@ Partial Class MainForm
         CType(Me.TabControl2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl2.SuspendLayout()
         Me.TabControlPanel1.SuspendLayout()
-        Me.TabControlPanel4.SuspendLayout()
         Me.TabControlPanel3.SuspendLayout()
         CType(Me.CheckBoxDataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabControlPanel4.SuspendLayout()
         Me.TabControlPanel2.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -597,8 +598,8 @@ Partial Class MainForm
         Me.TabControl2.ColorScheme.TabItemSelectedBackgroundColorBlend.AddRange(New DevComponents.DotNetBar.BackgroundColorBlend() {New DevComponents.DotNetBar.BackgroundColorBlend(System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(122, Byte), Integer), CType(CType(204, Byte), Integer)), 0!), New DevComponents.DotNetBar.BackgroundColorBlend(System.Drawing.Color.Empty, 0.45!), New DevComponents.DotNetBar.BackgroundColorBlend(System.Drawing.Color.Empty, 0.45!), New DevComponents.DotNetBar.BackgroundColorBlend(System.Drawing.Color.Empty, 1.0!)})
         Me.TabControl2.ColorScheme.TabItemSelectedText = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
         Me.TabControl2.ColorScheme.TabItemText = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer), CType(CType(215, Byte), Integer))
-        Me.TabControl2.Controls.Add(Me.TabControlPanel1)
         Me.TabControl2.Controls.Add(Me.TabControlPanel3)
+        Me.TabControl2.Controls.Add(Me.TabControlPanel1)
         Me.TabControl2.Controls.Add(Me.TabControlPanel4)
         Me.TabControl2.Controls.Add(Me.TabControlPanel2)
         Me.TabControl2.FixedTabSize = New System.Drawing.Size(120, 28)
@@ -658,6 +659,64 @@ Partial Class MainForm
         Me.TabItem1.CloseButtonVisible = False
         Me.TabItem1.Name = "TabItem1"
         Me.TabItem1.Text = "概览"
+        '
+        'TabControlPanel3
+        '
+        Me.TabControlPanel3.Controls.Add(Me.CheckBoxDataGridView1)
+        Me.TabControlPanel3.DisabledBackColor = System.Drawing.Color.Empty
+        Me.TabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabControlPanel3.Location = New System.Drawing.Point(0, 33)
+        Me.TabControlPanel3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.TabControlPanel3.Name = "TabControlPanel3"
+        Me.TabControlPanel3.Padding = New System.Windows.Forms.Padding(1)
+        Me.TabControlPanel3.Size = New System.Drawing.Size(1342, 548)
+        Me.TabControlPanel3.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
+        Me.TabControlPanel3.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
+        Me.TabControlPanel3.Style.BorderColor.Color = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(91, Byte), Integer))
+        Me.TabControlPanel3.Style.BorderSide = CType(((DevComponents.DotNetBar.eBorderSide.Left Or DevComponents.DotNetBar.eBorderSide.Right) _
+            Or DevComponents.DotNetBar.eBorderSide.Bottom), DevComponents.DotNetBar.eBorderSide)
+        Me.TabControlPanel3.Style.GradientAngle = 90
+        Me.TabControlPanel3.TabIndex = 9
+        Me.TabControlPanel3.TabItem = Me.TabItem3
+        '
+        'CheckBoxDataGridView1
+        '
+        Me.CheckBoxDataGridView1.AllowUserToAddRows = False
+        Me.CheckBoxDataGridView1.AllowUserToDeleteRows = False
+        Me.CheckBoxDataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
+        Me.CheckBoxDataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.CheckBoxDataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        Me.CheckBoxDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.CheckBoxDataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewCheckBoxColumn1, Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column8, Me.Column9, Me.Column10})
+        Me.CheckBoxDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.CheckBoxDataGridView1.Location = New System.Drawing.Point(1, 1)
+        Me.CheckBoxDataGridView1.Name = "CheckBoxDataGridView1"
+        Me.CheckBoxDataGridView1.ReadOnly = True
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.CheckBoxDataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
+        Me.CheckBoxDataGridView1.RowTemplate.Height = 30
+        Me.CheckBoxDataGridView1.Size = New System.Drawing.Size(1340, 546)
+        Me.CheckBoxDataGridView1.TabIndex = 0
+        '
+        'TabItem3
+        '
+        Me.TabItem3.AttachedControl = Me.TabControlPanel3
+        Me.TabItem3.CloseButtonVisible = False
+        Me.TabItem3.Name = "TabItem3"
+        Me.TabItem3.Text = "设备状态"
         '
         'TabControlPanel4
         '
@@ -774,64 +833,6 @@ Partial Class MainForm
         Me.TabItem4.AttachedControl = Me.TabControlPanel4
         Me.TabItem4.Name = "TabItem4"
         Me.TabItem4.Text = "历史数据"
-        '
-        'TabControlPanel3
-        '
-        Me.TabControlPanel3.Controls.Add(Me.CheckBoxDataGridView1)
-        Me.TabControlPanel3.DisabledBackColor = System.Drawing.Color.Empty
-        Me.TabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControlPanel3.Location = New System.Drawing.Point(0, 33)
-        Me.TabControlPanel3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.TabControlPanel3.Name = "TabControlPanel3"
-        Me.TabControlPanel3.Padding = New System.Windows.Forms.Padding(1)
-        Me.TabControlPanel3.Size = New System.Drawing.Size(1342, 548)
-        Me.TabControlPanel3.Style.BackColor1.Color = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.TabControlPanel3.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine
-        Me.TabControlPanel3.Style.BorderColor.Color = System.Drawing.Color.FromArgb(CType(CType(85, Byte), Integer), CType(CType(85, Byte), Integer), CType(CType(91, Byte), Integer))
-        Me.TabControlPanel3.Style.BorderSide = CType(((DevComponents.DotNetBar.eBorderSide.Left Or DevComponents.DotNetBar.eBorderSide.Right) _
-            Or DevComponents.DotNetBar.eBorderSide.Bottom), DevComponents.DotNetBar.eBorderSide)
-        Me.TabControlPanel3.Style.GradientAngle = 90
-        Me.TabControlPanel3.TabIndex = 9
-        Me.TabControlPanel3.TabItem = Me.TabItem3
-        '
-        'CheckBoxDataGridView1
-        '
-        Me.CheckBoxDataGridView1.AllowUserToAddRows = False
-        Me.CheckBoxDataGridView1.AllowUserToDeleteRows = False
-        Me.CheckBoxDataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer), CType(CType(71, Byte), Integer))
-        Me.CheckBoxDataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.CheckBoxDataGridView1.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.CheckBoxDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.CheckBoxDataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewCheckBoxColumn1, Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column8, Me.Column9})
-        Me.CheckBoxDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.CheckBoxDataGridView1.Location = New System.Drawing.Point(1, 1)
-        Me.CheckBoxDataGridView1.Name = "CheckBoxDataGridView1"
-        Me.CheckBoxDataGridView1.ReadOnly = True
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("微软雅黑", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.CheckBoxDataGridView1.RowHeadersDefaultCellStyle = DataGridViewCellStyle2
-        Me.CheckBoxDataGridView1.RowTemplate.Height = 30
-        Me.CheckBoxDataGridView1.Size = New System.Drawing.Size(1340, 546)
-        Me.CheckBoxDataGridView1.TabIndex = 0
-        '
-        'TabItem3
-        '
-        Me.TabItem3.AttachedControl = Me.TabControlPanel3
-        Me.TabItem3.CloseButtonVisible = False
-        Me.TabItem3.Name = "TabItem3"
-        Me.TabItem3.Text = "设备状态"
         '
         'TabControlPanel2
         '
@@ -951,6 +952,13 @@ Partial Class MainForm
         Me.Column9.Name = "Column9"
         Me.Column9.ReadOnly = True
         '
+        'Column10
+        '
+        Me.Column10.HeaderText = "更新时间"
+        Me.Column10.Name = "Column10"
+        Me.Column10.ReadOnly = True
+        Me.Column10.Width = 140
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 17.0!)
@@ -976,10 +984,10 @@ Partial Class MainForm
         CType(Me.TabControl2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabControl2.ResumeLayout(False)
         Me.TabControlPanel1.ResumeLayout(False)
-        Me.TabControlPanel4.ResumeLayout(False)
-        Me.TabControlPanel4.PerformLayout()
         Me.TabControlPanel3.ResumeLayout(False)
         CType(Me.CheckBoxDataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabControlPanel4.ResumeLayout(False)
+        Me.TabControlPanel4.PerformLayout()
         Me.TabControlPanel2.ResumeLayout(False)
         Me.TabControlPanel2.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
@@ -1054,4 +1062,5 @@ Partial Class MainForm
     Friend WithEvents Column7 As DataGridViewTextBoxColumn
     Friend WithEvents Column8 As DataGridViewTextBoxColumn
     Friend WithEvents Column9 As DataGridViewTextBoxColumn
+    Friend WithEvents Column10 As DataGridViewTextBoxColumn
 End Class
