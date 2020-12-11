@@ -48,6 +48,7 @@ Public Class EditHardwareItemsForm
     Private Sub EditHardwareItemsForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         With DataGridView1
+            .AllowDrop = True
             .BorderStyle = BorderStyle.None
             .RowHeadersVisible = True
             .RowHeadersWidth = 62
@@ -57,18 +58,29 @@ Public Class EditHardwareItemsForm
             .AllowUserToResizeColumns = True
             .SelectionMode = DataGridViewSelectionMode.CellSelect
             .MultiSelect = False
-            .AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(&HE9, &HED, &HF4)
+            .AlternatingRowsDefaultCellStyle.BackColor = SystemColors.Control
             .GridColor = Color.FromArgb(&HE5, &HE5, &HE5)
             .CellBorderStyle = DataGridViewCellBorderStyle.SingleVertical
             .ReadOnly = False
             .EditMode = DataGridViewEditMode.EditOnEnter
-
+            .ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
             .RowTemplate.Height = 30
 
             ''启用双缓冲
             '.GetType().
             '    GetProperty("DoubleBuffered", Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic).
             '    SetValue(DataGridView1, True, Nothing)
+
+            Dim tmpColumn = New DataGridViewLinkColumn With {.HeaderText = "操作", .Width = 120}
+            tmpColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+            'tmpColumn.DefaultCellStyle.Font = New Font(Me.Font.Name, Me.Font.Size)
+            tmpColumn.ActiveLinkColor = Color.FromArgb(18, 150, 219)
+            tmpColumn.LinkColor = tmpColumn.ActiveLinkColor
+            tmpColumn.VisitedLinkColor = tmpColumn.ActiveLinkColor
+            tmpColumn.SortMode = DataGridViewColumnSortMode.Automatic
+            tmpColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            .Columns.Add(tmpColumn)
+
         End With
 
         NumericUpDown1.Value = AppSettingHelper.GetInstance.WallThicknessHardwareID
@@ -82,7 +94,7 @@ Public Class EditHardwareItemsForm
                                        .WearCalibrationValue(0),
                                        .WearCalibrationValue(1),
                                        $"{ .Location.X},{ .Location.Y}",
-                                       "修改显示位置"})
+                                       "修改显示位置..."})
             End With
         Next
     End Sub
@@ -124,7 +136,7 @@ Public Class EditHardwareItemsForm
 
 #Region "编辑位置"
     Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-        If DataGridView1.Columns(e.ColumnIndex).Name <> "Column4" Then Exit Sub
+        If e.ColumnIndex < 7 Then Exit Sub
         If e.RowIndex < 0 Then Exit Sub
 
         Dim tmpPoint As New Point(Val(DataGridView1.Rows(e.RowIndex).Cells(6).Value.Split(",")(0)),
